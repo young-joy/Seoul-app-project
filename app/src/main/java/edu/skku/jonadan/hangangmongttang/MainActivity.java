@@ -20,12 +20,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
     final String api_key = "d0c498afb7199ff9bf703f95c14e007a";
@@ -52,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class ReceiveWeatherTask extends AsyncTask<String, Void, JSONObject>{
-        OkHttpClient client = new OkHttpClient();
-
         @Override
         protected JSONObject doInBackground(String... datas) {
             int code =0 ;
