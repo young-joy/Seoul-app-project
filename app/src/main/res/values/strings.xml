@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">hangangmongttang</string>
+    <string name="app_name_korean">한강몽땅</string>
+    <string name="app_key">8b61fd803ff0a037f8f790ed0482a4f0</string>
 </resources>
