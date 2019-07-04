@@ -13,6 +13,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -23,7 +24,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     final String api_key = "d0c498afb7199ff9bf703f95c14e007a";
-
+    final int cnt = 5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getWeather(double lat, double lng){
-        String url = "http://api.openweathermap.org/data/2.5/forecast?cnt=5&q=London&appid="+api_key;
+        String url = "http://api.openweathermap.org/data/2.5/forecast?cnt="+new Integer(cnt).toString()+"&q=London&appid="+api_key;
 
         ReceiveWeatherTask receiveUseTask = new ReceiveWeatherTask();
         receiveUseTask.execute(url);
@@ -80,8 +81,24 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(JSONObject result) {
             super.onPostExecute(result);
+            String[] temp = new String[5];
+            String[] weather = new String[5];
+            String[] time = new String[5];
+
             if(result!=null){
                 Log.d("get_weather",result.toString());
+                for(int i=0;i<cnt;i++){
+                    try {
+                        temp[i] = result.getJSONArray("list").getJSONObject(i).getJSONObject("main").getString("temp");
+                        weather[i] = result.getJSONArray("list").getJSONObject(i).getJSONArray("weather").getJSONObject(0).getString("icon");
+                        time[i] = result.getJSONArray("list").getJSONObject(i).getString("dt_txt");
+
+                        Log.d("get_weather","temp : "+temp[i]+" / weather : "+weather[i]+" / time : "+time[i]);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
             }
         }
     }
