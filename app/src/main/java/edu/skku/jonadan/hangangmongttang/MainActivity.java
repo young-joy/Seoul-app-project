@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +28,25 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btn_park) ImageButton parkBtn;
     @BindView(R.id.button) Button button;
 
+    //weather info
+    @BindView(R.id.temp1) TextView temp1;
+    @BindView(R.id.temp2) TextView temp2;
+    @BindView(R.id.temp3) TextView temp3;
+    @BindView(R.id.temp4) TextView temp4;
+    @BindView(R.id.temp5) TextView temp5;
+
+    @BindView(R.id.weather1) ImageView weather1;
+    @BindView(R.id.weather2) ImageView weather2;
+    @BindView(R.id.weather3) ImageView weather3;
+    @BindView(R.id.weather4) ImageView weather4;
+    @BindView(R.id.weather5) ImageView weather5;
+
+    @BindView(R.id.time1) TextView time1;
+    @BindView(R.id.time2) TextView time2;
+    @BindView(R.id.time3) TextView time3;
+    @BindView(R.id.time4) TextView time4;
+    @BindView(R.id.time5) TextView time5;
+
     final String api_key = "d0c498afb7199ff9bf703f95c14e007a";
     final int cnt = 5;
 
@@ -35,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        /// TODO: 2019-07-05 날씨 가져올 좌표값 설정하기 + 앱 켤떄마다 새로고침 
+        /// TODO: 2019-07-05 날씨 가져올 좌표값 설정하기 + 앱 켤떄마다 새로고침
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,10 +75,75 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getWeather(double lat, double lng){
-        String url = "http://api.openweathermap.org/data/2.5/forecast?cnt="+new Integer(cnt).toString()+"&q=London&appid="+api_key;
+        String url = "http://api.openweathermap.org/data/2.5/forecast?cnt="+new Integer(cnt).toString()+"&q=Seoul&appid="+api_key;
 
         ReceiveWeatherTask receiveUseTask = new ReceiveWeatherTask();
         receiveUseTask.execute(url);
+    }
+
+    private void setWeatherImage(String weather, ImageView imageView, String time){
+        int weather_type = new Integer(weather);
+        int time_int = new Integer(time);
+        int img_id;
+        boolean is_day = false;
+
+        if(weather_type==800 || weather_type==801){
+        }else{
+            weather_type = weather_type / 100;
+        }
+
+        if(time_int>=6&&time_int<=18)
+            is_day = true;
+
+        switch (weather_type){
+            case 2: //thunderstorm
+                if(is_day){
+                    img_id = getResources().getIdentifier("ic_weather_thunderstorm_day","drawable",getPackageName());
+                    imageView.setImageResource(img_id);
+                }else{
+                    img_id = getResources().getIdentifier("ic_weather_thunderstorm_night","drawable",getPackageName());
+                    imageView.setImageResource(img_id);
+                }
+                break;
+            case 3: //drizzle
+                img_id = getResources().getIdentifier("ic_weather_drizzle","drawable",getPackageName());
+                imageView.setImageResource(img_id);
+                break;
+            case 5: //rain
+                img_id = getResources().getIdentifier("ic_weather_rain","drawable",getPackageName());
+                imageView.setImageResource(img_id);
+                break;
+            case 6: //snow
+                img_id = getResources().getIdentifier("ic_weather_snow","drawable",getPackageName());
+                imageView.setImageResource(img_id);
+                break;
+            case 7: //foggy
+                img_id = getResources().getIdentifier("ic_weather_foggy","drawable",getPackageName());
+                imageView.setImageResource(img_id);
+                break;
+            case 800: //clear
+                if(is_day){
+                    img_id = getResources().getIdentifier("ic_weather_clear_day","drawable",getPackageName());
+                    imageView.setImageResource(img_id);
+                }else{
+                    img_id = getResources().getIdentifier("ic_weather_clear_night","drawable",getPackageName());
+                    imageView.setImageResource(img_id);
+                }
+                break;
+            case 801: //few clouds
+                if(is_day){
+                    img_id = getResources().getIdentifier("ic_weather_few_clouds_day","drawable",getPackageName());
+                    imageView.setImageResource(img_id);
+                }else{
+                    img_id = getResources().getIdentifier("ic_weather_few_clouds_night","drawable",getPackageName());
+                    imageView.setImageResource(img_id);
+                }
+                break; 
+            case 8: //clouds
+                img_id = getResources().getIdentifier("ic_weather_clouds","drawable",getPackageName());
+                imageView.setImageResource(img_id);
+                break;
+        }
     }
 
     private class ReceiveWeatherTask extends AsyncTask<String, Void, JSONObject>{
@@ -103,9 +189,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("get_weather",result.toString());
                 for(int i=0;i<cnt;i++){
                     try {
-                        temp[i] = result.getJSONArray("list").getJSONObject(i).getJSONObject("main").getString("temp");
-                        weather[i] = result.getJSONArray("list").getJSONObject(i).getJSONArray("weather").getJSONObject(0).getString("icon");
-                        time[i] = result.getJSONArray("list").getJSONObject(i).getString("dt_txt");
+                        int temp_int = Math.round(new Float(new Float(result.getJSONArray("list").getJSONObject(i).getJSONObject("main").getString("temp"))-274.15));
+                        temp[i] = new Integer(temp_int).toString() + "℃";
+                        weather[i] = result.getJSONArray("list").getJSONObject(i).getJSONArray("weather").getJSONObject(0).getString("id");
+                        time[i] = (result.getJSONArray("list").getJSONObject(i).getString("dt_txt")).split(" ")[1].split(":")[0];
 
                         Log.d("get_weather","temp : "+temp[i]+" / weather : "+weather[i]+" / time : "+time[i]);
                     } catch (JSONException e) {
@@ -113,6 +200,26 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 }
+                //show weather data
+                temp1.setText(temp[0]);
+                temp2.setText(temp[1]);
+                temp3.setText(temp[2]);
+                temp4.setText(temp[3]);
+                temp5.setText(temp[4]);
+
+                setWeatherImage(weather[0],weather1,time[0]);
+                setWeatherImage(weather[1],weather2,time[1]);
+                setWeatherImage(weather[2],weather3,time[2]);
+                setWeatherImage(weather[3],weather4,time[3]);
+                setWeatherImage(weather[4],weather5,time[4]);
+
+                time1.setText(time[0]);
+                time2.setText(time[1]);
+                time3.setText(time[2]);
+                time4.setText(time[3]);
+                time5.setText(time[4]);
+            }else{
+                // TODO: 2019-07-05 날씨 연결 안될 경우 예외처리  
             }
         }
     }

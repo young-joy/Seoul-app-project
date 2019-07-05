@@ -78,8 +78,7 @@
                 android:id="@+id/temp1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="TextView" />
+                android:gravity="center" />
 
             <ImageView
                 android:id="@+id/weather1"
@@ -91,8 +90,7 @@
                 android:id="@+id/time1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="TextView" />
+                android:gravity="center" />
         </LinearLayout>
 
         <LinearLayout
@@ -105,8 +103,7 @@
                 android:id="@+id/temp2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="TextView" />
+                android:gravity="center" />
 
             <ImageView
                 android:id="@+id/weather2"
@@ -118,8 +115,7 @@
                 android:id="@+id/time2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="TextView" />
+                android:gravity="center" />
         </LinearLayout>
 
         <LinearLayout
@@ -132,8 +128,7 @@
                 android:id="@+id/temp3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="TextView" />
+                android:gravity="center" />
 
             <ImageView
                 android:id="@+id/weather3"
@@ -145,8 +140,7 @@
                 android:id="@+id/time3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="TextView" />
+                android:gravity="center" />
         </LinearLayout>
 
         <LinearLayout
@@ -159,8 +153,7 @@
                 android:id="@+id/temp4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="TextView" />
+                android:gravity="center" />
 
             <ImageView
                 android:id="@+id/weather4"
@@ -172,8 +165,7 @@
                 android:id="@+id/time4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="TextView" />
+                android:gravity="center" />
         </LinearLayout>
 
         <LinearLayout
@@ -186,8 +178,7 @@
                 android:id="@+id/temp5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="TextView" />
+                android:gravity="center" />
 
             <ImageView
                 android:id="@+id/weather5"
@@ -199,8 +190,7 @@
                 android:id="@+id/time5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="TextView" />
+                android:gravity="center" />
         </LinearLayout>
 
     </LinearLayout>
