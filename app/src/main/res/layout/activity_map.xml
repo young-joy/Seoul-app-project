@@ -18,10 +18,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/map_back_btn"
+            android:id="@+id/back_btn"
             android:layout_width="@dimen/small_icon_size"
             android:layout_height="@dimen/small_icon_size"
-            android:layout_marginLeft="@dimen/activity_min_margin"
+            android:layout_marginStart="@dimen/activity_min_margin"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btn_park) ImageButton parkBtn;
     @BindView(R.id.button) Button button;
+    @BindView(R.id.app_info_btn) ImageButton infoBtn;
 
     //weather info
     @BindView(R.id.temp1) TextView temp1;
@@ -69,6 +70,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        infoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AppInfoActivity.class);
                 startActivity(intent);
             }
         });
