@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class MapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
 
+        initMap();
         initFabs();
 
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +116,13 @@ public class MapActivity extends AppCompatActivity {
         });
     }
 
+    private void initMap() {
+        double latitude, longitude;
+        latitude = 37.540748;
+        longitude = 127.115431;
+        mapView.setMapCenterPointAndZoomLevel(
+                MapPoint.mapPointWithGeoCoord(latitude, longitude), 2, true);
+    }
     private void initFabs() {
         fabList = new ArrayList<>();
         constraintSet = new ConstraintSet();
