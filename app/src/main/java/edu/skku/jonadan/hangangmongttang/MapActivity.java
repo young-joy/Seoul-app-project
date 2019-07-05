@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,6 +26,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MapActivity extends AppCompatActivity {
+
+//    Temporary
+    @BindView(R.id.map_info_btn) Button btn;
+//
 
     @BindView(R.id.map_back_btn) ImageButton backBtn;
     @BindView(R.id.map_view) MapView mapView;
@@ -96,6 +102,14 @@ public class MapActivity extends AppCompatActivity {
                 constraintSet.applyTo(mapLayout);
 
                 isFabOpen = !isFabOpen;
+            }
+        });
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MapActivity.this, InfoActivity.class);
+                startActivity(intent);
             }
         });
     }
