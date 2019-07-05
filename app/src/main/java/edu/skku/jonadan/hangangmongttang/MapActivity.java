@@ -78,7 +78,7 @@ public class MapActivity extends AppCompatActivity {
                         }
                         constraintSet.setMargin(
                                 fabList.get(i).getId(), ConstraintSet.BOTTOM, fabMargin);
-                        fabList.get(i).setClickable(false);
+                        fabList.get(i).setClickable(true);
                     }
                 }
                 AutoTransition transition = new AutoTransition();
