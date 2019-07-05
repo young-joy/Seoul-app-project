@@ -4,52 +4,44 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.daum.mf.map.api.MapView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
+import butterknife.BindAnim;
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MapActivity extends AppCompatActivity {
 
-    @BindView(R.id.map_view)
-    MapView mapView;
+    @BindView(R.id.map_view) MapView mapView;
 
-    @BindView(R.id.map_container)
-    ConstraintLayout mapLayout;
-    @BindView(R.id.map_fab_toilet)
-    FloatingActionButton menuToiletBtn;
-    @BindView(R.id.map_fab_shop)
-    FloatingActionButton menuShopBtn;
-    @BindView(R.id.map_fab_water)
-    FloatingActionButton menuWaterBtn;
-    @BindView(R.id.map_fab_restaurant)
-    FloatingActionButton menuRestaurantBtn;
-    @BindView(R.id.map_fab_entertain)
-    FloatingActionButton menuEntertainBtn;
-    @BindView(R.id.map_fab_athletic)
-    FloatingActionButton menuAthleticBtn;
-    @BindView(R.id.map_fab_menu)
-    FloatingActionButton menuBtn;
+    @BindView(R.id.map_container) ConstraintLayout mapLayout;
+    @BindView(R.id.map_fab_toilet) FloatingActionButton menuToiletBtn;
+    @BindView(R.id.map_fab_shop) FloatingActionButton menuShopBtn;
+    @BindView(R.id.map_fab_water) FloatingActionButton menuWaterBtn;
+    @BindView(R.id.map_fab_restaurant) FloatingActionButton menuRestaurantBtn;
+    @BindView(R.id.map_fab_entertain) FloatingActionButton menuEntertainBtn;
+    @BindView(R.id.map_fab_athletic) FloatingActionButton menuAthleticBtn;
+    @BindView(R.id.map_fab_menu) FloatingActionButton menuBtn;
 
-    private Resources res;
+    @BindAnim(R.anim.fab_open) Animation fabOpen;
+    @BindAnim(R.anim.fab_close) Animation fabClose;
+
+    @BindDimen(R.dimen.fab_margin) int fabMargin;
+
     private ArrayList<FloatingActionButton> fabList;
     private ConstraintSet constraintSet;
-    private Animation fabOpen, fabClose;
     private Boolean isFabOpen = false;
 
     @Override
@@ -58,7 +50,6 @@ public class MapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
 
-        res = getResources();
         initFabs();
 
         menuBtn.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +77,7 @@ public class MapActivity extends AppCompatActivity {
                                     fabList.get(i + 1).getId(), ConstraintSet.TOP);
                         }
                         constraintSet.setMargin(
-                                fabList.get(i).getId(), ConstraintSet.BOTTOM, 12);
+                                fabList.get(i).getId(), ConstraintSet.BOTTOM, fabMargin);
                         fabList.get(i).setClickable(false);
                     }
                 }
@@ -104,8 +95,6 @@ public class MapActivity extends AppCompatActivity {
     private void initFabs() {
         fabList = new ArrayList<>();
         constraintSet = new ConstraintSet();
-        fabOpen = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
-        fabClose = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
 
         fabList.add(menuToiletBtn);
         fabList.add(menuShopBtn);
