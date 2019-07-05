@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        /// TODO: 2019-07-05 날씨 가져올 좌표값 설정하기 + 앱 켤떄마다 새로고침 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,11 +43,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // TODO: 2019-07-05 이미지 바꾸기
         parkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, MapActivity.class);
-                startActivity(intent); 
+                startActivity(intent);
             }
         });
     }
