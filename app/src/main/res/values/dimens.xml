@@ -10,6 +10,8 @@
     <!-- Related to text size -->
     <dimen name="title_text_size">26sp</dimen>
     <dimen name="normal_text_size">20sp</dimen>
+    <dimen name="info_title_text_size">30sp</dimen>
+    <dimen name="info_content_text_size">20sp</dimen>
 
     <!-- For Map Activity -->
     <dimen name="search_bar_ver_margin">24dp</dimen>
