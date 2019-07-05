@@ -10,6 +10,7 @@ import android.transition.TransitionManager;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
+import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -24,8 +25,8 @@ import butterknife.ButterKnife;
 
 public class MapActivity extends AppCompatActivity {
 
+    @BindView(R.id.map_back_btn) ImageButton backBtn;
     @BindView(R.id.map_view) MapView mapView;
-
     @BindView(R.id.map_container) ConstraintLayout mapLayout;
     @BindView(R.id.map_fab_toilet) FloatingActionButton menuToiletBtn;
     @BindView(R.id.map_fab_shop) FloatingActionButton menuShopBtn;
@@ -51,6 +52,13 @@ public class MapActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         initFabs();
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
