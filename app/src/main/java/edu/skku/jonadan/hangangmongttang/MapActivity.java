@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
@@ -122,7 +123,24 @@ public class MapActivity extends AppCompatActivity {
         longitude = 127.115431;
         mapView.setMapCenterPointAndZoomLevel(
                 MapPoint.mapPointWithGeoCoord(latitude, longitude), 2, true);
+        setMarker();
     }
+
+    private void setMarker() {
+        double latitude, longitude;
+        // Temporary
+        MapPOIItem marker = new MapPOIItem();
+        latitude = 37.540748;
+        longitude = 127.115431;
+        marker.setItemName("Test");
+        marker.setTag(0);
+        //
+        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
+        marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
+        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+        mapView.addPOIItem(marker);
+    }
+
     private void initFabs() {
         fabList = new ArrayList<>();
         constraintSet = new ConstraintSet();
