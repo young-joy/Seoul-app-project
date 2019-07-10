@@ -58,65 +58,108 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:contentDescription="@string/image_viewer"
-            android:src="@drawable/ex"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ex2"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="0dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/title_viewer"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            app:layout_constraintTop_toBottomOf="@id/image_viewer">
+            android:layout_height="80dp"
+            android:background="@android:color/darker_gray"
+            android:backgroundTint="#80000000"
+            android:backgroundTintMode="src_in"
+            app:layout_constraintBottom_toBottomOf="@+id/image_viewer"
+            tools:layout_editor_absoluteX="0dp">
 
             <TextView
                 android:id="@+id/title_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/fab_margin"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:layout_marginEnd="@dimen/fab_margin"
-                android:fontFamily="@font/seoul_hangang_bl"
+                android:layout_marginStart="@dimen/high_margin"
+                android:layout_marginTop="@dimen/low_margin"
+                android:layout_marginEnd="@dimen/high_margin"
+                android:fontFamily="@font/bm_jua"
                 android:text="@string/info_title"
+                android:textColor="@color/colorPrimaryLightGrey"
                 android:textSize="@dimen/info_title_text_size"
-                app:layout_constraintEnd_toStartOf="@+id/info_reserve_button"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/info_reserve_button"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/adress_view"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/fab_margin"
-                android:background="@color/colorPrimaryDark"
-                android:fontFamily="@font/seoul_hangang_bl"
-                android:text="@string/info_reserve_button"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="@dimen/high_margin"
+                android:layout_marginTop="@dimen/low_margin"
+                android:layout_marginEnd="@dimen/high_margin"
+                android:ems="10"
+                android:fontFamily="@font/bm_jua"
+                android:inputType="textPostalAddress"
+                android:text="@string/info_address"
+                android:textColor="@color/colorPrimaryLightGrey"
+                android:textSize="@dimen/info_address_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_view" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/tab_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/image_viewer">
+
+            <Button
+                android:id="@+id/info_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:fontFamily="@font/bm_jua"
+                android:text="정보"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/normal_text_size" />
+
+            <Button
+                android:id="@+id/location_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:fontFamily="@font/bm_jua"
+                android:text="위치"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/normal_text_size" />
+        </LinearLayout>
 
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="500dp"
-            app:layout_constraintTop_toBottomOf="@id/title_viewer">
+            android:background="@android:color/background_light"
+            app:layout_constraintTop_toBottomOf="@id/tab_container">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@android:drawable/screen_background_light"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/fab_margin"
-                    android:layout_marginEnd="@dimen/fab_margin"
+                    android:layout_marginStart="@dimen/high_margin"
+                    android:layout_marginTop="@dimen/high_margin"
+                    android:layout_marginEnd="@dimen/high_margin"
                     android:fontFamily="@font/seoul_hangang_bl"
                     android:text="@string/info_content"
+                    android:textColor="#727273"
                     android:textSize="@dimen/info_content_text_size" />
             </LinearLayout>
         </ScrollView>
