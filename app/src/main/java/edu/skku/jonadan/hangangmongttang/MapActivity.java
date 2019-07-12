@@ -21,6 +21,7 @@ import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindAnim;
 import butterknife.BindDimen;
@@ -30,28 +31,59 @@ import butterknife.ButterKnife;
 public class MapActivity extends AppCompatActivity {
 
 //    Temporary
-    @BindView(R.id.map_info_btn) Button btn;
+    @BindView(R.id.map_info_btn)
+    Button btn;
 //
 
-    @BindView(R.id.map_back_btn) ImageButton backBtn;
-    @BindView(R.id.map_view) MapView mapView;
-    @BindView(R.id.map_container) ConstraintLayout mapLayout;
-    @BindView(R.id.map_fab_toilet) FloatingActionButton menuToiletBtn;
-    @BindView(R.id.map_fab_shop) FloatingActionButton menuShopBtn;
-    @BindView(R.id.map_fab_water) FloatingActionButton menuWaterBtn;
-    @BindView(R.id.map_fab_restaurant) FloatingActionButton menuRestaurantBtn;
-    @BindView(R.id.map_fab_entertain) FloatingActionButton menuEntertainBtn;
-    @BindView(R.id.map_fab_athletic) FloatingActionButton menuAthleticBtn;
-    @BindView(R.id.map_fab_menu) FloatingActionButton menuBtn;
+    @BindView(R.id.map_back_btn)
+    ImageButton backBtn;
+    @BindView(R.id.map_view)
+    MapView mapView;
+    @BindView(R.id.map_container)
+    ConstraintLayout mapLayout;
+    @BindView(R.id.map_fab_toilet)
+    FloatingActionButton menuToiletBtn;
+    @BindView(R.id.map_fab_shop)
+    FloatingActionButton menuShopBtn;
+    @BindView(R.id.map_fab_water)
+    FloatingActionButton menuWaterBtn;
+    @BindView(R.id.map_fab_restaurant)
+    FloatingActionButton menuRestaurantBtn;
+    @BindView(R.id.map_fab_entertain)
+    FloatingActionButton menuEntertainBtn;
+    @BindView(R.id.map_fab_athletic)
+    FloatingActionButton menuAthleticBtn;
+    @BindView(R.id.map_fab_menu)
+    FloatingActionButton menuBtn;
 
-    @BindAnim(R.anim.fab_open) Animation fabOpen;
-    @BindAnim(R.anim.fab_close) Animation fabClose;
+    @BindAnim(R.anim.fab_open)
+    Animation fabOpen;
+    @BindAnim(R.anim.fab_close)
+    Animation fabClose;
 
     @BindDimen(R.dimen.fab_margin) int fabMargin;
 
+    private ArrayList<MapPOIItem> markerList;
     private ArrayList<FloatingActionButton> fabList;
     private ConstraintSet constraintSet;
     private Boolean isFabOpen = false;
+
+    private final int DEFAULT_ZOOM_LEVEL = 3;
+    private final static ArrayList<Location> PARK_LIST = new ArrayList<>(
+            Arrays.asList(
+                    new Location(0, "광나루 한강공원", 37.548844, 127.120029),
+                    new Location(1, "잠실 한강공원", 37.517993, 127.081944),
+                    new Location(2, "뚝섬 한강공원", 37.529422, 127.073980),
+                    new Location(3, "잠원 한강공원", 37.520729, 127.012251),
+                    new Location(4, "반포 한강공원", 37.509815, 126.994755),
+                    new Location(5, "이촌 한강공원", 37.516026, 126.975832),
+                    new Location(6, "여의도 한강공원", 37.526461, 126.933682),
+                    new Location(7, "망원 한강공원", 37.555045, 126.895960),
+                    new Location(8, "난지 한강공원", 37.566202, 126.876319),
+                    new Location(9, "강서 한강공원", 37.588136, 126.815235),
+                    new Location(10, "양화 한강공원", 37.538334, 126.902265)
+            )
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +91,7 @@ public class MapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
 
-        initMap();
+        initMap(PARK_LIST.get(10));
         initFabs();
 
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -117,27 +149,28 @@ public class MapActivity extends AppCompatActivity {
         });
     }
 
-    private void initMap() {
+    private void initMap(Location location) {
         double latitude, longitude;
-        latitude = 37.540748;
-        longitude = 127.115431;
+        latitude = location.getLat();
+        longitude = location.getLng();
         mapView.setMapCenterPointAndZoomLevel(
-                MapPoint.mapPointWithGeoCoord(latitude, longitude), 2, true);
-        setMarker();
+                MapPoint.mapPointWithGeoCoord(latitude, longitude), DEFAULT_ZOOM_LEVEL, true);
+        markerList = new ArrayList<>();
+        setMarker(location);
     }
 
-    private void setMarker() {
+    private void setMarker(Location location) {
         double latitude, longitude;
-        // Temporary
+        latitude = location.getLat();
+        longitude = location.getLng();
+
         MapPOIItem marker = new MapPOIItem();
-        latitude = 37.540748;
-        longitude = 127.115431;
-        marker.setItemName("Test");
-        marker.setTag(0);
-        //
+        marker.setItemName(location.getName());
+        marker.setTag(markerList.size());
         marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
         marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
         marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+        markerList.add(marker);
         mapView.addPOIItem(marker);
     }
 
