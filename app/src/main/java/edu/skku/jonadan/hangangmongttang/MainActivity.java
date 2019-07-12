@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -67,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
     TextView time4;
     @BindView(R.id.time5)
     TextView time5;
+
+    @BindView(R.id.weather_container)
+    LinearLayout weather_container;
+    @BindView(R.id.text_error)
+    TextView text_error;
 
     final String api_key = "d0c498afb7199ff9bf703f95c14e007a";
     final int cnt = 5;
@@ -232,8 +238,9 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("get_weather","temp : "+temp[i]+" / weather : "+weather[i]+" / time : "+time[i]);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        weather_container.setVisibility(View.GONE);
+                        text_error.setVisibility(View.VISIBLE);
                     }
-
                 }
 
                 //show weather data
@@ -255,7 +262,8 @@ public class MainActivity extends AppCompatActivity {
                 time4.setText(time[3]);
                 time5.setText(time[4]);
             }else{
-                // TODO: 2019-07-05 날씨 연결 안될 경우 예외처리 + 새로고침
+                weather_container.setVisibility(View.GONE);
+                text_error.setVisibility(View.VISIBLE);
             }
         }
     }

@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">hangangmongttang</string>
     <string name="app_name_korean">한강몽땅</string>
+
     <string name="app_key">8b61fd803ff0a037f8f790ed0482a4f0</string>
     <string name="image_viewer">TODO</string>
     <string name="info_title">장원영 팬미팅</string>
     <string name="info_content">이곳은 축제의 현장이다.</string>
     <string name="info_reserve_button">예약</string>
+
+    <string name="weather_error">날씨 정보를 불러올 수 없습니다</string>
 </resources>
