@@ -47,8 +47,6 @@ public class MapActivity extends AppCompatActivity {
     FloatingActionButton menuShopBtn;
     @BindView(R.id.map_fab_water)
     FloatingActionButton menuWaterBtn;
-    @BindView(R.id.map_fab_restaurant)
-    FloatingActionButton menuRestaurantBtn;
     @BindView(R.id.map_fab_entertain)
     FloatingActionButton menuEntertainBtn;
     @BindView(R.id.map_fab_athletic)
@@ -181,7 +179,6 @@ public class MapActivity extends AppCompatActivity {
         fabList.add(menuToiletBtn);
         fabList.add(menuShopBtn);
         fabList.add(menuWaterBtn);
-        fabList.add(menuRestaurantBtn);
         fabList.add(menuEntertainBtn);
         fabList.add(menuAthleticBtn);
 

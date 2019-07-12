@@ -139,21 +139,6 @@
             app:srcCompat="@drawable/ic_water" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/map_fab_restaurant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="@dimen/fab_margin"
-            android:backgroundTint="@color/colorPrimary"
-            android:clickable="true"
-            android:focusable="true"
-            android:visibility="invisible"
-            app:borderWidth="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_restaurant" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/map_fab_entertain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
