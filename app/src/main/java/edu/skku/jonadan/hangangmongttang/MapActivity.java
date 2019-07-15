@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import net.daum.mf.map.api.CalloutBalloonAdapter;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -61,8 +62,10 @@ public class MapActivity extends AppCompatActivity {
 
     @BindDimen(R.dimen.fab_margin) int fabMargin;
 
+    private MapView.MapViewEventListener mapEventListener;
     private MapView.POIItemEventListener markerListener;
     private ArrayList<MapPOIItem> markerList;
+    private CalloutBalloonAdapter balloonAdapter;
     private ArrayList<FloatingActionButton> fabList;
     private ConstraintSet constraintSet;
     private Boolean isFabOpen = false;
@@ -150,6 +153,54 @@ public class MapActivity extends AppCompatActivity {
 
     private void initMap(Location location) {
         setMap(location);
+        mapEventListener = new MapView.MapViewEventListener() {
+            @Override
+            public void onMapViewInitialized(MapView mapView) {
+
+            }
+
+            @Override
+            public void onMapViewCenterPointMoved(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewZoomLevelChanged(MapView mapView, int i) {
+
+            }
+
+            @Override
+            public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewDoubleTapped(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewLongPressed(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewDragStarted(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewDragEnded(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
+
+            }
+        };
+        mapView.setMapViewEventListener(mapEventListener);
+
         markerListener = new MapView.POIItemEventListener() {
             @Override
             public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
@@ -175,6 +226,10 @@ public class MapActivity extends AppCompatActivity {
             }
         };
         mapView.setPOIItemEventListener(markerListener);
+
+        balloonAdapter = new CustomBalloonAdapter(this);
+        mapView.setCalloutBalloonAdapter(balloonAdapter);
+
         markerList = new ArrayList<>();
         setMarker(PARK_LIST);
     }
