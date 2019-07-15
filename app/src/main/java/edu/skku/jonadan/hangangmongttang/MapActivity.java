@@ -253,6 +253,12 @@ public class MapActivity extends AppCompatActivity {
             marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
             marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
             marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+
+//            marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+//            marker.setCustomImageResourceId();
+//            marker.setCustomImageAutoscale(false);
+//            marker.setCustomImageAnchor();
+
             markerList.add(marker);
             mapView.addPOIItem(marker);
         }
