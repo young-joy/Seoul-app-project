@@ -61,6 +61,7 @@ public class MapActivity extends AppCompatActivity {
 
     @BindDimen(R.dimen.fab_margin) int fabMargin;
 
+    private MapView.POIItemEventListener markerListener;
     private ArrayList<MapPOIItem> markerList;
     private ArrayList<FloatingActionButton> fabList;
     private ConstraintSet constraintSet;
@@ -89,8 +90,8 @@ public class MapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
 
-        initMap(PARK_LIST.get(10));
         initFabs();
+        initMap(PARK_LIST.get(0));
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,28 +149,65 @@ public class MapActivity extends AppCompatActivity {
     }
 
     private void initMap(Location location) {
+        setMap(location);
+        markerListener = new MapView.POIItemEventListener() {
+            @Override
+            public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+
+            }
+
+            @Override
+            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+                int id = mapPOIItem.getTag();
+                Intent intent = new Intent(MapActivity.this, InfoActivity.class);
+                intent.putExtra("location_id", id);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+
+            }
+
+            @Override
+            public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+
+            }
+        };
+        mapView.setPOIItemEventListener(markerListener);
+        markerList = new ArrayList<>();
+        setMarker(PARK_LIST);
+    }
+
+    private void setMap(Location location) {
         double latitude, longitude;
         latitude = location.getLat();
         longitude = location.getLng();
         mapView.setMapCenterPointAndZoomLevel(
                 MapPoint.mapPointWithGeoCoord(latitude, longitude), DEFAULT_ZOOM_LEVEL, true);
-        markerList = new ArrayList<>();
-        setMarker(location);
     }
 
-    private void setMarker(Location location) {
+    private void setMarker(ArrayList<Location> locationArrayList) {
         double latitude, longitude;
-        latitude = location.getLat();
-        longitude = location.getLng();
+        for (Location location : locationArrayList) {
+            latitude = location.getLat();
+            longitude = location.getLng();
+            MapPOIItem marker = new MapPOIItem();
+            marker.setItemName(location.getName());
+            marker.setTag(location.getObjectId());
+            marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
+            marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
+            marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+            markerList.add(marker);
+            mapView.addPOIItem(marker);
+        }
+    }
 
-        MapPOIItem marker = new MapPOIItem();
-        marker.setItemName(location.getName());
-        marker.setTag(markerList.size());
-        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
-        marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
-        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
-        markerList.add(marker);
-        mapView.addPOIItem(marker);
+    private void removeAllMarkers() {
+        for (MapPOIItem marker : markerList) {
+            mapView.removePOIItem(marker);
+        }
+        markerList.clear();
     }
 
     private void initFabs() {
