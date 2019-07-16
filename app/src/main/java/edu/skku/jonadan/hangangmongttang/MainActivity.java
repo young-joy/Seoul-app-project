@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -20,33 +21,58 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.btn_park) ImageButton parkBtn;
-    @BindView(R.id.button) Button button;
-    @BindView(R.id.app_info_btn) ImageButton infoBtn;
+    @BindView(R.id.btn_park)
+    ImageButton parkBtn;
+    @BindView(R.id.button)
+    Button button;
+    @BindView(R.id.app_info_btn)
+    ImageButton infoBtn;
 
     //weather info
-    @BindView(R.id.temp1) TextView temp1;
-    @BindView(R.id.temp2) TextView temp2;
-    @BindView(R.id.temp3) TextView temp3;
-    @BindView(R.id.temp4) TextView temp4;
-    @BindView(R.id.temp5) TextView temp5;
+    @BindView(R.id.temp1)
+    TextView temp1;
+    @BindView(R.id.temp2)
+    TextView temp2;
+    @BindView(R.id.temp3)
+    TextView temp3;
+    @BindView(R.id.temp4)
+    TextView temp4;
+    @BindView(R.id.temp5)
+    TextView temp5;
 
-    @BindView(R.id.weather1) ImageView weather1;
-    @BindView(R.id.weather2) ImageView weather2;
-    @BindView(R.id.weather3) ImageView weather3;
-    @BindView(R.id.weather4) ImageView weather4;
-    @BindView(R.id.weather5) ImageView weather5;
+    @BindView(R.id.weather1)
+    ImageView weather1;
+    @BindView(R.id.weather2)
+    ImageView weather2;
+    @BindView(R.id.weather3)
+    ImageView weather3;
+    @BindView(R.id.weather4)
+    ImageView weather4;
+    @BindView(R.id.weather5)
+    ImageView weather5;
 
-    @BindView(R.id.time1) TextView time1;
-    @BindView(R.id.time2) TextView time2;
-    @BindView(R.id.time3) TextView time3;
-    @BindView(R.id.time4) TextView time4;
-    @BindView(R.id.time5) TextView time5;
+    @BindView(R.id.time1)
+    TextView time1;
+    @BindView(R.id.time2)
+    TextView time2;
+    @BindView(R.id.time3)
+    TextView time3;
+    @BindView(R.id.time4)
+    TextView time4;
+    @BindView(R.id.time5)
+    TextView time5;
+
+    @BindView(R.id.weather_container)
+    LinearLayout weather_container;
+    @BindView(R.id.text_error)
+    TextView text_error;
 
     final String api_key = "d0c498afb7199ff9bf703f95c14e007a";
     final int cnt = 5;
@@ -56,14 +82,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        /// TODO: 2019-07-05 날씨 가져올 좌표값 설정하기 + 앱 켤떄마다 새로고침
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getWeather(35,139);
-            }
-        });
 
         // TODO: 2019-07-05 이미지 바꾸기
         parkBtn.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +101,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void getWeather(double lat, double lng){
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        getWeather();
+    }
+
+    private void getWeather(){
         String url = "http://api.openweathermap.org/data/2.5/forecast?cnt="+new Integer(cnt).toString()+"&q=Seoul&appid="+api_key;
 
         ReceiveWeatherTask receiveUseTask = new ReceiveWeatherTask();
@@ -194,6 +219,13 @@ public class MainActivity extends AppCompatActivity {
             String[] weather = new String[5];
             String[] time = new String[5];
 
+            /*
+            Date cur_date = new Date();
+            SimpleDateFormat get_hour = new SimpleDateFormat("hh");
+            int cur_hour = new Integer(get_hour.format(cur_date));
+            Log.d("get_weather",get_hour.format(cur_date));
+            */
+
             if(result!=null){
                 Log.d("get_weather",result.toString());
                 for(int i=0;i<cnt;i++){
@@ -206,9 +238,11 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("get_weather","temp : "+temp[i]+" / weather : "+weather[i]+" / time : "+time[i]);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        weather_container.setVisibility(View.GONE);
+                        text_error.setVisibility(View.VISIBLE);
                     }
-
                 }
+
                 //show weather data
                 temp1.setText(temp[0]);
                 temp2.setText(temp[1]);
@@ -228,7 +262,8 @@ public class MainActivity extends AppCompatActivity {
                 time4.setText(time[3]);
                 time5.setText(time[4]);
             }else{
-                // TODO: 2019-07-05 날씨 연결 안될 경우 예외처리  
+                weather_container.setVisibility(View.GONE);
+                text_error.setVisibility(View.VISIBLE);
             }
         }
     }
