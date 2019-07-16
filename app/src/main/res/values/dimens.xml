@@ -6,7 +6,9 @@
     <dimen name="top_bar_height">56dp</dimen>
     <dimen name="fab_margin">12dp</dimen>
     <dimen name="balloon_margin">5dp</dimen>
-
+    <dimen name="high_margin">15dp</dimen>
+    <dimen name="low_margin">9dp</dimen>
+    
     <!-- Related to icon size -->
     <dimen name="icon_size">30dp</dimen>
     <dimen name="small_icon_size">24dp</dimen>
@@ -18,7 +20,9 @@
     <dimen name="normal_text_size">20sp</dimen>
     <dimen name="balloon_text_size">12sp</dimen>
     <dimen name="info_title_text_size">30sp</dimen>
+    <dimen name="info_address_text_size">15sp</dimen>
     <dimen name="info_content_text_size">20sp</dimen>
+    <dimen name="info_tab_text_size">18sp</dimen>
 
     <!-- For Map Activity -->
     <dimen name="search_bar_ver_margin">24dp</dimen>

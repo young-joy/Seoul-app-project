@@ -18,16 +18,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/map_info_btn"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
-            android:layout_marginLeft="@dimen/activity_min_margin"
+            android:id="@+id/info_back_btn"
+            android:layout_width="@dimen/small_icon_size"
+            android:layout_height="@dimen/small_icon_size"
+            android:layout_marginStart="@dimen/activity_min_margin"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_info" />
+            app:srcCompat="@drawable/ic_back"
+            android:contentDescription="TODO" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -57,68 +58,104 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:contentDescription="@string/image_viewer"
-            android:src="@drawable/ex"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ex2"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="0dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/title_viewer"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            app:layout_constraintTop_toBottomOf="@id/image_viewer">
+            android:layout_height="80dp"
+            android:background="@android:color/darker_gray"
+            android:backgroundTint="#80000000"
+            android:backgroundTintMode="src_in"
+            app:layout_constraintBottom_toBottomOf="@+id/image_viewer"
+            tools:layout_editor_absoluteX="0dp">
 
             <TextView
                 android:id="@+id/title_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/fab_margin"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:layout_marginEnd="@dimen/fab_margin"
-                android:fontFamily="@font/seoul_hangang_bl"
+                android:layout_marginStart="@dimen/high_margin"
+                android:layout_marginTop="@dimen/low_margin"
+                android:layout_marginEnd="@dimen/high_margin"
+                android:fontFamily="@font/bm_jua"
                 android:text="@string/info_title"
+                android:textColor="@android:color/white"
                 android:textSize="@dimen/info_title_text_size"
-                app:layout_constraintEnd_toStartOf="@+id/info_reserve_button"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/info_reserve_button"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/adress_view"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/fab_margin"
-                android:background="@color/colorPrimaryDark"
-                android:fontFamily="@font/seoul_hangang_bl"
-                android:text="@string/info_reserve_button"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="@dimen/high_margin"
+                android:layout_marginTop="@dimen/low_margin"
+                android:layout_marginEnd="@dimen/high_margin"
+                android:ems="10"
+                android:fontFamily="@font/bm_jua"
+                android:inputType="textPostalAddress"
+                android:text="@string/info_address"
+                android:textColor="@color/colorPrimaryLightGrey"
+                android:textSize="@dimen/info_address_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_view" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ScrollView
-            android:id="@+id/scrollView2"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_container"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            app:layout_constraintTop_toBottomOf="@id/title_viewer">
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/image_viewer"
+            app:tabIndicatorColor="@color/colorPrimaryDark"
+            app:tabTextAppearance="@style/tab_text">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:clickable="false"
+                android:text="정보" />
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/fab_margin"
-                    android:layout_marginEnd="@dimen/fab_margin"
-                    android:fontFamily="@font/seoul_hangang_bl"
-                    android:text="@string/info_content"
-                    android:textSize="@dimen/info_content_text_size" />
-            </LinearLayout>
-        </ScrollView>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="위치" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_container"
+            tools:layout_constraintTop_toBottomOf="@id/tab_container">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#4CAF50"
+                android:gravity="center"
+                android:visibility="visible"
+                android:id="@+id/text1"
+                android:text="TEXT 1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FF9800"
+                android:gravity="center"
+                android:visibility="invisible"
+                android:id="@+id/text2"
+                android:text="TEXT 2" />
+
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

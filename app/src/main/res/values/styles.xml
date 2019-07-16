@@ -10,4 +10,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textSize">@dimen/info_tab_text_size</item>
+        <item name="android:fontFamily">@font/bm_jua</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>
