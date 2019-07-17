@@ -31,11 +31,6 @@ import butterknife.ButterKnife;
 
 public class MapActivity extends AppCompatActivity {
 
-//    Temporary
-    @BindView(R.id.map_info_btn)
-    Button btn;
-//
-
     @BindView(R.id.map_back_btn)
     ImageButton backBtn;
     @BindView(R.id.map_view)
@@ -139,14 +134,6 @@ public class MapActivity extends AppCompatActivity {
                 constraintSet.applyTo(mapLayout);
 
                 isFabOpen = !isFabOpen;
-            }
-        });
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MapActivity.this, InfoActivity.class);
-                startActivity(intent);
             }
         });
     }
