@@ -10,7 +10,6 @@
         android:id="@+id/info_top_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/top_bar_height"
-        android:background="@android:color/background_light"
         android:elevation="@dimen/elevation"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,24 +22,12 @@
             android:layout_height="@dimen/small_icon_size"
             android:layout_marginStart="@dimen/activity_min_margin"
             android:background="@android:color/transparent"
+            android:contentDescription="TODO"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_back"
-            android:contentDescription="TODO" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/bm_jua"
-            android:text="@string/app_name_korean"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/title_text_size"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:srcCompat="@drawable/ic_back" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -51,12 +38,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/info_top_bar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/image_viewer"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="@dimen/info_image_height"
             android:contentDescription="@string/image_viewer"
             android:scaleType="centerCrop"
             android:src="@drawable/ex2"
@@ -66,7 +53,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/title_viewer"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="@dimen/info_title_height"
             android:background="@android:color/darker_gray"
             android:backgroundTint="#80000000"
             android:backgroundTintMode="src_in"
@@ -80,7 +67,7 @@
                 android:layout_marginStart="@dimen/high_margin"
                 android:layout_marginTop="@dimen/low_margin"
                 android:layout_marginEnd="@dimen/high_margin"
-                android:fontFamily="@font/bm_jua"
+                android:fontFamily="@font/circle_jaedan"
                 android:text="@string/info_title"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/info_title_text_size"
@@ -93,10 +80,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/high_margin"
-                android:layout_marginTop="@dimen/low_margin"
                 android:layout_marginEnd="@dimen/high_margin"
-                android:ems="10"
-                android:fontFamily="@font/bm_jua"
+                android:fontFamily="@font/circle_jaedan"
                 android:inputType="textPostalAddress"
                 android:text="@string/info_address"
                 android:textColor="@color/colorPrimaryLightGrey"
@@ -112,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/image_viewer"
-            app:tabIndicatorColor="@color/colorPrimaryDark"
+            app:tabIndicatorColor="@color/colorPrimary"
             app:tabTextAppearance="@style/tab_text">
 
             <com.google.android.material.tabs.TabItem
@@ -138,22 +123,22 @@
             tools:layout_constraintTop_toBottomOf="@id/tab_container">
 
             <TextView
+                android:id="@+id/text1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#4CAF50"
                 android:gravity="center"
-                android:visibility="visible"
-                android:id="@+id/text1"
-                android:text="TEXT 1" />
+                android:text="TEXT 1"
+                android:visibility="visible" />
 
             <TextView
+                android:id="@+id/text2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#FF9800"
                 android:gravity="center"
-                android:visibility="invisible"
-                android:id="@+id/text2"
-                android:text="TEXT 2" />
+                android:text="TEXT 2"
+                android:visibility="invisible" />
 
         </FrameLayout>
 

@@ -17,7 +17,7 @@
     <dimen name="balloon_height">30dp</dimen>
 
     <!-- Related to text size -->
-    <dimen name="title_text_size">26sp</dimen>
+    <dimen name="title_text_size">28sp</dimen>
     <dimen name="normal_text_size">20sp</dimen>
     <dimen name="balloon_text_size">12sp</dimen>
     <dimen name="info_title_text_size">30sp</dimen>
@@ -29,4 +29,8 @@
     <dimen name="search_bar_ver_margin">24dp</dimen>
     <dimen name="search_bar_hor_margin">24dp</dimen>
     <dimen name="search_bar_padding">5dp</dimen>
+
+    <!-- For Info Activity -->
+    <dimen name="info_image_height">270dp</dimen>
+    <dimen name="info_title_height">80dp</dimen>
 </resources>
