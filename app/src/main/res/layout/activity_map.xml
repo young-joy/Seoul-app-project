@@ -106,7 +106,7 @@
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_toilet" />
+            app:srcCompat="@drawable/ic_toilet_color" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/map_fab_shop"
@@ -121,7 +121,7 @@
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_shop" />
+            app:srcCompat="@drawable/ic_shop_color" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/map_fab_water"
@@ -136,7 +136,7 @@
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_water" />
+            app:srcCompat="@drawable/ic_water_color" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/map_fab_entertain"
@@ -151,7 +151,7 @@
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_ent" />
+            app:srcCompat="@drawable/ic_ent_color" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/map_fab_athletic"
@@ -166,7 +166,7 @@
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_athletic" />
+            app:srcCompat="@drawable/ic_athletic_color" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/map_fab_menu"
