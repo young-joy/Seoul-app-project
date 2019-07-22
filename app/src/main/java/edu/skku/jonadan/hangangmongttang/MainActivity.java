@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SlidingDrawer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     @BindView(R.id.app_info_btn)
     ImageButton infoBtn;
+
+    @BindView(R.id.bottom_drawer)
+    SlidingDrawer bottomDrawer;
 
     //weather info
     @BindView(R.id.temp1)
@@ -99,13 +104,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-
-        getWeather();
+        SlidingDrawer.OnDrawerOpenListener onDrawerOpenListener = new OnSlidingDrawerOpenListener();
+        bottomDrawer.setOnDrawerOpenListener(onDrawerOpenListener);
     }
 
     private void getWeather(){
@@ -265,6 +266,15 @@ public class MainActivity extends AppCompatActivity {
                 weather_container.setVisibility(View.GONE);
                 text_error.setVisibility(View.VISIBLE);
             }
+        }
+    }
+
+    private class OnSlidingDrawerOpenListener implements SlidingDrawer.OnDrawerOpenListener {
+
+        @Override
+        public void onDrawerOpened() {
+            Toast.makeText(MainActivity.this, "drawer opened",Toast.LENGTH_SHORT).show();
+            getWeather();
         }
     }
 }
