@@ -1,12 +1,17 @@
 package edu.skku.jonadan.hangangmongttang;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.transition.ChangeBounds;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnticipateInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -14,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     @BindView(R.id.app_info_btn)
     ImageButton infoBtn;
+
+    @BindView(R.id.main_layout)
+    ConstraintLayout mainLayout;
+    @BindView(R.id.drawer_layout)
+    LinearLayout drawerLayout;
 
     @BindView(R.id.bottom_drawer)
     SlidingDrawer bottomDrawer;
@@ -79,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.text_error)
     TextView text_error;
 
+    private ConstraintSet constraintSet;
+    private boolean park_layout_opened = false;
     final String api_key = "d0c498afb7199ff9bf703f95c14e007a";
     final int cnt = 5;
 
@@ -87,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        constraintSet = new ConstraintSet();
+        constraintSet.clone(mainLayout);
 
         // TODO: 2019-07-05 이미지 바꾸기
         parkBtn.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +119,24 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AppInfoActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetDialog dialog = new BottomSheetDialog(MainActivity.this);
+                dialog.setContentView(R.layout.dialog_park_info);
+                dialog.show();
+
+                ImageButton closeBtn = dialog.findViewById(R.id.close_btn);
+                closeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                park_layout_opened = true;
             }
         });
 
@@ -269,12 +304,32 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private class OnSlidingDrawerOpenListener implements SlidingDrawer.OnDrawerOpenListener {
 
         @Override
         public void onDrawerOpened() {
             Toast.makeText(MainActivity.this, "drawer opened",Toast.LENGTH_SHORT).show();
             getWeather();
+
+            /*
+            if(park_layout_opened){
+                constraintSet.connect(parkLayout.getId(),ConstraintSet.BOTTOM,
+                        drawerLayout.getId(),ConstraintSet.TOP);
+                constraintSet.setMargin(parkLayout.getId(),ConstraintSet.BOTTOM,40);
+
+                ChangeBounds transition = new ChangeBounds();
+                transition.setInterpolator(new AnticipateInterpolator(1.0f));
+                transition.setDuration(200);
+
+                TransitionManager.beginDelayedTransition(mainLayout, transition);
+                constraintSet.applyTo(mainLayout);
+
+                parkLayout.setVisibility(View.VISIBLE);
+            }
+            */
+
         }
     }
+
 }
