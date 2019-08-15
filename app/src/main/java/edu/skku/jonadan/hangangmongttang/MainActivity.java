@@ -91,10 +91,12 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.text_error)
     TextView text_error;
 
-    private ConstraintSet constraintSet;
     private boolean park_layout_opened = false;
+    private boolean drawer_opened = false;
     final String api_key = "d0c498afb7199ff9bf703f95c14e007a";
     final int cnt = 5;
+
+    private BottomSheetDialog park_info_dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        constraintSet = new ConstraintSet();
-        constraintSet.clone(mainLayout);
+        park_info_dialog = new BottomSheetDialog(MainActivity.this);
+        park_info_dialog.setContentView(R.layout.dialog_park_info);
 
         // TODO: 2019-07-05 이미지 바꾸기
         parkBtn.setOnClickListener(new View.OnClickListener() {
@@ -125,15 +127,18 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BottomSheetDialog dialog = new BottomSheetDialog(MainActivity.this);
-                dialog.setContentView(R.layout.dialog_park_info);
-                dialog.show();
+                if(drawer_opened){
+                    bottomDrawer.close();
+                    drawer_opened = false;
+                }
 
-                ImageButton closeBtn = dialog.findViewById(R.id.close_btn);
+                park_info_dialog.show();
+
+                ImageButton closeBtn = park_info_dialog.findViewById(R.id.close_btn);
                 closeBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        dialog.dismiss();
+                        park_info_dialog.dismiss();
                     }
                 });
                 park_layout_opened = true;
@@ -141,7 +146,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         SlidingDrawer.OnDrawerOpenListener onDrawerOpenListener = new OnSlidingDrawerOpenListener();
+        SlidingDrawer.OnDrawerCloseListener onDrawerCloseListener = new OnSlidingDrawerCloseListener();
+
         bottomDrawer.setOnDrawerOpenListener(onDrawerOpenListener);
+        bottomDrawer.setOnDrawerCloseListener(onDrawerCloseListener);
     }
 
     private void getWeather(){
@@ -304,31 +312,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     private class OnSlidingDrawerOpenListener implements SlidingDrawer.OnDrawerOpenListener {
-
         @Override
         public void onDrawerOpened() {
-            Toast.makeText(MainActivity.this, "drawer opened",Toast.LENGTH_SHORT).show();
+            drawer_opened = true;
             getWeather();
 
-            /*
             if(park_layout_opened){
-                constraintSet.connect(parkLayout.getId(),ConstraintSet.BOTTOM,
-                        drawerLayout.getId(),ConstraintSet.TOP);
-                constraintSet.setMargin(parkLayout.getId(),ConstraintSet.BOTTOM,40);
-
-                ChangeBounds transition = new ChangeBounds();
-                transition.setInterpolator(new AnticipateInterpolator(1.0f));
-                transition.setDuration(200);
-
-                TransitionManager.beginDelayedTransition(mainLayout, transition);
-                constraintSet.applyTo(mainLayout);
-
-                parkLayout.setVisibility(View.VISIBLE);
+                park_info_dialog.dismiss();
+                park_layout_opened = false;
             }
-            */
+        }
+    }
 
+    private class OnSlidingDrawerCloseListener implements SlidingDrawer.OnDrawerCloseListener {
+        @Override
+        public void onDrawerClosed() {
+            drawer_opened = false;
         }
     }
 
