@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ParkInfoCrawler.start();
                 if(drawer_opened){
                     bottomDrawer.close();
                     drawer_opened = false;
