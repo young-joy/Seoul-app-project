@@ -1,5 +1,7 @@
 package edu.skku.jonadan.hangangmongttang;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -16,6 +18,11 @@ public class ParkInfoCrawler {
     private static ArrayList<HashMap<String, String>> eventList = new ArrayList<>();
     private static HashMap<String, String> weatherInfo = new HashMap<>();
     private static int events_cnt = 0;
+    private static Context mainContext;
+
+    public static void setMainContext(Context mainContext) {
+        ParkInfoCrawler.mainContext = mainContext;
+    }
 
     public static HashMap<String, String> getWeatherInfo() {
         return weatherInfo;
@@ -35,8 +42,10 @@ public class ParkInfoCrawler {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
+                Log.d("jsoup_parser","start connection");
                 events_cnt = 0;
                 Document doc = Jsoup.connect(htmlUrl).get();
+                Log.d("jsoup_parser","finish connection");
 
                 //get event_info
                 Elements events = doc.select("div.left h5");
@@ -85,6 +94,7 @@ public class ParkInfoCrawler {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            ((MainActivity) mainContext).setData();
         }
     }
 }

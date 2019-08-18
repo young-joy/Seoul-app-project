@@ -104,6 +104,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        ParkInfoCrawler.setMainContext(MainActivity.this);
+        ParkInfoCrawler.start();
+
         park_info_dialog = new BottomSheetDialog(MainActivity.this);
         park_info_dialog.setContentView(R.layout.dialog_park_info);
 
@@ -127,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ParkInfoCrawler.start();
                 if(drawer_opened){
                     bottomDrawer.close();
                     drawer_opened = false;
@@ -151,6 +153,11 @@ public class MainActivity extends AppCompatActivity {
 
         bottomDrawer.setOnDrawerOpenListener(onDrawerOpenListener);
         bottomDrawer.setOnDrawerCloseListener(onDrawerCloseListener);
+    }
+
+    public void setData(){
+        //use parsed data 
+
     }
 
     private void getWeather(){
