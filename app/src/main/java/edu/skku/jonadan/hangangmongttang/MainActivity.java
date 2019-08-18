@@ -31,7 +31,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.weather5)
     ImageView weather5;
 
+    @BindView(R.id.dust_g1)
+    TextView dust_g1;
+    @BindView(R.id.dust_g2)
+    TextView dust_g2;
+
     @BindView(R.id.time1)
     TextView time1;
     @BindView(R.id.time2)
@@ -90,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout weather_container;
     @BindView(R.id.text_error)
     TextView text_error;
+
+    private HashMap<String, String> weatherInfo = new HashMap<>();
+    private ArrayList<HashMap<String, String>> eventList = new ArrayList<>();
 
     private boolean park_layout_opened = false;
     private boolean drawer_opened = false;
@@ -156,8 +166,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setData(){
-        //use parsed data 
+        //use parsed data
+        weatherInfo = ParkInfoCrawler.getWeatherInfo();
+        eventList = ParkInfoCrawler.getEventList();
 
+        dust_g1.setText(weatherInfo.get("DUST-G1"));
+        dust_g2.setText(weatherInfo.get("DUST-G2"));
     }
 
     private void getWeather(){
