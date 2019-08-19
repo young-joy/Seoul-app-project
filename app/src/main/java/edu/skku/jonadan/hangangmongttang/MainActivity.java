@@ -140,12 +140,12 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                park_info_dialog.show();
+                
                 if(drawer_opened){
                     bottomDrawer.close();
                     drawer_opened = false;
                 }
-
-                park_info_dialog.show();
 
                 ImageButton closeBtn = park_info_dialog.findViewById(R.id.close_btn);
                 closeBtn.setOnClickListener(new View.OnClickListener() {
