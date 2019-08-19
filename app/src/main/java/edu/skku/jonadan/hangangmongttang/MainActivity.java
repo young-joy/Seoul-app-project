@@ -37,7 +37,7 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/// TODO: 2019-08-19 modify layout(drawer:linear->constraint), add event info  
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btn_park)
     ImageButton parkBtn;
