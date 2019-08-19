@@ -21,7 +21,7 @@
             android:id="@+id/app_info_btn"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
-            android:layout_marginLeft="@dimen/activity_min_margin"
+            android:layout_marginStart="@dimen/activity_min_margin"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -49,10 +49,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="166dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:text="Button"
         app:layout_constraintEnd_toStartOf="@+id/btn_park"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map_top_bar" />
 
@@ -80,7 +81,7 @@
         <SlidingDrawer
             android:id="@+id/bottom_drawer"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="400dp"
             android:layout_margin="0dp"
             android:content="@+id/drawer_container"
             android:handle="@+id/btn_drawer"
@@ -92,22 +93,59 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/btn_bottom_drawer"
+                android:fontFamily="@font/ubuntumono_bolditalic"
                 android:text="@string/todays_info"
-                android:textColor="@android:color/white"
-                android:textStyle="italic"/>
+                android:textColor="@android:color/white" />
 
             <LinearLayout
                 android:id="@+id/drawer_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/background_light"
+                android:background="@color/colorAccent"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/textView6"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="이벤트 들어갈 곳" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/circle_jaedan"
+                    android:gravity="center"
+                    android:text="2019년 8월 20일"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/info_content_text_size" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_margin="@dimen/activity_min_margin"
+                    android:background="@drawable/round_box_white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_min_margin"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:text="이벤트 들어갈 곳" />
+                    </LinearLayout>
+                </ScrollView>
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/activity_min_margin"
+                    android:fontFamily="@font/circle_jaedan"
+                    android:gravity="center"
+                    android:text="@string/todays_weather"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/info_content_text_size" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -263,45 +301,52 @@
                     </LinearLayout>
                 </FrameLayout>
 
-              <LinearLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/dust_grade1" />
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/dust_grade1" />
 
-                <TextView
-                    android:id="@+id/dust_g1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
+                    <TextView
+                        android:id="@+id/dust_g1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/activity_min_margin"
+                        android:layout_marginEnd="@dimen/activity_min_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_box_white"
+                        android:gravity="center" />
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="@string/dust_grade2"
-                    android:gravity="center"/>
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingEnd="@dimen/activity_min_margin"
+                        android:text="@string/dust_grade2" />
 
-                <TextView
-                    android:id="@+id/dust_g2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
-              </LinearLayout>
+                    <TextView
+                        android:id="@+id/dust_g2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/activity_min_margin"
+                        android:layout_marginEnd="@dimen/activity_min_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_box_white"
+                        android:gravity="center" />
+                </LinearLayout>
             </LinearLayout>
 
         </SlidingDrawer>
