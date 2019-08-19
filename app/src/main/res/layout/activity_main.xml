@@ -89,9 +89,12 @@
 
             <Button
                 android:id="@+id/btn_drawer"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="드로어 열기" />
+                android:background="@drawable/btn_bottom_drawer"
+                android:text="@string/todays_info"
+                android:textColor="@android:color/white"
+                android:textStyle="italic"/>
 
             <LinearLayout
                 android:id="@+id/drawer_container"

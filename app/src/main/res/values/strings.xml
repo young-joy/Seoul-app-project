@@ -13,4 +13,5 @@
     <string name ="dust_grade1">미세먼지</string>
     <string name ="dust_grade2">초미세먼지</string>
     <string name="gwangnaru_park">광나루 한강공원</string>
+    <string name="todays_info">Today\'s Info</string>
 </resources>
