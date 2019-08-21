@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
         bottomDrawer.setOnDrawerCloseListener(onDrawerCloseListener);
     }
 
+    // TODO: 2019-08-21 progress bar 추가  
     public void setData(){
         //use parsed data
         weatherInfo = ParkInfoCrawler.getWeatherInfo();

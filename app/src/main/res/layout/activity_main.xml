@@ -81,7 +81,7 @@
         <SlidingDrawer
             android:id="@+id/bottom_drawer"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="@dimen/bottom_drawer_height"
             android:layout_margin="0dp"
             android:content="@+id/drawer_container"
             android:handle="@+id/btn_drawer"
