@@ -16,7 +16,8 @@
         <activity android:name=".InfoActivity"></activity>
         <activity android:name=".AppInfoActivity"></activity>
         <activity android:name=".MapActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

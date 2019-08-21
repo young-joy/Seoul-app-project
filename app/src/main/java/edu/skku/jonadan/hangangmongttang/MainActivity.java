@@ -116,8 +116,9 @@ public class MainActivity extends AppCompatActivity {
         park_info_dialog = new BottomSheetDialog(MainActivity.this);
         park_info_dialog.setContentView(R.layout.dialog_park_info);
 
-        ParkInfoCrawler.setMainContext(MainActivity.this);
-        ParkInfoCrawler.start();
+        //ParkInfoCrawler.setMainContext(MainActivity.this);
+        //ParkInfoCrawler.start();
+        setData();
 
         // TODO: 2019-07-05 이미지 바꾸기
         parkBtn.setOnClickListener(new View.OnClickListener() {
