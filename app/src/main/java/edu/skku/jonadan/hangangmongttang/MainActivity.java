@@ -2,23 +2,18 @@ package edu.skku.jonadan.hangangmongttang;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.transition.ChangeBounds;
-import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AnticipateInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SlidingDrawer;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -30,9 +25,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -93,10 +86,12 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.time5)
     TextView time5;
 
-    @BindView(R.id.weather_container)
+    @BindView(R.id.weather_info)
     LinearLayout weather_container;
     @BindView(R.id.text_error)
     TextView text_error;
+    @BindView(R.id.date_info)
+    TextView date_info;
 
     private HashMap<String, String> weatherInfo = new HashMap<>();
     private ArrayList<HashMap<String, String>> eventList = new ArrayList<>();
@@ -169,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
         //use parsed data
         weatherInfo = ParkInfoCrawler.getWeatherInfo();
         eventList = ParkInfoCrawler.getEventList();
+
+        date_info.setText(weatherInfo.get("TODAY"));
 
         dust_g1.setText(weatherInfo.get("DUST-G1"));
         dust_g2.setText(weatherInfo.get("DUST-G2"));

@@ -97,7 +97,7 @@
                 android:text="@string/todays_info"
                 android:textColor="@android:color/white" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/drawer_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -105,52 +105,66 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="match_parent"
+                    android:id="@+id/date_info"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/circle_jaedan"
                     android:gravity="center"
-                    android:text="2019년 8월 20일"
                     android:textColor="@android:color/darker_gray"
-                    android:textSize="@dimen/info_content_text_size" />
+                    android:textSize="@dimen/info_content_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:id="@+id/event_container"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_margin="@dimen/activity_min_margin"
-                    android:background="@drawable/round_box_white">
+                    android:background="@drawable/round_box_white"
+                    app:layout_constraintBottom_toTopOf="@id/text_weather"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/date_info">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_margin="@dimen/activity_min_margin"
                         android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/textView2"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_height="match_parent"
                             android:text="이벤트 들어갈 곳" />
                     </LinearLayout>
                 </ScrollView>
 
                 <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="match_parent"
+                    android:id="@+id/text_weather"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/activity_min_margin"
+                    android:layout_marginBottom="10dp"
                     android:fontFamily="@font/circle_jaedan"
                     android:gravity="center"
                     android:text="@string/todays_weather"
                     android:textColor="@android:color/darker_gray"
-                    android:textSize="@dimen/info_content_text_size" />
+                    android:textSize="@dimen/info_content_text_size"
+                    app:layout_constraintBottom_toTopOf="@id/weather_container"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <FrameLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/weather_container"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom">
+                    android:layout_gravity="bottom"
+                    app:layout_constraintBottom_toTopOf="@id/dust_container"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:id="@+id/text_error"
@@ -164,7 +178,7 @@
                         android:visibility="gone" />
 
                     <LinearLayout
-                        android:id="@+id/weather_container"
+                        android:id="@+id/weather_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -302,9 +316,14 @@
                 </FrameLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:id="@+id/dust_container"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:id="@+id/textView3"
@@ -347,7 +366,7 @@
                         android:background="@drawable/round_box_white"
                         android:gravity="center" />
                 </LinearLayout>
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </SlidingDrawer>
 

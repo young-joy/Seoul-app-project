@@ -70,7 +70,7 @@ public class ParkInfoCrawler {
                 Element weather_temp = doc.selectFirst("div.weather p.weather_txt");
                 Elements weather_dust = doc.select("div.weather span.air_grade");
 
-                weatherInfo.put("TODAY", weather_today.text().trim());
+                weatherInfo.put("TODAY", weather_today.text().trim().split("\\(")[1].split("\\)")[0]);
                 weatherInfo.put("TEMP", weather_temp.text().trim());
                 weatherInfo.put("DUST-G1", weather_dust.get(0).text().trim());
                 weatherInfo.put("DUST-G2", weather_dust.get(1).text().trim());
