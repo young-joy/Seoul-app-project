@@ -81,7 +81,7 @@
         <SlidingDrawer
             android:id="@+id/bottom_drawer"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="350dp"
             android:layout_margin="0dp"
             android:content="@+id/drawer_container"
             android:handle="@+id/btn_drawer"
@@ -126,7 +126,7 @@
                     app:layout_constraintBottom_toTopOf="@id/text_weather"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/date_info"/>
+                    app:layout_constraintTop_toBottomOf="@+id/date_info" />
 
                 <TextView
                     android:id="@+id/text_weather"

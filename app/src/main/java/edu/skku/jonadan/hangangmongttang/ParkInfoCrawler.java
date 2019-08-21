@@ -53,6 +53,7 @@ public class ParkInfoCrawler {
                 Elements events_date = doc.select("p.right span.date");
                 Elements events_time = doc.select("p.right span.time");
 
+                eventList.clear(); 
                 for(Element e: events){
                     EventListItem item = new EventListItem();
 
