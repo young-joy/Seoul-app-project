@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.SlidingDrawer;
 import android.widget.TextView;
 
@@ -86,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.time5)
     TextView time5;
 
+    @BindView(R.id.event_container)
+    ListView event_container;
     @BindView(R.id.weather_info)
     LinearLayout weather_container;
     @BindView(R.id.text_error)
@@ -94,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
     TextView date_info;
 
     private HashMap<String, String> weatherInfo = new HashMap<>();
-    private ArrayList<HashMap<String, String>> eventList = new ArrayList<>();
+    private ArrayList<EventListItem> eventList = new ArrayList<>();
+    private EventListAdapter eventListAdapter;
 
     private boolean park_layout_opened = false;
     private boolean drawer_opened = false;
@@ -109,11 +113,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        ParkInfoCrawler.setMainContext(MainActivity.this);
-        ParkInfoCrawler.start();
-
         park_info_dialog = new BottomSheetDialog(MainActivity.this);
         park_info_dialog.setContentView(R.layout.dialog_park_info);
+
+        ParkInfoCrawler.setMainContext(MainActivity.this);
+        ParkInfoCrawler.start();
 
         // TODO: 2019-07-05 이미지 바꾸기
         parkBtn.setOnClickListener(new View.OnClickListener() {
@@ -164,6 +168,9 @@ public class MainActivity extends AppCompatActivity {
         //use parsed data
         weatherInfo = ParkInfoCrawler.getWeatherInfo();
         eventList = ParkInfoCrawler.getEventList();
+
+        eventListAdapter = new EventListAdapter(eventList);
+        event_container.setAdapter(eventListAdapter);
 
         date_info.setText(weatherInfo.get("TODAY"));
 

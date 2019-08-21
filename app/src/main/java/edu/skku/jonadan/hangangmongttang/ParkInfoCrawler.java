@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 public class ParkInfoCrawler {
     private static String htmlUrl = "https://hangang.seoul.go.kr/";
-    private static ArrayList<HashMap<String, String>> eventList = new ArrayList<>();
+    private static ArrayList<EventListItem> eventList = new ArrayList<>();
     private static HashMap<String, String> weatherInfo = new HashMap<>();
     private static int events_cnt = 0;
     private static Context mainContext;
@@ -28,7 +28,7 @@ public class ParkInfoCrawler {
         return weatherInfo;
     }
 
-    public static ArrayList<HashMap<String, String>> getEventList(){
+    public static ArrayList<EventListItem> getEventList(){
         return eventList;
     }
 
@@ -54,14 +54,14 @@ public class ParkInfoCrawler {
                 Elements events_time = doc.select("p.right span.time");
 
                 for(Element e: events){
-                    HashMap<String, String> eventInfo = new HashMap<>();
-                    eventInfo.put("NAME", e.text().trim());
-                    eventInfo.put("PLACE", events_place.get(events_cnt).text().trim());
-                    eventInfo.put("DATE", events_date.get(events_cnt).text().trim());
-                    eventInfo.put("TIME", events_time.get(events_cnt).text().trim());
+                    EventListItem item = new EventListItem();
 
-                    Log.d("jsoup_parser",eventInfo.get("NAME"));
-                    eventList.add(eventInfo);
+                    item.setName(e.text().trim());
+                    item.setPlace(events_place.get(events_cnt).text().trim());
+                    item.setDate(events_date.get(events_cnt).text().trim());
+                    item.setTime(events_time.get(events_cnt).text().trim());
+
+                    eventList.add(item);
                     events_cnt++;
                 }
 
