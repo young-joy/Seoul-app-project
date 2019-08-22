@@ -1,12 +1,12 @@
 package edu.skku.jonadan.hangangmongttang;
 
 public class SelectedParkInfo {
-    private static String name;
-    private static String img_src;
-    private static String location;
-    private static String number;
-    private static String attraction;
-    private static String facility;
+    private static String name = "";
+    private static String img_src = "";
+    private static String location = "";
+    private static String number = "";
+    private static String attraction = "";
+    private static String facility = "";
 
     public static String getName() {
         return name;

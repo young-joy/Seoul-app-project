@@ -116,6 +116,8 @@ public class ParkInfoCrawler {
                     item.setNumber(park_info.get(1).text().trim().substring(4));
                     item.setAttraction(park_info.get(2).text().trim().substring(3));
                     item.setFacility(park_info.get(3).text().trim().substring(4));
+
+                    parkList.add(item);
                 }
 
             }catch (Exception e){
