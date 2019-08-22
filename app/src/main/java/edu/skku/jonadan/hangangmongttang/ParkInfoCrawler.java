@@ -16,11 +16,8 @@ import java.util.HashMap;
 public class ParkInfoCrawler {
     private static String htmlUrl = "https://hangang.seoul.go.kr/";
     private static ArrayList<EventListItem> eventList = new ArrayList<>();
-    private static HashMap<String, String> weatherInfo = new HashMap<>();
-
-
-
     private static ArrayList<ParkListItem> parkList = new ArrayList<>();
+    private static HashMap<String, String> weatherInfo = new HashMap<>();
 
     private static int events_cnt = 0;
     private static int park_num = 11;
