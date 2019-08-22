@@ -98,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
     private HashMap<String, String> weatherInfo = new HashMap<>();
     private ArrayList<EventListItem> eventList = new ArrayList<>();
+    private ArrayList<ParkListItem> parkList = new ArrayList<>();
+
     private EventListAdapter eventListAdapter;
 
     private boolean park_layout_opened = false;
@@ -169,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
         //use parsed data
         weatherInfo = ParkInfoCrawler.getWeatherInfo();
         eventList = ParkInfoCrawler.getEventList();
+        parkList = ParkInfoCrawler.getParkList();
 
         eventListAdapter = new EventListAdapter(eventList);
         event_container.setAdapter(eventListAdapter);

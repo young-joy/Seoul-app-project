@@ -17,6 +17,9 @@ public class ParkInfoCrawler {
     private static String htmlUrl = "https://hangang.seoul.go.kr/";
     private static ArrayList<EventListItem> eventList = new ArrayList<>();
     private static HashMap<String, String> weatherInfo = new HashMap<>();
+
+
+
     private static ArrayList<ParkListItem> parkList = new ArrayList<>();
 
     private static int events_cnt = 0;
@@ -26,6 +29,10 @@ public class ParkInfoCrawler {
 
     public static void setMainContext(Context mainContext) {
         ParkInfoCrawler.mainContext = mainContext;
+    }
+
+    public static ArrayList<ParkListItem> getParkList() {
+        return parkList;
     }
 
     public static HashMap<String, String> getWeatherInfo() {
