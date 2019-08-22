@@ -1,6 +1,7 @@
 package edu.skku.jonadan.hangangmongttang;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -13,7 +14,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class InfoActivity extends AppCompatActivity {
-
     @BindView(R.id.info_back_btn)
     ImageButton backBtn;
 
@@ -22,15 +22,24 @@ public class InfoActivity extends AppCompatActivity {
 
     @BindView(R.id.text1)
     TextView textView1;
-
     @BindView(R.id.text2)
     TextView textView2;
+
+    //park info
+    private String parkName;
+    private String parkImg_src;
+    private String parkNumber;
+    private String parkLocation;
+    private String parkAttraction;
+    private String parkFacility;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
         ButterKnife.bind(this);
+
+        initParkInfo();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -73,4 +82,13 @@ public class InfoActivity extends AppCompatActivity {
         }
     }
 
+    private void initParkInfo(){
+        //store park info
+        parkName = SelectedParkInfo.getName();
+        parkImg_src = SelectedParkInfo.getImg_src();
+        parkLocation = SelectedParkInfo.getLocation();
+        parkNumber = SelectedParkInfo.getNumber();
+        parkAttraction = SelectedParkInfo.getAttraction();
+        parkFacility = SelectedParkInfo.getFacility();
+    }
 }

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -12,7 +13,6 @@
         android:layout_height="@dimen/top_bar_height"
         android:background="@color/colorPrimary"
         android:elevation="@dimen/elevation"
-        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,7 +21,7 @@
             android:id="@+id/app_info_btn"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
-            android:layout_marginLeft="@dimen/activity_min_margin"
+            android:layout_marginStart="@dimen/activity_min_margin"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -48,176 +48,314 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="196dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
         android:text="Button"
+        app:layout_constraintEnd_toStartOf="@+id/btn_park"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/map_top_bar" />
 
-    <TextView
-        android:id="@+id/text_error"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/weather_error"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageButton
+        android:id="@+id/btn_park"
+        android:layout_width="157dp"
+        android:layout_height="139dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="124dp"
+        android:background="@drawable/image_temp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/map_top_bar" />
 
     <LinearLayout
-        android:id="@+id/weather_container"
-        android:layout_width="0dp"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
+        <SlidingDrawer
+            android:id="@+id/bottom_drawer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="@dimen/bottom_drawer_height"
+            android:layout_margin="0dp"
+            android:content="@+id/drawer_container"
+            android:handle="@+id/btn_drawer"
+            android:orientation="vertical"
+            android:padding="0dp">
 
-            <TextView
-                android:id="@+id/temp1"
+            <Button
+                android:id="@+id/btn_drawer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" />
+                android:layout_height="40dp"
+                android:background="@drawable/btn_bottom_drawer"
+                android:fontFamily="@font/ubuntumono_bolditalic"
+                android:text="@string/todays_info"
+                android:textColor="@android:color/white" />
 
-            <ImageView
-                android:id="@+id/weather1"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/drawer_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_weather_clear_day" />
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/time1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/date_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/circle_jaedan"
+                    android:gravity="center"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/info_content_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+                <ListView
+                    android:id="@+id/event_container"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/activity_min_margin"
+                    android:background="@drawable/round_box_white"
+                    app:layout_constraintBottom_toTopOf="@id/text_weather"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/date_info" />
 
-            <TextView
-                android:id="@+id/temp2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" />
+                <TextView
+                    android:id="@+id/text_weather"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/circle_jaedan"
+                    android:gravity="center"
+                    android:text="@string/todays_weather"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/info_content_text_size"
+                    app:layout_constraintBottom_toTopOf="@id/weather_container"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-            <ImageView
-                android:id="@+id/weather2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_weather_clear_day" />
+                <FrameLayout
+                    android:id="@+id/weather_container"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    app:layout_constraintBottom_toTopOf="@id/dust_container"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
-                android:id="@+id/time2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" />
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/text_error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/drawer_margin"
+                        android:layout_marginEnd="@dimen/drawer_margin"
+                        android:layout_marginBottom="@dimen/drawer_margin"
+                        android:text="@string/weather_error"
+                        android:visibility="gone" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+                    <LinearLayout
+                        android:id="@+id/weather_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/drawer_margin"
+                        android:layout_marginEnd="@dimen/drawer_margin"
+                        android:layout_marginBottom="@dimen/drawer_margin"
+                        android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/temp3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/weather3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_weather_clear_day" />
+                            <TextView
+                                android:id="@+id/temp1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" />
 
-            <TextView
-                android:id="@+id/time3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" />
-        </LinearLayout>
+                            <ImageView
+                                android:id="@+id/weather1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_weather_clear_day" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/time1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" />
+                        </LinearLayout>
 
-            <TextView
-                android:id="@+id/temp4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/weather4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_weather_clear_day" />
+                            <TextView
+                                android:id="@+id/temp2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" />
 
-            <TextView
-                android:id="@+id/time4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" />
-        </LinearLayout>
+                            <ImageView
+                                android:id="@+id/weather2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_weather_clear_day" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/time2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" />
+                        </LinearLayout>
 
-            <TextView
-                android:id="@+id/temp5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/weather5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_weather_clear_day" />
+                            <TextView
+                                android:id="@+id/temp3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" />
 
-            <TextView
-                android:id="@+id/time5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" />
-        </LinearLayout>
+                            <ImageView
+                                android:id="@+id/weather3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_weather_clear_day" />
+
+                            <TextView
+                                android:id="@+id/time3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/temp4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" />
+
+                            <ImageView
+                                android:id="@+id/weather4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_weather_clear_day" />
+
+                            <TextView
+                                android:id="@+id/time4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/temp5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" />
+
+                            <ImageView
+                                android:id="@+id/weather5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_weather_clear_day" />
+
+                            <TextView
+                                android:id="@+id/time5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/dust_container"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/dust_grade1" />
+
+                    <TextView
+                        android:id="@+id/dust_g1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/activity_min_margin"
+                        android:layout_marginEnd="@dimen/activity_min_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_box_white"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingEnd="@dimen/activity_min_margin"
+                        android:text="@string/dust_grade2" />
+
+                    <TextView
+                        android:id="@+id/dust_g2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/activity_min_margin"
+                        android:layout_marginEnd="@dimen/activity_min_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_box_white"
+                        android:gravity="center" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </SlidingDrawer>
 
     </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/btn_park"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@+id/weather_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map_top_bar"
-        app:srcCompat="@drawable/image_temp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

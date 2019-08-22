@@ -1,6 +1,7 @@
 package edu.skku.jonadan.hangangmongttang;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,7 +12,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SlidingDrawer;
 import android.widget.TextView;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,12 +26,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/// TODO: 2019-08-19 modify layout(drawer:linear->constraint), add event info  
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btn_park)
     ImageButton parkBtn;
@@ -34,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     @BindView(R.id.app_info_btn)
     ImageButton infoBtn;
+
+    @BindView(R.id.main_layout)
+    ConstraintLayout mainLayout;
+    @BindView(R.id.drawer_layout)
+    LinearLayout drawerLayout;
+
+    @BindView(R.id.bottom_drawer)
+    SlidingDrawer bottomDrawer;
 
     //weather info
     @BindView(R.id.temp1)
@@ -58,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.weather5)
     ImageView weather5;
 
+    @BindView(R.id.dust_g1)
+    TextView dust_g1;
+    @BindView(R.id.dust_g2)
+    TextView dust_g2;
+
     @BindView(R.id.time1)
     TextView time1;
     @BindView(R.id.time2)
@@ -69,19 +87,39 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.time5)
     TextView time5;
 
-    @BindView(R.id.weather_container)
+    @BindView(R.id.event_container)
+    ListView event_container;
+    @BindView(R.id.weather_info)
     LinearLayout weather_container;
     @BindView(R.id.text_error)
     TextView text_error;
+    @BindView(R.id.date_info)
+    TextView date_info;
 
+    private HashMap<String, String> weatherInfo = new HashMap<>();
+    private ArrayList<EventListItem> eventList = new ArrayList<>();
+    private ArrayList<ParkListItem> parkList = new ArrayList<>();
+
+    private EventListAdapter eventListAdapter;
+
+    private boolean park_layout_opened = false;
+    private boolean drawer_opened = false;
     final String api_key = "d0c498afb7199ff9bf703f95c14e007a";
     final int cnt = 5;
+
+    private BottomSheetDialog park_info_dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        park_info_dialog = new BottomSheetDialog(MainActivity.this);
+        park_info_dialog.setContentView(R.layout.dialog_park_info);
+
+        ParkInfoCrawler.setMainContext(MainActivity.this);
+        ParkInfoCrawler.start();
 
         // TODO: 2019-07-05 이미지 바꾸기
         parkBtn.setOnClickListener(new View.OnClickListener() {
@@ -99,13 +137,57 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                park_info_dialog.show();
+                
+                if(drawer_opened){
+                    bottomDrawer.close();
+                    drawer_opened = false;
+                }
+
+                ImageButton closeBtn = park_info_dialog.findViewById(R.id.close_btn);
+                closeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        park_info_dialog.dismiss();
+                    }
+                });
+                park_layout_opened = true;
+            }
+        });
+
+        SlidingDrawer.OnDrawerOpenListener onDrawerOpenListener = new OnSlidingDrawerOpenListener();
+        SlidingDrawer.OnDrawerCloseListener onDrawerCloseListener = new OnSlidingDrawerCloseListener();
+
+        bottomDrawer.setOnDrawerOpenListener(onDrawerOpenListener);
+        bottomDrawer.setOnDrawerCloseListener(onDrawerCloseListener);
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
+    // TODO: 2019-08-21 progress bar 추가  
+    public void setData(){
+        //use parsed data
+        weatherInfo = ParkInfoCrawler.getWeatherInfo();
+        eventList = ParkInfoCrawler.getEventList();
+        parkList = ParkInfoCrawler.getParkList();
 
-        getWeather();
+        eventListAdapter = new EventListAdapter(eventList);
+        event_container.setAdapter(eventListAdapter);
+
+        date_info.setText(weatherInfo.get("TODAY"));
+
+        dust_g1.setText(weatherInfo.get("DUST-G1"));
+        dust_g2.setText(weatherInfo.get("DUST-G2"));
+
+        //temp code (set selected_park)
+        SelectedParkInfo.setName(parkList.get(0).getName());
+        SelectedParkInfo.setImg_src(parkList.get(0).getImg_src());
+        SelectedParkInfo.setLocation(parkList.get(0).getLocation());
+        SelectedParkInfo.setNumber(parkList.get(0).getNumber());
+        SelectedParkInfo.setAttraction(parkList.get(0).getAttraction());
+        SelectedParkInfo.setFacility(parkList.get(0).getFacility());
     }
 
     private void getWeather(){
@@ -267,4 +349,25 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    private class OnSlidingDrawerOpenListener implements SlidingDrawer.OnDrawerOpenListener {
+        @Override
+        public void onDrawerOpened() {
+            drawer_opened = true;
+            getWeather();
+
+            if(park_layout_opened){
+                park_info_dialog.dismiss();
+                park_layout_opened = false;
+            }
+        }
+    }
+
+    private class OnSlidingDrawerCloseListener implements SlidingDrawer.OnDrawerCloseListener {
+        @Override
+        public void onDrawerClosed() {
+            drawer_opened = false;
+        }
+    }
+
 }
