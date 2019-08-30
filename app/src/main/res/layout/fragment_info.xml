@@ -8,12 +8,13 @@
     android:orientation="vertical">
 
     <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,10 +71,10 @@
                 android:layout_marginBottom="10dp"
                 android:text="정보 들어갈 곳" />
 
-            <net.daum.mf.map.api.MapView
-                android:id="@+id/map_view"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/map_container"
                 android:layout_width="match_parent"
-                android:layout_height="300dp" />
+                android:layout_height="300dp"/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

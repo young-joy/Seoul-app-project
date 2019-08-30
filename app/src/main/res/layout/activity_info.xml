@@ -101,14 +101,14 @@
             app:tabTextAppearance="@style/tab_text">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem1"
+                android:id="@+id/tab_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:text="정보" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem2"
+                android:id="@+id/tab_review"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="위치" />

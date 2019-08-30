@@ -31,7 +31,7 @@
         android:paddingEnd="70dp"
         android:text="리뷰쓰기"
         android:textColor="@android:color/white"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
