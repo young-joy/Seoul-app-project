@@ -25,7 +25,7 @@ public class InfoFragment extends Fragment {
         scrollView = rootView.findViewById(R.id.scroll_view);
 
         scrollView.fullScroll(ScrollView.FOCUS_UP);
-        scrollView.setNestedScrollingEnabled(false); 
+        scrollView.setNestedScrollingEnabled(false);
         return rootView;
     }
 
