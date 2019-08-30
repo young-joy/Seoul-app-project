@@ -6,6 +6,7 @@ import android.transition.TransitionManager;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -29,6 +30,8 @@ public class NewInfoActivity extends AppCompatActivity {
     FrameLayout fragmentContainer;
     @BindView(R.id.text_state)
     TextView stateText;
+    @BindView(R.id.info_back_btn)
+    ImageButton backBtn;
 
     InfoFragment infoFragment;
     ReviewFragment reviewFragment;
@@ -72,6 +75,13 @@ public class NewInfoActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
