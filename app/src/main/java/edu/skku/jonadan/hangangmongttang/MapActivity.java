@@ -210,7 +210,7 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
                 int id = mapPOIItem.getTag();
-                Intent intent = new Intent(MapActivity.this, InfoActivity.class);
+                Intent intent = new Intent(MapActivity.this, NewInfoActivity.class);
                 intent.putExtra("location_id", id);
                 startActivity(intent);
             }

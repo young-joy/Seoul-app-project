@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".InfoActivity"></activity>
         <activity android:name=".AppInfoActivity"></activity>
         <activity android:name=".MapActivity"></activity>
         <activity android:name=".NewInfoActivity"></activity>
