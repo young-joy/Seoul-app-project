@@ -145,7 +145,7 @@ public class MapActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapActivity.this, NewInfoActivity.class);
+                Intent intent = new Intent(MapActivity.this, InfoActivity.class);
                 startActivity(intent);
             }
         });
@@ -210,7 +210,7 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
                 int id = mapPOIItem.getTag();
-                Intent intent = new Intent(MapActivity.this, NewInfoActivity.class);
+                Intent intent = new Intent(MapActivity.this, InfoActivity.class);
                 intent.putExtra("location_id", id);
                 startActivity(intent);
             }

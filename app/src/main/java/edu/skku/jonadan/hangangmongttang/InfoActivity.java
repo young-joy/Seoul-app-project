@@ -21,7 +21,7 @@ import com.google.android.material.tabs.TabLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NewInfoActivity extends AppCompatActivity {
+public class InfoActivity extends AppCompatActivity {
     @BindView(R.id.constraintLayout)
     ConstraintLayout constraintLayout;
     @BindView(R.id.tab_container)
@@ -45,7 +45,7 @@ public class NewInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info_new);
+        setContentView(R.layout.activity_info);
         ButterKnife.bind(this);
 
         reviseConstraintSet.clone(constraintLayout);
