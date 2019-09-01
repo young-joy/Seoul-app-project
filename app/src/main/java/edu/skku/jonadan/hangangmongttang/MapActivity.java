@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
@@ -28,6 +29,9 @@ import butterknife.BindAnim;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MapActivity extends AppCompatActivity {
 
@@ -61,9 +65,19 @@ public class MapActivity extends AppCompatActivity {
     private MapView.POIItemEventListener markerListener;
     private ArrayList<MapPOIItem> markerList;
     private CalloutBalloonAdapter balloonAdapter;
+
     private ArrayList<FloatingActionButton> fabList;
     private ConstraintSet constraintSet;
     private Boolean isFabOpen = false;
+
+    private ArrayList<Location> toiletList;
+    private ArrayList<Location> shopList;
+    private ArrayList<Location> waterList;
+    private ArrayList<Location> entertainList;
+    private ArrayList<Location> athleticList;
+
+    private SeoulApiProvider apiProvider;
+    private ArrayList<Callback<SeoulApiResult>> callbacks;
 
     private final int DEFAULT_ZOOM_LEVEL = 3;
     private final static ArrayList<Location> PARK_LIST = new ArrayList<>(
@@ -90,6 +104,9 @@ public class MapActivity extends AppCompatActivity {
 
         initFabs();
         initMap(PARK_LIST.get(0));
+
+        apiProvider = new SeoulApiProvider();
+        initCallbacks();
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,6 +248,7 @@ public class MapActivity extends AppCompatActivity {
 
     private void setMarker(ArrayList<Location> locationArrayList) {
         double latitude, longitude;
+        removeAllMarkers();
         for (Location location : locationArrayList) {
             latitude = location.getLat();
             longitude = location.getLng();
@@ -241,6 +259,8 @@ public class MapActivity extends AppCompatActivity {
             marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
             marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
 
+//            For custom marker
+//
 //            marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
 //            marker.setCustomImageResourceId();
 //            marker.setCustomImageAutoscale(false);
@@ -273,5 +293,84 @@ public class MapActivity extends AppCompatActivity {
             constraintSet.connect(
                     fab.getId(), ConstraintSet.BOTTOM, menuBtn.getId(), ConstraintSet.BOTTOM);
         }
+
+        menuToiletBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Call<SeoulApiResult> call = apiProvider.callToilet();
+                call.enqueue(callbacks.get(0));
+            }
+        });
+
+        menuShopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Call<SeoulApiResult> call = apiProvider.callShop();
+                call.enqueue(callbacks.get(1));
+            }
+        });
+
+        menuWaterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Call<SeoulApiResult> call = apiProvider.callWater();
+                call.enqueue(callbacks.get(2));
+            }
+        });
+    }
+
+    private void initCallbacks() {
+        callbacks = new ArrayList<>();
+        callbacks.add(new Callback<SeoulApiResult>() {
+            @Override
+            public void onResponse(Call<SeoulApiResult> call, Response<SeoulApiResult> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("Callback", "Response fail");
+                    return;
+                }
+                SeoulApiResult result = response.body();
+                toiletList = new ArrayList<Location>(result.getRow());
+                setMarker(toiletList);
+            }
+
+            @Override
+            public void onFailure(Call<SeoulApiResult> call, Throwable t) {
+                Log.d("Callback", "" + t);
+            }
+        });
+        callbacks.add(new Callback<SeoulApiResult>() {
+            @Override
+            public void onResponse(Call<SeoulApiResult> call, Response<SeoulApiResult> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("Callback", "Response fail");
+                    return;
+                }
+                SeoulApiResult result = response.body();
+                shopList = new ArrayList<Location>(result.getRow());
+                setMarker(shopList);
+            }
+
+            @Override
+            public void onFailure(Call<SeoulApiResult> call, Throwable t) {
+                Log.d("Callback", "" + t);
+            }
+        });
+        callbacks.add(new Callback<SeoulApiResult>() {
+            @Override
+            public void onResponse(Call<SeoulApiResult> call, Response<SeoulApiResult> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("Callback", "Response fail");
+                    return;
+                }
+                SeoulApiResult result = response.body();
+                waterList = new ArrayList<Location>(result.getRow());
+                setMarker(waterList);
+            }
+
+            @Override
+            public void onFailure(Call<SeoulApiResult> call, Throwable t) {
+                Log.d("Callback", "" + t);
+            }
+        });
     }
 }

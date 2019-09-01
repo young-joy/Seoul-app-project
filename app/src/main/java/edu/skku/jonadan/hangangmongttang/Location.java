@@ -1,26 +1,37 @@
 package edu.skku.jonadan.hangangmongttang;
 
+import com.tickaroo.tikxml.annotation.PropertyElement;
+import com.tickaroo.tikxml.annotation.Xml;
+
+@Xml
 public class Location {
-    private Integer objectId;
-    private String name;
-    private Double lat;
-    private Double lng;
+
+    @PropertyElement(name="OBJECTID")
+    private int objectId;
+
+    private String name = "";
+
+    @PropertyElement(name="LAT")
+    private double lat;
+
+    @PropertyElement(name="LNG")
+    private double lng;
 
     public Location() {
     }
 
-    public Location(Integer objectId, String name, Double lat, Double lng) {
+    public Location(int objectId, String name, double lat, double lng) {
         this.objectId = objectId;
         this.name = name;
         this.lat = lat;
         this.lng = lng;
     }
 
-    public Integer getObjectId() {
+    public int getObjectId() {
         return objectId;
     }
 
-    public void setObjectId(Integer objectId) {
+    public void setObjectId(int objectId) {
         this.objectId = objectId;
     }
 
@@ -32,19 +43,19 @@ public class Location {
         this.name = name;
     }
 
-    public Double getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(Double lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public Double getLng() {
+    public double getLng() {
         return lng;
     }
 
-    public void setLng(Double lng) {
+    public void setLng(double lng) {
         this.lng = lng;
     }
 }
