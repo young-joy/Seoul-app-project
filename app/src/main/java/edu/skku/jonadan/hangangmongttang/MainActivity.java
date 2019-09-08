@@ -3,6 +3,7 @@ package edu.skku.jonadan.hangangmongttang;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
     final String api_key = "d0c498afb7199ff9bf703f95c14e007a";
     final int cnt = 5;
 
-    private BottomSheetDialog park_info_dialog;
+    private ParkInfoDialog park_info_dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,8 +116,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        park_info_dialog = new BottomSheetDialog(MainActivity.this);
-        park_info_dialog.setContentView(R.layout.dialog_park_info);
+        park_info_dialog = new ParkInfoDialog();
 
         ParkInfoCrawler.setMainContext(MainActivity.this);
         ParkInfoCrawler.start();
@@ -141,20 +141,13 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                park_info_dialog.show();
+                park_info_dialog.show(getSupportFragmentManager(), "TAG");
                 
                 if(drawer_opened){
                     bottomDrawer.close();
                     drawer_opened = false;
                 }
 
-                ImageButton closeBtn = park_info_dialog.findViewById(R.id.close_btn);
-                closeBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        park_info_dialog.dismiss();
-                    }
-                });
                 park_layout_opened = true;
             }
         });
