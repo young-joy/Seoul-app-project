@@ -73,6 +73,7 @@ public class MapActivity extends AppCompatActivity {
     private ConstraintSet constraintSet;
     private Boolean isFabOpen = false;
 
+    private ArrayList<ParkingLot> parkingLotList;
     private ArrayList<Location> toiletList;
     private ArrayList<Location> shopList;
     private ArrayList<Location> waterList;
@@ -82,26 +83,11 @@ public class MapActivity extends AppCompatActivity {
     private SeoulApiProvider apiProvider;
     private ArrayList<Callback<SeoulApiResult>> callbacks;
 
+    private int selectedParkId;
     private Location refLocation;
 
     private final int DEFAULT_ZOOM_LEVEL = 3;
     private final double MARKING_SCOPE = 1.0;
-
-    private final static ArrayList<Location> PARK_LIST = new ArrayList<>(
-            Arrays.asList(
-                    new Location(0, "광나루 한강공원", 37.548844, 127.120029),
-                    new Location(1, "잠실 한강공원", 37.517993, 127.081944),
-                    new Location(2, "뚝섬 한강공원", 37.529422, 127.073980),
-                    new Location(3, "잠원 한강공원", 37.520729, 127.012251),
-                    new Location(4, "반포 한강공원", 37.509815, 126.994755),
-                    new Location(5, "이촌 한강공원", 37.516026, 126.975832),
-                    new Location(6, "여의도 한강공원", 37.526461, 126.933682),
-                    new Location(7, "망원 한강공원", 37.555045, 126.895960),
-                    new Location(8, "난지 한강공원", 37.566202, 126.876319),
-                    new Location(9, "강서 한강공원", 37.588136, 126.815235),
-                    new Location(10, "양화 한강공원", 37.538334, 126.902265)
-            )
-    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,8 +95,11 @@ public class MapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
 
+        // Get from intent
+        selectedParkId = ConstantPark.HANGANG_PARKS.GWANGNARU.ordinal();
+        refLocation = ConstantPark.PARK_LIST.get(selectedParkId);
+
         initFabs();
-        refLocation = PARK_LIST.get(0);
         initMap(refLocation);
 
         apiProvider = new SeoulApiProvider();
@@ -243,7 +232,7 @@ public class MapActivity extends AppCompatActivity {
         mapView.setCalloutBalloonAdapter(balloonAdapter);
 
         markerList = new ArrayList<>();
-        setMarker(PARK_LIST);
+        setMarker(ConstantPark.PARK_LIST);
     }
 
     private void setMap(Location location) {
@@ -254,7 +243,7 @@ public class MapActivity extends AppCompatActivity {
                 MapPoint.mapPointWithGeoCoord(latitude, longitude), DEFAULT_ZOOM_LEVEL, true);
     }
 
-    private void setMarker(ArrayList<Location> locationArrayList) {
+    private <T extends Location> void setMarker(ArrayList<T> locationArrayList) {
         double latitude, longitude;
         removeAllMarkers();
         for (Location location : locationArrayList) {
@@ -304,6 +293,14 @@ public class MapActivity extends AppCompatActivity {
             constraintSet.connect(
                     fab.getId(), ConstraintSet.BOTTOM, menuBtn.getId(), ConstraintSet.BOTTOM);
         }
+
+        menuParkingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                parkingLotList = ConstantPark.PARK_LIST.get(selectedParkId).getParkingLots();
+                setMarker(parkingLotList);
+            }
+        });
 
         menuToiletBtn.setOnClickListener(new View.OnClickListener() {
             @Override
