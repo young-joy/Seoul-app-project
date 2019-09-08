@@ -41,6 +41,8 @@ public class MapActivity extends AppCompatActivity {
     MapView mapView;
     @BindView(R.id.map_container)
     ConstraintLayout mapLayout;
+    @BindView(R.id.map_fab_parking)
+    FloatingActionButton menuParkingBtn;
     @BindView(R.id.map_fab_toilet)
     FloatingActionButton menuToiletBtn;
     @BindView(R.id.map_fab_shop)
@@ -282,6 +284,7 @@ public class MapActivity extends AppCompatActivity {
         fabList = new ArrayList<>();
         constraintSet = new ConstraintSet();
 
+        fabList.add(menuParkingBtn);
         fabList.add(menuToiletBtn);
         fabList.add(menuShopBtn);
         fabList.add(menuWaterBtn);
