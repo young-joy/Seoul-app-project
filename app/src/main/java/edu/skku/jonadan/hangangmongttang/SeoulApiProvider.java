@@ -16,8 +16,9 @@ public class SeoulApiProvider {
     private final SeoulApi api;
     private final OkHttpClient client = createClient();
 
-    private static final String BASE_URL = "http://openAPI.seoul.go.kr:8088/";
-    private static final String APP_KEY = "436851527a756c6c3435456f5a4d4d";
+    private final String BASE_URL = "http://openAPI.seoul.go.kr:8088/";
+    private final String APP_KEY = "436851527a756c6c3435456f5a4d4d";
+    private final int MAXIMUM_RQ = 999;
 
     public SeoulApiProvider() {
         this.retrofit = new Retrofit.Builder()
@@ -44,9 +45,9 @@ public class SeoulApiProvider {
         return builder.build();
     }
 
-    public Call<SeoulApiResult> callToilet() {
+    public Call<SeoulApiResult> callToilet(int startIdx) {
         Call<SeoulApiResult> callToilet =
-                api.getLocation("GeoInfoPublicToiletWGS", 1, 1000);
+                api.getLocation("GeoInfoPublicToiletWGS", startIdx, startIdx + MAXIMUM_RQ);
         return callToilet;
     }
 

@@ -1,5 +1,6 @@
 package edu.skku.jonadan.hangangmongttang;
 
+import androidx.annotation.MainThread;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -81,7 +82,11 @@ public class MapActivity extends AppCompatActivity {
     private SeoulApiProvider apiProvider;
     private ArrayList<Callback<SeoulApiResult>> callbacks;
 
+    private Location refLocation;
+
     private final int DEFAULT_ZOOM_LEVEL = 3;
+    private final double MARKING_SCOPE = 1.0;
+
     private final static ArrayList<Location> PARK_LIST = new ArrayList<>(
             Arrays.asList(
                     new Location(0, "광나루 한강공원", 37.548844, 127.120029),
@@ -105,7 +110,8 @@ public class MapActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         initFabs();
-        initMap(PARK_LIST.get(0));
+        refLocation = PARK_LIST.get(0);
+        initMap(refLocation);
 
         apiProvider = new SeoulApiProvider();
         initCallbacks();
@@ -291,6 +297,8 @@ public class MapActivity extends AppCompatActivity {
         fabList.add(menuEntertainBtn);
         fabList.add(menuAthleticBtn);
 
+        toiletList = new ArrayList<>();
+
         constraintSet.clone(mapLayout);
         for (FloatingActionButton fab : fabList) {
             constraintSet.connect(
@@ -300,8 +308,10 @@ public class MapActivity extends AppCompatActivity {
         menuToiletBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Call<SeoulApiResult> call = apiProvider.callToilet();
-                call.enqueue(callbacks.get(0));
+                for (int i = 0; i < 6; i++) {
+                    Call<SeoulApiResult> call = apiProvider.callToilet(1000*i + 1);
+                    call.enqueue(callbacks.get(0));
+                }
             }
         });
 
@@ -332,7 +342,12 @@ public class MapActivity extends AppCompatActivity {
                     return;
                 }
                 SeoulApiResult result = response.body();
-                toiletList = new ArrayList<Location>(result.getRow());
+                ArrayList<Location> toilets = new ArrayList<Location>(result.getRow());
+                for (Location toilet: toilets) {
+                    if (getDistance(refLocation, toilet) < MARKING_SCOPE) {
+                        toiletList.add(toilet);
+                    }
+                }
                 setMarker(toiletList);
             }
 
@@ -375,5 +390,24 @@ public class MapActivity extends AppCompatActivity {
                 Log.d("Callback", "" + t);
             }
         });
+    }
+
+    // Get distance using Haversine formula
+    private double getDistance(Location refPoint, Location targetPoint) {
+        int R = 6371;
+        
+        double dLat = deg2rad(refPoint.getLat() - targetPoint.getLat());
+        double dLng = deg2rad(refPoint.getLng() - targetPoint.getLng());
+        double a = Math.sin(dLat/2) * Math.sin(dLat/2)
+                + Math.cos(deg2rad(refPoint.getLat())) * Math.cos(deg2rad(targetPoint.getLat()))
+                                                       * Math.sin(dLng/2) * Math.sin(dLng/2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double distance = R * c;
+
+        return distance;
+    }
+
+    private double deg2rad(double degree) {
+        return degree * Math.PI / 180;
     }
 }
