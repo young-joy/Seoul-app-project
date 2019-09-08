@@ -16,7 +16,6 @@ public class EventListAdapter extends BaseAdapter {
         this.eventList = eventList;
     }
 
-
     @Override
     public int getCount() {
         return eventList.size();

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InfoActivity">
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/info_top_bar"
@@ -22,126 +22,87 @@
             android:layout_height="@dimen/small_icon_size"
             android:layout_marginStart="@dimen/activity_min_margin"
             android:background="@android:color/transparent"
-            android:contentDescription="TODO"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_back" />
 
+        <TextView
+            android:id="@+id/text_state"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/circle_jaedan"
+            android:gravity="center"
+            android:text="@string/info_text"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/info_back_btn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/info_like_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_like" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/info_container"
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="wrap_content"
+        android:layout_height="350dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ex2" />
+
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/semi_round_box_white"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toTopOf="@id/tab_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/info_top_bar">
+
+    </FrameLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabTextAppearance="@style/tab_text">
 
-        <ImageView
-            android:id="@+id/image_viewer"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/info_image_height"
-            android:contentDescription="@string/image_viewer"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ex2"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/title_viewer"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/info_title_height"
-            android:background="@android:color/darker_gray"
-            android:backgroundTint="#80000000"
-            android:backgroundTintMode="src_in"
-            app:layout_constraintBottom_toBottomOf="@+id/image_viewer"
-            tools:layout_editor_absoluteX="0dp">
-
-            <TextView
-                android:id="@+id/title_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/high_margin"
-                android:layout_marginTop="@dimen/low_margin"
-                android:layout_marginEnd="@dimen/high_margin"
-                android:fontFamily="@font/circle_jaedan"
-                android:text="@string/info_title"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/info_title_text_size"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/adress_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/high_margin"
-                android:layout_marginEnd="@dimen/high_margin"
-                android:fontFamily="@font/circle_jaedan"
-                android:inputType="textPostalAddress"
-                android:text="@string/info_address"
-                android:textColor="@color/colorPrimaryLightGrey"
-                android:textSize="@dimen/info_address_text_size"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title_view" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_container"
-            android:layout_width="match_parent"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_info"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/image_viewer"
-            app:tabIndicatorColor="@color/colorPrimary"
-            app:tabTextAppearance="@style/tab_text">
+            android:clickable="false"
+            android:text="정보" />
 
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:text="정보" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="위치" />
-        </com.google.android.material.tabs.TabLayout>
-
-        <FrameLayout
-            android:id="@+id/frame_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tab_container"
-            tools:layout_constraintTop_toBottomOf="@id/tab_container">
-
-            <TextView
-                android:id="@+id/text1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#4CAF50"
-                android:gravity="center"
-                android:text="TEXT 1"
-                android:visibility="visible" />
-
-            <TextView
-                android:id="@+id/text2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FF9800"
-                android:gravity="center"
-                android:text="TEXT 2"
-                android:visibility="invisible" />
-
-        </FrameLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="리뷰" />
+    </com.google.android.material.tabs.TabLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

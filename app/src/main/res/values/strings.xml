@@ -2,12 +2,19 @@
     <string name="app_name">hangangmongttang</string>
     <string name="app_name_korean">한강몽땅</string>
 
+    <string name="nickname">닉네임</string>
+    <string name="password">비밀번호</string>
+
     <string name="app_key">8b61fd803ff0a037f8f790ed0482a4f0</string>
     <string name="image_viewer">TODO</string>
     <string name="info_title">광나루 어린이 야구장</string>
     <string name="info_address">서울특별시 송파구 풍납동 118-8</string>
     <string name="info_content">광나루 한강공원에 위치해있는 어린이 야구장이다.</string>
     <string name="info_reserve_button">예약</string>
+    <string name="info_text">정보</string>
+    <string name="review_text">리뷰</string>
+    <string name="add_review_text">리뷰 작성</string>
+    <string name="review_hint">리뷰를 작성해 주세요</string>
 
     <string name="weather_error">날씨 정보를 불러올 수 없습니다</string>
     <string name ="dust_grade1">미세먼지</string>
