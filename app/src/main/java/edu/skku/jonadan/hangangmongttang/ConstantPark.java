@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class ConstantPark {
 
-    public static enum HANGANG_PARKS {
+    public enum HANGANG_PARKS {
             GWANGNARU, JAMSIL, TTUKSEOM, JAMWON, BANPO,
             ICHON, YEOUIDO, MANGWON, NANJI, GANGSEO, YANGHWA
     }

@@ -1,11 +1,18 @@
 package edu.skku.jonadan.hangangmongttang;
 
-import androidx.annotation.MainThread;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
@@ -13,7 +20,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,7 +30,6 @@ import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindAnim;
 import butterknife.BindDimen;
@@ -88,6 +93,11 @@ public class MapActivity extends AppCompatActivity {
 
     private final int DEFAULT_ZOOM_LEVEL = 3;
     private final double MARKING_SCOPE = 1.0;
+    private final int MARKER_SIZE = 100;
+
+    private enum FABS {
+        PARKING, TOILET, SHOP, WATER, ENTERTAIN, ATHELETIC
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -232,7 +242,21 @@ public class MapActivity extends AppCompatActivity {
         mapView.setCalloutBalloonAdapter(balloonAdapter);
 
         markerList = new ArrayList<>();
-        setMarker(ConstantPark.PARK_LIST);
+    }
+
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            drawable = (DrawableCompat.wrap(drawable)).mutate();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 
     private void setMap(Location location) {
@@ -245,7 +269,6 @@ public class MapActivity extends AppCompatActivity {
 
     private <T extends Location> void setMarker(ArrayList<T> locationArrayList) {
         double latitude, longitude;
-        removeAllMarkers();
         for (Location location : locationArrayList) {
             latitude = location.getLat();
             longitude = location.getLng();
@@ -253,17 +276,24 @@ public class MapActivity extends AppCompatActivity {
             marker.setItemName(location.getName());
             marker.setTag(location.getObjectId());
             marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
-            marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
-            marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
 
-//            For custom marker
-//
-//            marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
-//            marker.setCustomImageResourceId();
-//            marker.setCustomImageAutoscale(false);
-//            marker.setCustomImageAnchor();
+            // For custom marker
+            marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+            marker.setSelectedMarkerType(MapPOIItem.MarkerType.CustomImage);
+            marker.setCustomImageBitmap(
+                    Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(
+                            getApplicationContext(), R.drawable.ic_map_marker_not),
+                            MARKER_SIZE,MARKER_SIZE, true));
+            marker.setCustomSelectedImageBitmap(
+                    Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(
+                            getApplicationContext(), R.drawable.ic_map_marker_yes),
+                            MARKER_SIZE,MARKER_SIZE, true));
+            marker.setCustomImageAutoscale(true);
+            marker.setCustomImageAnchor(0.5f, 1.0f);
 
             markerList.add(marker);
+        }
+        for (MapPOIItem marker: markerList) {
             mapView.addPOIItem(marker);
         }
     }
@@ -297,6 +327,7 @@ public class MapActivity extends AppCompatActivity {
         menuParkingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                removeAllMarkers();
                 parkingLotList = ConstantPark.PARK_LIST.get(selectedParkId).getParkingLots();
                 setMarker(parkingLotList);
             }
@@ -305,9 +336,10 @@ public class MapActivity extends AppCompatActivity {
         menuToiletBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                removeAllMarkers();
                 for (int i = 0; i < 6; i++) {
                     Call<SeoulApiResult> call = apiProvider.callToilet(1000*i + 1);
-                    call.enqueue(callbacks.get(0));
+                    call.enqueue(callbacks.get(FABS.TOILET.ordinal()));
                 }
             }
         });
@@ -315,22 +347,35 @@ public class MapActivity extends AppCompatActivity {
         menuShopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                removeAllMarkers();
                 Call<SeoulApiResult> call = apiProvider.callShop();
-                call.enqueue(callbacks.get(1));
+                call.enqueue(callbacks.get(FABS.SHOP.ordinal()));
             }
         });
 
         menuWaterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                removeAllMarkers();
                 Call<SeoulApiResult> call = apiProvider.callWater();
-                call.enqueue(callbacks.get(2));
+                call.enqueue(callbacks.get(FABS.WATER.ordinal()));
             }
         });
     }
 
     private void initCallbacks() {
         callbacks = new ArrayList<>();
+        callbacks.add(new Callback<SeoulApiResult>() {
+            @Override
+            public void onResponse(Call<SeoulApiResult> call, Response<SeoulApiResult> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<SeoulApiResult> call, Throwable t) {
+
+            }
+        });
         callbacks.add(new Callback<SeoulApiResult>() {
             @Override
             public void onResponse(Call<SeoulApiResult> call, Response<SeoulApiResult> response) {
