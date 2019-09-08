@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="350dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/semi_round_box_white"
     android:orientation="vertical"
@@ -49,7 +49,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="300dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ex" />
+                app:srcCompat="@drawable/ex2" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,7 +76,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="주소" />
+                    android:text="주소"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/textView16"
@@ -97,7 +98,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="전화번호" />
+                    android:text="전화번호"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/textView18"
@@ -118,7 +120,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="볼거리" />
+                    android:text="볼거리"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/textView20"
@@ -139,7 +142,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="주요시설" />
+                    android:text="주요시설"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/textView22"
