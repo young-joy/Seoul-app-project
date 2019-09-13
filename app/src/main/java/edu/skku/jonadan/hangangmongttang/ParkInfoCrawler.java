@@ -95,8 +95,7 @@ public class ParkInfoCrawler {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            ((SplashActivity) SplashActivity.mContext).loaded();
-            //((MainActivity) mainContext).setData();
+            ((MainActivity) mainContext).setData();
         }
     }
 }
