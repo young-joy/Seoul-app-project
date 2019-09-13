@@ -30,7 +30,7 @@
     <dimen name="event_time_size">14sp</dimen>
 
     <!-- For Main Activity -->
-    <dimen name="bottom_drawer_height">370dp</dimen>
+    <dimen name="bottom_drawer_height">360dp</dimen>
     <!-- For Map Activity -->
     <dimen name="search_bar_ver_margin">24dp</dimen>
     <dimen name="search_bar_hor_margin">24dp</dimen>
