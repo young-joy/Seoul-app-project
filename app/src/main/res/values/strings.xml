@@ -10,11 +10,9 @@
     <string name="info_reserve_button">예약</string>
 
     <string name="weather_error">날씨 정보를 불러올 수 없습니다</string>
-    <string name="dust_grade1">미세먼지</string>
-    <string name="dust_grade2">초미세먼지</string>
+    <string name ="dust_grade1">미세먼지</string>
+    <string name ="dust_grade2">초미세먼지</string>
     <string name="gwangnaru_park">광나루 한강공원</string>
     <string name="todays_info">Today\'s Info</string>
     <string name="todays_weather">오늘의 날씨</string>
-
-    <string name="splash_text">Copyright 2019. YOUNG-JOY-TEAM All Rights Reserved.</string>
 </resources>
