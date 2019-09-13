@@ -9,8 +9,9 @@
         android:id="@+id/splash_logo"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        app:srcCompat="@drawable/ic_launcher_icon" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="130dp"
+        app:srcCompat="@drawable/ic_launcher_fg" />
 
     <TextView
         android:id="@+id/copyright"
@@ -22,4 +23,12 @@
         android:text="@string/splash_copyright"
         android:textColor="@color/colorPrimaryLight"
         android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/splash_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_launcher_bg" />
 </RelativeLayout>
