@@ -16,12 +16,20 @@ import java.util.HashMap;
 public class ParkInfoCrawler {
     private static String htmlUrl = "https://hangang.seoul.go.kr/";
     private static ArrayList<EventListItem> eventList = new ArrayList<>();
+    private static ArrayList<ParkListItem> parkList = new ArrayList<>();
     private static HashMap<String, String> weatherInfo = new HashMap<>();
+
     private static int events_cnt = 0;
+    private static int park_num = 11;
+    private static int park_cnt = 0;
     private static Context mainContext;
 
     public static void setMainContext(Context mainContext) {
         ParkInfoCrawler.mainContext = mainContext;
+    }
+
+    public static ArrayList<ParkListItem> getParkList() {
+        return parkList;
     }
 
     public static HashMap<String, String> getWeatherInfo() {
@@ -33,18 +41,25 @@ public class ParkInfoCrawler {
     }
 
     public static void start(){
+        eventList.clear();
+        parkList.clear();
+        weatherInfo.clear();
+
         JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask();
         jsoupAsyncTask.execute();
     }
 
     private static class JsoupAsyncTask extends AsyncTask<Void, Void, Void> {
+        private Document doc;
 
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                Log.d("jsoup_parser","start connection");
                 events_cnt = 0;
-                Document doc = Jsoup.connect(htmlUrl).get();
+                park_cnt = 0;
+
+                Log.d("jsoup_parser","start connection");
+                doc = Jsoup.connect(htmlUrl).get();
                 Log.d("jsoup_parser","finish connection");
 
                 //get event_info
@@ -53,7 +68,6 @@ public class ParkInfoCrawler {
                 Elements events_date = doc.select("p.right span.date");
                 Elements events_time = doc.select("p.right span.time");
 
-                eventList.clear(); 
                 for(Element e: events){
                     EventListItem item = new EventListItem();
 
@@ -80,6 +94,32 @@ public class ParkInfoCrawler {
                 Log.d("jsoup_parser_weather",weatherInfo.get("TEMP"));
                 Log.d("jsoup_parser_weather",weatherInfo.get("DUST-G1"));
                 Log.d("jsoup_parser_weather",weatherInfo.get("DUST-G2"));
+
+                //get park_info
+                for(;park_cnt<park_num;park_cnt++){
+                    ParkListItem item = new ParkListItem();
+
+                    Element park_name = doc.selectFirst("div.park_menu a.m"+new Integer(park_cnt+1).toString());
+                    Element park_view = doc.selectFirst("div.park_menu div.park_"+new Integer(park_cnt+1).toString()+" div.view img");
+                    Elements park_info = doc.select("div.park_menu div.park_"+new Integer(park_cnt+1).toString()+" ul.park_info li:not(span)");
+
+                    Log.d("jsoup_parser_park",park_name.text()+"한강공원");
+                    Log.d("jsoup_parser_park",park_view.attr("src"));
+                    Log.d("jsoup_parser_park",park_info.get(0).text().substring(2));
+                    Log.d("jsoup_parser_park",park_info.get(1).text().substring(4));
+                    Log.d("jsoup_parser_park",park_info.get(2).text().substring(3));
+                    Log.d("jsoup_parser_park",park_info.get(3).text().substring(4));
+
+                    item.setName(park_name.text().trim() + "한강공원");
+                    item.setImg_src(park_view.attr("src").trim());
+                    item.setLocation(park_info.get(0).text().trim().substring(2));
+                    item.setNumber(park_info.get(1).text().trim().substring(4));
+                    item.setAttraction(park_info.get(2).text().trim().substring(3));
+                    item.setFacility(park_info.get(3).text().trim().substring(4));
+
+                    parkList.add(item);
+                }
+
             }catch (Exception e){
                 e.printStackTrace();
             }

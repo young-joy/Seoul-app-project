@@ -3,6 +3,7 @@ package edu.skku.jonadan.hangangmongttang;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -98,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
     private HashMap<String, String> weatherInfo = new HashMap<>();
     private ArrayList<EventListItem> eventList = new ArrayList<>();
+    private ArrayList<ParkListItem> parkList = new ArrayList<>();
+
     private EventListAdapter eventListAdapter;
 
     private boolean park_layout_opened = false;
@@ -105,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
     final String api_key = "d0c498afb7199ff9bf703f95c14e007a";
     final int cnt = 5;
 
-    private BottomSheetDialog park_info_dialog;
+    private ParkInfoDialog park_info_dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +116,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        park_info_dialog = new BottomSheetDialog(MainActivity.this);
-        park_info_dialog.setContentView(R.layout.dialog_park_info);
+        park_info_dialog = new ParkInfoDialog();
 
         ParkInfoCrawler.setMainContext(MainActivity.this);
         ParkInfoCrawler.start();
@@ -139,20 +141,13 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                park_info_dialog.show();
+                park_info_dialog.show(getSupportFragmentManager(), "TAG");
                 
                 if(drawer_opened){
                     bottomDrawer.close();
                     drawer_opened = false;
                 }
 
-                ImageButton closeBtn = park_info_dialog.findViewById(R.id.close_btn);
-                closeBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        park_info_dialog.dismiss();
-                    }
-                });
                 park_layout_opened = true;
             }
         });
@@ -169,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
         //use parsed data
         weatherInfo = ParkInfoCrawler.getWeatherInfo();
         eventList = ParkInfoCrawler.getEventList();
+        parkList = ParkInfoCrawler.getParkList();
 
         eventListAdapter = new EventListAdapter(eventList);
         event_container.setAdapter(eventListAdapter);
@@ -177,6 +173,14 @@ public class MainActivity extends AppCompatActivity {
 
         dust_g1.setText(weatherInfo.get("DUST-G1"));
         dust_g2.setText(weatherInfo.get("DUST-G2"));
+
+        //temp code (set selected_park)
+        SelectedParkInfo.setName(parkList.get(0).getName());
+        SelectedParkInfo.setImg_src(parkList.get(0).getImg_src());
+        SelectedParkInfo.setLocation(parkList.get(0).getLocation());
+        SelectedParkInfo.setNumber(parkList.get(0).getNumber());
+        SelectedParkInfo.setAttraction(parkList.get(0).getAttraction());
+        SelectedParkInfo.setFacility(parkList.get(0).getFacility());
     }
 
     private void getWeather(){

@@ -7,16 +7,17 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher_icon"
         android:label="@string/app_name_korean"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_launcher_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".InfoActivity"></activity>
         <activity android:name=".AppInfoActivity"></activity>
         <activity android:name=".MapActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".InfoActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
