@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
-    private final int SplashTime = 2000;    // change to 0 if skipping is necessary.
+    private final int SplashTime = 2300;    // change to 0 if skipping is necessary.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

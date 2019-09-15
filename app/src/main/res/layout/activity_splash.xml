@@ -28,7 +28,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
+        android:fontFamily="@font/circle_jaedan"
         android:text="@string/splash_copyright"
         android:textColor="@android:color/white"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
 </RelativeLayout>
