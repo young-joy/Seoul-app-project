@@ -12,6 +12,7 @@
     <string name="info_content">광나루 한강공원에 위치해있는 어린이 야구장이다.</string>
     <string name="info_reserve_button">예약</string>
     <string name="info_text">정보</string>
+    <string name="confirm_park_info">공원 정보 확인하기</string>
     <string name="review_text">리뷰</string>
     <string name="add_review_text">리뷰 작성</string>
     <string name="review_hint">리뷰를 작성해 주세요</string>
