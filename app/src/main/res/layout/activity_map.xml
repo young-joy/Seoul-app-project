@@ -197,6 +197,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_menu" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/map_fab_cur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/fab_anchor_margin"
+            android:layout_marginBottom="@dimen/fab_anchor_margin"
+            android:backgroundTint="@color/colorAccent"
+            android:clickable="true"
+            android:focusable="true"
+            app:borderWidth="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/map_fab_menu"
+            app:srcCompat="@drawable/ic_compass_on" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
