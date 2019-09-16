@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="90" viewBox="0 0 160 90">
+  <g id="bg" transform="translate(-91 -255.52)">
+    <rect id="사각형_388" data-name="사각형 388" width="160" height="90" rx="10" transform="translate(91 255.52)" fill="#fddc35"/>
+    <rect id="사각형_389" data-name="사각형 389" width="120" height="24" rx="5" transform="translate(97 260.52)" fill="#fff"/>
+    <g id="icn_back" transform="translate(238.5 279.825) rotate(180)">
+      <line id="선_17" data-name="선 17" x1="7.874" y2="6.872" transform="translate(0 0)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.5"/>
+      <path id="패스_44" data-name="패스 44" d="M7.8,6.924,0,0" transform="translate(0 6.89)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.5"/>
+    </g>
+    <rect id="사각형_390" data-name="사각형 390" width="148" height="51" rx="5" transform="translate(97 289.52)" fill="#fff"/>
+  </g>
+</svg>
