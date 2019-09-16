@@ -94,11 +94,11 @@
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/map_fab_toilet"
+            android:id="@+id/map_fab_parking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_anchor_margin"
+            android:layout_marginBottom="@dimen/fab_anchor_margin"
             android:backgroundTint="@color/colorAccent"
             android:clickable="true"
             android:focusable="true"
@@ -106,14 +106,29 @@
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_toilet" />
+            app:srcCompat="@drawable/ic_parking" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/map_fab_toilet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/fab_anchor_margin"
+            android:layout_marginBottom="@dimen/fab_anchor_margin"
+            android:backgroundTint="@color/colorAccent"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="invisible"
+            app:borderWidth="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_toilet_color" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/map_fab_shop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_anchor_margin"
+            android:layout_marginBottom="@dimen/fab_anchor_margin"
             android:backgroundTint="@color/colorAccent"
             android:clickable="true"
             android:focusable="true"
@@ -121,14 +136,14 @@
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_shop" />
+            app:srcCompat="@drawable/ic_shop_color" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/map_fab_water"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_anchor_margin"
+            android:layout_marginBottom="@dimen/fab_anchor_margin"
             android:backgroundTint="@color/colorAccent"
             android:clickable="true"
             android:focusable="true"
@@ -136,14 +151,14 @@
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_water" />
+            app:srcCompat="@drawable/ic_water_color" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/map_fab_entertain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_anchor_margin"
+            android:layout_marginBottom="@dimen/fab_anchor_margin"
             android:backgroundTint="@color/colorAccent"
             android:clickable="true"
             android:focusable="true"
@@ -151,14 +166,14 @@
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_ent" />
+            app:srcCompat="@drawable/ic_ent_color" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/map_fab_athletic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_anchor_margin"
+            android:layout_marginBottom="@dimen/fab_anchor_margin"
             android:backgroundTint="@color/colorAccent"
             android:clickable="true"
             android:focusable="true"
@@ -166,14 +181,14 @@
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_athletic" />
+            app:srcCompat="@drawable/ic_athletic_color" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/map_fab_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_anchor_margin"
+            android:layout_marginBottom="@dimen/fab_anchor_margin"
             android:backgroundTint="@color/colorAccent"
             android:clickable="true"
             android:focusable="true"
@@ -182,18 +197,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_menu" />
 
-        <Button
-            android:id="@+id/map_info_btn"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/map_fab_cur"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/background_dark"
-            android:fontFamily="@font/bm_jua"
-            android:text="영민이"
-            android:textColor="@android:color/holo_red_dark"
-            app:layout_constraintBottom_toBottomOf="@+id/map_view"
-            app:layout_constraintEnd_toEndOf="@+id/map_view"
-            app:layout_constraintStart_toStartOf="@+id/map_view"
-            app:layout_constraintTop_toTopOf="@+id/map_view" />
+            android:layout_marginEnd="@dimen/fab_anchor_margin"
+            android:layout_marginBottom="@dimen/fab_anchor_margin"
+            android:backgroundTint="@color/colorAccent"
+            android:clickable="true"
+            android:focusable="true"
+            app:borderWidth="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/map_fab_menu"
+            app:srcCompat="@drawable/ic_compass_on" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

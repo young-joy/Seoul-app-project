@@ -29,6 +29,10 @@ public class CustomBalloonAdapter implements CalloutBalloonAdapter {
 
     @Override
     public View getCalloutBalloon(MapPOIItem mapPOIItem) {
+        mBalloon.setVisibility(View.VISIBLE);
+        if (mapPOIItem.getItemName().equals("")) {
+            mBalloon.setVisibility(View.INVISIBLE);
+        }
         badge.setImageResource(R.drawable.ic_search);
         title.setText(mapPOIItem.getItemName());
         return mBalloon;
@@ -36,6 +40,10 @@ public class CustomBalloonAdapter implements CalloutBalloonAdapter {
 
     @Override
     public View getPressedCalloutBalloon(MapPOIItem mapPOIItem) {
+        mBalloon.setVisibility(View.VISIBLE);
+        if (mapPOIItem.getItemName().equals("")) {
+            mBalloon.setVisibility(View.INVISIBLE);
+        }
         badge.setImageResource(R.drawable.ic_search);
         title.setText(mapPOIItem.getItemName());
         return mBalloon;

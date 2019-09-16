@@ -6,11 +6,20 @@
     android:background="@color/colorPrimary">
 
     <ImageView
+        android:id="@+id/splash_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitEnd"
+        app:srcCompat="@drawable/ic_launcher_bg" />
+
+    <ImageView
         android:id="@+id/splash_logo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        app:srcCompat="@drawable/ic_launcher_icon" />
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="140dp"
+        app:srcCompat="@drawable/ic_launcher_fg" />
 
     <TextView
         android:id="@+id/copyright"
@@ -19,7 +28,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
+        android:fontFamily="@font/circle_jaedan"
         android:text="@string/splash_copyright"
-        android:textColor="@color/colorPrimaryLight"
-        android:textSize="12sp" />
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
 </RelativeLayout>

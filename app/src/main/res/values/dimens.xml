@@ -5,6 +5,7 @@
     <dimen name="elevation">5dp</dimen>
     <dimen name="top_bar_height">56dp</dimen>
     <dimen name="fab_margin">12dp</dimen>
+    <dimen name="fab_anchor_margin">24dp</dimen>
     <dimen name="balloon_margin">5dp</dimen>
     <dimen name="high_margin">15dp</dimen>
     <dimen name="low_margin">9dp</dimen>
@@ -31,7 +32,7 @@
     <dimen name="event_time_size">14sp</dimen>
 
     <!-- For Main Activity -->
-    <dimen name="bottom_drawer_height">370dp</dimen>
+    <dimen name="bottom_drawer_height">360dp</dimen>
     <!-- For Map Activity -->
     <dimen name="search_bar_ver_margin">24dp</dimen>
     <dimen name="search_bar_hor_margin">24dp</dimen>
