@@ -551,6 +551,7 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 removeAllMarkers();
+                toiletList.clear();
                 for (int i = 0; i < 6; i++) {
                     Call<SeoulApiResult> call = apiProvider.callToilet(1000*i + 1);
                     call.enqueue(callbacks.get(FABS.TOILET.ordinal()));
@@ -562,6 +563,7 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 removeAllMarkers();
+                shopList.clear();
                 Call<SeoulApiResult> call = apiProvider.callShop();
                 call.enqueue(callbacks.get(FABS.SHOP.ordinal()));
             }
@@ -571,6 +573,7 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 removeAllMarkers();
+                waterList.clear();
                 Call<SeoulApiResult> call = apiProvider.callWater();
                 call.enqueue(callbacks.get(FABS.WATER.ordinal()));
             }
