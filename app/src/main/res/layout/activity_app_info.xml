@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AppInfoActivity">
+    android:background="@color/colorPrimaryLightGrey">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/map_top_bar"
+        android:id="@+id/appinfo_top_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/top_bar_height"
         android:background="@color/colorPrimary"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/back_btn"
+            android:id="@+id/appinfo_back_btn"
             android:layout_width="@dimen/small_icon_size"
             android:layout_height="@dimen/small_icon_size"
             android:layout_marginStart="@dimen/activity_min_margin"
@@ -44,18 +44,84 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/appinfo_top_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/appinfo_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/appinfo_top_elements"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/appinfo_icon"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/roundcorner"
+                app:srcCompat="@drawable/ic_launcher_icon" />
+
+            <TextView
+                android:id="@+id/appinfo_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/appinfo_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/circle_jaedan"
+                android:text="현재 버전 1.0.0" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="app info page"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map_top_bar" />
+        android:layout_marginTop="20dp"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/appinfo_top_Layout">
+
+        <Button
+            android:id="@+id/appinfo_btn1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@android:color/white"
+            android:fontFamily="@font/circle_jaedan"
+            android:text="공지사항"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/appinfo_btn2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@android:color/white"
+            android:fontFamily="@font/circle_jaedan"
+            android:text="피드백 보내기"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/appinfo_btn3"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@android:color/white"
+            android:fontFamily="@font/circle_jaedan"
+            android:text="정보동의 설정"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/appinfo_btn4"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@android:color/white"
+            android:fontFamily="@font/circle_jaedan"
+            android:text="오픈소스 라이센스"
+            android:textSize="16sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

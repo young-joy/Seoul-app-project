@@ -2,6 +2,8 @@
     <string name="app_name">hangangmongttang</string>
     <string name="app_name_korean">한강몽땅</string>
 
+    <string name="splash_copyright">Copyright 2019. YOUNG-JOY-TEAM All Rights Reserved.</string>
+
     <string name="nickname">닉네임</string>
     <string name="password">비밀번호</string>
 
