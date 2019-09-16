@@ -9,6 +9,7 @@
     <dimen name="high_margin">15dp</dimen>
     <dimen name="low_margin">9dp</dimen>
     <dimen name="drawer_margin">5dp</dimen>
+    <dimen name="status_bar_height">24dp</dimen>
     
     <!-- Related to icon size -->
     <dimen name="icon_size">30dp</dimen>
