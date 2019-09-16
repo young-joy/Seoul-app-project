@@ -39,6 +39,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//
+// TODO:
+//  - Dialog for no result
+//
 public class MapActivity extends AppCompatActivity {
 
     @BindView(R.id.map_back_btn)
@@ -320,6 +324,8 @@ public class MapActivity extends AppCompatActivity {
         fabList.add(menuAthleticBtn);
 
         toiletList = new ArrayList<>();
+        shopList = new ArrayList<>();
+        waterList = new ArrayList<>();
 
         constraintSet.clone(mapLayout);
         for (FloatingActionButton fab : fabList) {
@@ -409,7 +415,16 @@ public class MapActivity extends AppCompatActivity {
                     return;
                 }
                 SeoulApiResult result = response.body();
-                shopList = new ArrayList<Location>(result.getRow());
+                ArrayList<Location> shops = new ArrayList<Location>(result.getRow());
+                if (shops.size() > 0) {
+                    for (Location shop: shops) {
+                        if (getDistance(refLocation, shop) < MARKING_SCOPE) {
+                            shopList.add(shop);
+                        }
+                    }
+                } else {
+                    // No result
+                }
                 setMarker(shopList);
             }
 
@@ -426,7 +441,16 @@ public class MapActivity extends AppCompatActivity {
                     return;
                 }
                 SeoulApiResult result = response.body();
-                waterList = new ArrayList<Location>(result.getRow());
+                ArrayList<Location> waters = new ArrayList<Location>(result.getRow());
+                if (waters.size() > 0) {
+                    for (Location water: waters) {
+                        if (getDistance(refLocation, water) < MARKING_SCOPE) {
+                            waterList.add(water);
+                        }
+                    }
+                } else {
+                    // No result
+                }
                 setMarker(waterList);
             }
 
