@@ -1,11 +1,19 @@
 package edu.skku.jonadan.hangangmongttang;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +25,8 @@ import android.widget.ListView;
 import android.widget.SlidingDrawer;
 import android.widget.TextView;
 
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONException;
@@ -45,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     ConstraintLayout mainLayout;
     @BindView(R.id.drawer_layout)
     LinearLayout drawerLayout;
+
+    @BindView(R.id.imageView)
+    SubsamplingScaleImageView mapImageView;
 
     @BindView(R.id.bottom_drawer)
     SlidingDrawer bottomDrawer;
@@ -101,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<EventListItem> eventList = new ArrayList<>();
     private ArrayList<ParkListItem> parkList = new ArrayList<>();
 
+    private Bitmap mapImg;
+
     private EventListAdapter eventListAdapter;
 
     private boolean park_layout_opened = false;
@@ -120,6 +135,9 @@ public class MainActivity extends AppCompatActivity {
 
         ParkInfoCrawler.setMainContext(MainActivity.this);
         ParkInfoCrawler.start();
+
+        mapImg = getBitmapFromVectorDrawable(MainActivity.this, R.drawable.map_image);
+        mapImageView.setImage(ImageSource.bitmap(mapImg));
 
         // TODO: 2019-07-05 이미지 바꾸기
         parkBtn.setOnClickListener(new View.OnClickListener() {
@@ -367,4 +385,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable = AppCompatResources.getDrawable(context, drawableId);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            drawable = (DrawableCompat.wrap(drawable)).mutate();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
 }
