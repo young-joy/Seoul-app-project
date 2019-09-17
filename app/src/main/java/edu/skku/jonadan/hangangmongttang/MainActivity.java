@@ -175,12 +175,16 @@ public class MainActivity extends AppCompatActivity {
         dust_g2.setText(weatherInfo.get("DUST-G2"));
 
         //temp code (set selected_park)
-        SelectedParkInfo.setName(parkList.get(0).getName());
-        SelectedParkInfo.setImg_src(parkList.get(0).getImg_src());
-        SelectedParkInfo.setLocation(parkList.get(0).getLocation());
-        SelectedParkInfo.setNumber(parkList.get(0).getNumber());
-        SelectedParkInfo.setAttraction(parkList.get(0).getAttraction());
-        SelectedParkInfo.setFacility(parkList.get(0).getFacility());
+        try{
+            SelectedParkInfo.setName(parkList.get(0).getName());
+            SelectedParkInfo.setImg_src(parkList.get(0).getImg_src());
+            SelectedParkInfo.setLocation(parkList.get(0).getLocation());
+            SelectedParkInfo.setNumber(parkList.get(0).getNumber());
+            SelectedParkInfo.setAttraction(parkList.get(0).getAttraction());
+            SelectedParkInfo.setFacility(parkList.get(0).getFacility());
+        }catch(Exception e){
+
+        }
     }
 
     private void getWeather(){
