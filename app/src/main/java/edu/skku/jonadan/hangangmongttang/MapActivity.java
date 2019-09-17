@@ -8,6 +8,8 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Context;
@@ -55,6 +57,8 @@ public class MapActivity extends AppCompatActivity {
 
     @BindView(R.id.map_back_btn)
     ImageButton backBtn;
+    @BindView(R.id.map_park_list)
+    RecyclerView parkListView;
     @BindView(R.id.map_view)
     MapView mapView;
     @BindView(R.id.map_container)
@@ -89,6 +93,9 @@ public class MapActivity extends AppCompatActivity {
     private ArrayList<MapPOIItem> markerList;
     private CalloutBalloonAdapter balloonAdapter;
 
+    private MapParkListAdapter parkListAdapter;
+    private ArrayList<Park> parkList;
+
     private ArrayList<FloatingActionButton> fabList;
     private ConstraintSet constraintSet;
     private Boolean isFabOpen = false;
@@ -104,6 +111,7 @@ public class MapActivity extends AppCompatActivity {
     private ArrayList<Callback<SeoulApiResult>> callbacks;
 
     private int selectedParkId;
+    private MapPOIItem parkMarker;
     private Location refLocation;
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -128,6 +136,7 @@ public class MapActivity extends AppCompatActivity {
         selectedParkId = ConstantPark.HANGANG_PARKS.GWANGNARU.ordinal();
         refLocation = ConstantPark.PARK_LIST.get(selectedParkId);
 
+        initParkList();
         initFabs();
         initMap(refLocation);
 
@@ -144,16 +153,20 @@ public class MapActivity extends AppCompatActivity {
         curLocBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mapView.getCurrentLocationTrackingMode() == MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading) {
-                    mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
-                    mapView.setShowCurrentLocationMarker(false);
-                    curLocBtn.setImageResource(R.drawable.ic_compass_on);
-                } else {
-                    if (!checkLocationServicesStatus()) {
-                        showDialogForLocationServiceSetting();
-                    }else {
-                        checkRunTimePermission();
+                try {
+                    if (mapView.getCurrentLocationTrackingMode() == MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading) {
+                        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
+                        mapView.setShowCurrentLocationMarker(false);
+                        curLocBtn.setImageResource(R.drawable.ic_compass_on);
+                    } else {
+                        if (!checkLocationServicesStatus()) {
+                            showDialogForLocationServiceSetting();
+                        }else {
+                            checkRunTimePermission();
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -196,6 +209,46 @@ public class MapActivity extends AppCompatActivity {
                 isFabOpen = !isFabOpen;
             }
         });
+    }
+
+    private void initParkList() {
+        parkListAdapter = new MapParkListAdapter(ConstantPark.PARK_LIST.get(selectedParkId),
+                new MapParkListAdapter.ParkClickListener() {
+                    @Override
+                    public void movePark(Park park) {
+                        for (int idx = 0; idx < ConstantPark.PARK_LIST.size(); idx++) {
+                            if (ConstantPark.PARK_LIST.get(idx).getName().equals(park.getName())) {
+                                selectedParkId = idx;
+                                break;
+                            }
+                        }
+                        refLocation = park;
+                        setMap(park);
+
+                        mapView.removePOIItem(parkMarker);
+                        parkMarker = new MapPOIItem();
+                        parkMarker.setItemName("");
+                        parkMarker.setTag(park.getObjectId());
+                        parkMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(park.getLat(), park.getLng()));
+
+                        // For custom marker
+                        parkMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+                        parkMarker.setSelectedMarkerType(MapPOIItem.MarkerType.CustomImage);
+                        parkMarker.setCustomImageBitmap(
+                                Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(
+                                        getApplicationContext(), R.drawable.ic_map_marker_park),
+                                        MARKER_SIZE,MARKER_SIZE, true));
+                        parkMarker.setCustomSelectedImageBitmap(
+                                Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(
+                                        getApplicationContext(), R.drawable.ic_map_marker_park),
+                                        MARKER_SIZE,MARKER_SIZE, true));
+                        parkMarker.setCustomImageAutoscale(true);
+                        parkMarker.setCustomImageAnchor(0.5f, 1.0f);
+                        mapView.addPOIItem(parkMarker);
+                    }
+                });
+        parkListView.setAdapter(parkListAdapter);
+        parkListView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void initMap(Location location) {
@@ -252,7 +305,6 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onCurrentLocationUpdate(MapView mapView, MapPoint mapPoint, float v) {
                 MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
-                refLocation = new Location(0, "", mapPointGeo.latitude, mapPointGeo.longitude);
             }
 
             @Override
@@ -305,6 +357,26 @@ public class MapActivity extends AppCompatActivity {
         mapView.setCalloutBalloonAdapter(balloonAdapter);
 
         markerList = new ArrayList<>();
+
+        parkMarker = new MapPOIItem();
+        parkMarker.setItemName("");
+        parkMarker.setTag(location.getObjectId());
+        parkMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(location.getLat(), location.getLng()));
+
+        // For custom marker
+        parkMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+        parkMarker.setSelectedMarkerType(MapPOIItem.MarkerType.CustomImage);
+        parkMarker.setCustomImageBitmap(
+                Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(
+                        getApplicationContext(), R.drawable.ic_map_marker_park),
+                        MARKER_SIZE,MARKER_SIZE, true));
+        parkMarker.setCustomSelectedImageBitmap(
+                Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(
+                        getApplicationContext(), R.drawable.ic_map_marker_park),
+                        MARKER_SIZE,MARKER_SIZE, true));
+        parkMarker.setCustomImageAutoscale(true);
+        parkMarker.setCustomImageAnchor(0.5f, 1.0f);
+        mapView.addPOIItem(parkMarker);
     }
 
     @Override
