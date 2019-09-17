@@ -8,6 +8,8 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Context;
@@ -55,6 +57,8 @@ public class MapActivity extends AppCompatActivity {
 
     @BindView(R.id.map_back_btn)
     ImageButton backBtn;
+    @BindView(R.id.map_park_list)
+    RecyclerView parkListView;
     @BindView(R.id.map_view)
     MapView mapView;
     @BindView(R.id.map_container)
@@ -88,6 +92,9 @@ public class MapActivity extends AppCompatActivity {
     private MapView.POIItemEventListener markerListener;
     private ArrayList<MapPOIItem> markerList;
     private CalloutBalloonAdapter balloonAdapter;
+
+    private MapParkListAdapter parkListAdapter;
+    private ArrayList<Park> parkList;
 
     private ArrayList<FloatingActionButton> fabList;
     private ConstraintSet constraintSet;
@@ -128,6 +135,7 @@ public class MapActivity extends AppCompatActivity {
         selectedParkId = ConstantPark.HANGANG_PARKS.GWANGNARU.ordinal();
         refLocation = ConstantPark.PARK_LIST.get(selectedParkId);
 
+        initParkList();
         initFabs();
         initMap(refLocation);
 
@@ -196,6 +204,25 @@ public class MapActivity extends AppCompatActivity {
                 isFabOpen = !isFabOpen;
             }
         });
+    }
+
+    private void initParkList() {
+        parkListAdapter = new MapParkListAdapter(ConstantPark.PARK_LIST.get(selectedParkId),
+                new MapParkListAdapter.ParkClickListener() {
+                    @Override
+                    public void movePark(Park park) {
+                        for (int idx = 0; idx < ConstantPark.PARK_LIST.size(); idx++) {
+                            if (ConstantPark.PARK_LIST.get(idx).getName().equals(park.getName())) {
+                                selectedParkId = idx;
+                                break;
+                            }
+                        }
+                        refLocation = park;
+                        setMap(park);
+                    }
+                });
+        parkListView.setAdapter(parkListAdapter);
+        parkListView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void initMap(Location location) {

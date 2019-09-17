@@ -21,6 +21,7 @@
     <!-- Related to text size -->
     <dimen name="title_text_size">28sp</dimen>
     <dimen name="normal_text_size">20sp</dimen>
+    <dimen name="map_park_title_text_size">24sp</dimen>
     <dimen name="balloon_text_size">12sp</dimen>
     <dimen name="info_title_text_size">30sp</dimen>
     <dimen name="info_address_text_size">15sp</dimen>

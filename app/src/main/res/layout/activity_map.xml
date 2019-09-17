@@ -58,8 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <LinearLayout
-            android:id="@+id/map_search_bar_container"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/map_park_list"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/search_bar_hor_margin"
@@ -71,27 +71,7 @@
             android:padding="@dimen/search_bar_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <EditText
-                android:id="@+id/map_search_bar"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="24"
-                android:background="@android:color/transparent"
-                android:inputType="textPersonName"
-                android:textSize="@dimen/normal_text_size" />
-
-            <ImageButton
-                android:id="@+id/map_search_btn"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_search" />
-        </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/map_fab_parking"
