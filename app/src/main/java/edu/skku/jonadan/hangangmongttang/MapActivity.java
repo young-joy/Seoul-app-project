@@ -152,16 +152,20 @@ public class MapActivity extends AppCompatActivity {
         curLocBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mapView.getCurrentLocationTrackingMode() == MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading) {
-                    mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
-                    mapView.setShowCurrentLocationMarker(false);
-                    curLocBtn.setImageResource(R.drawable.ic_compass_on);
-                } else {
-                    if (!checkLocationServicesStatus()) {
-                        showDialogForLocationServiceSetting();
-                    }else {
-                        checkRunTimePermission();
+                try {
+                    if (mapView.getCurrentLocationTrackingMode() == MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading) {
+                        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
+                        mapView.setShowCurrentLocationMarker(false);
+                        curLocBtn.setImageResource(R.drawable.ic_compass_on);
+                    } else {
+                        if (!checkLocationServicesStatus()) {
+                            showDialogForLocationServiceSetting();
+                        }else {
+                            checkRunTimePermission();
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
