@@ -111,6 +111,7 @@ public class MapActivity extends AppCompatActivity {
     private ArrayList<Callback<SeoulApiResult>> callbacks;
 
     private int selectedParkId;
+    private MapPOIItem parkMarker;
     private Location refLocation;
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -223,6 +224,27 @@ public class MapActivity extends AppCompatActivity {
                         }
                         refLocation = park;
                         setMap(park);
+
+                        mapView.removePOIItem(parkMarker);
+                        parkMarker = new MapPOIItem();
+                        parkMarker.setItemName("");
+                        parkMarker.setTag(park.getObjectId());
+                        parkMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(park.getLat(), park.getLng()));
+
+                        // For custom marker
+                        parkMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+                        parkMarker.setSelectedMarkerType(MapPOIItem.MarkerType.CustomImage);
+                        parkMarker.setCustomImageBitmap(
+                                Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(
+                                        getApplicationContext(), R.drawable.ic_map_marker_park),
+                                        MARKER_SIZE,MARKER_SIZE, true));
+                        parkMarker.setCustomSelectedImageBitmap(
+                                Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(
+                                        getApplicationContext(), R.drawable.ic_map_marker_park),
+                                        MARKER_SIZE,MARKER_SIZE, true));
+                        parkMarker.setCustomImageAutoscale(true);
+                        parkMarker.setCustomImageAnchor(0.5f, 1.0f);
+                        mapView.addPOIItem(parkMarker);
                     }
                 });
         parkListView.setAdapter(parkListAdapter);
@@ -335,6 +357,26 @@ public class MapActivity extends AppCompatActivity {
         mapView.setCalloutBalloonAdapter(balloonAdapter);
 
         markerList = new ArrayList<>();
+
+        parkMarker = new MapPOIItem();
+        parkMarker.setItemName("");
+        parkMarker.setTag(location.getObjectId());
+        parkMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(location.getLat(), location.getLng()));
+
+        // For custom marker
+        parkMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+        parkMarker.setSelectedMarkerType(MapPOIItem.MarkerType.CustomImage);
+        parkMarker.setCustomImageBitmap(
+                Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(
+                        getApplicationContext(), R.drawable.ic_map_marker_park),
+                        MARKER_SIZE,MARKER_SIZE, true));
+        parkMarker.setCustomSelectedImageBitmap(
+                Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(
+                        getApplicationContext(), R.drawable.ic_map_marker_park),
+                        MARKER_SIZE,MARKER_SIZE, true));
+        parkMarker.setCustomImageAutoscale(true);
+        parkMarker.setCustomImageAnchor(0.5f, 1.0f);
+        mapView.addPOIItem(parkMarker);
     }
 
     @Override

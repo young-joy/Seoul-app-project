@@ -8,4 +8,5 @@
     <color name="colorAccent">#FDDC35</color>
     <color name="colorAccentDark">#c6ab00</color>
     <color name="colorBackgroundWhite">#ffffffff</color>
+    <color name="colorParkGreen">#2E943E</color>
 </resources>
