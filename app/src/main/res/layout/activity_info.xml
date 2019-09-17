@@ -10,6 +10,7 @@
         android:id="@+id/info_top_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/top_bar_height"
+        android:layout_marginTop="@dimen/status_bar_height"
         android:elevation="@dimen/elevation"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
