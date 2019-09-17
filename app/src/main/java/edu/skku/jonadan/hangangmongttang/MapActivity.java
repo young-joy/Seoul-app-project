@@ -112,6 +112,7 @@ public class MapActivity extends AppCompatActivity {
 
     private int selectedParkId;
     private MapPOIItem parkMarker;
+    private MapPOIItem curMarker;
     private Location refLocation;
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -153,20 +154,10 @@ public class MapActivity extends AppCompatActivity {
         curLocBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    if (mapView.getCurrentLocationTrackingMode() == MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading) {
-                        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
-                        mapView.setShowCurrentLocationMarker(false);
-                        curLocBtn.setImageResource(R.drawable.ic_compass_on);
-                    } else {
-                        if (!checkLocationServicesStatus()) {
-                            showDialogForLocationServiceSetting();
-                        }else {
-                            checkRunTimePermission();
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (!checkLocationServicesStatus()) {
+                    showDialogForLocationServiceSetting();
+                } else {
+                    checkRunTimePermission();
                 }
             }
         });
@@ -305,6 +296,33 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onCurrentLocationUpdate(MapView mapView, MapPoint mapPoint, float v) {
                 MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
+
+                if (curMarker != null) {
+                    mapView.removePOIItem(curMarker);
+                }
+                
+                curMarker = new MapPOIItem();
+                curMarker.setItemName("");
+                curMarker.setTag(0);
+                curMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude));
+
+                // For custom marker
+                curMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+                curMarker.setSelectedMarkerType(MapPOIItem.MarkerType.CustomImage);
+                curMarker.setCustomImageBitmap(
+                        Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(
+                                getApplicationContext(), R.drawable.ic_map_marker_user),
+                                MARKER_SIZE,MARKER_SIZE, true));
+                curMarker.setCustomSelectedImageBitmap(
+                        Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(
+                                getApplicationContext(), R.drawable.ic_map_marker_user),
+                                MARKER_SIZE,MARKER_SIZE, true));
+                curMarker.setCustomImageAutoscale(true);
+                curMarker.setCustomImageAnchor(0.5f, 1.0f);
+                mapView.addPOIItem(curMarker);
+
+                mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
+                mapView.setShowCurrentLocationMarker(false);
             }
 
             @Override
@@ -472,7 +490,6 @@ public class MapActivity extends AppCompatActivity {
 
             // 3.  위치 값을 가져올 수 있음
             mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
-            curLocBtn.setImageResource(R.drawable.ic_compass_off);
 
 
         } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
