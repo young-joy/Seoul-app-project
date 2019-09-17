@@ -283,7 +283,6 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onCurrentLocationUpdate(MapView mapView, MapPoint mapPoint, float v) {
                 MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
-                refLocation = new Location(0, "", mapPointGeo.latitude, mapPointGeo.longitude);
             }
 
             @Override
