@@ -2,7 +2,6 @@ package edu.skku.jonadan.hangangmongttang;
 
 import android.app.Dialog;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,7 +20,7 @@ public class ParkInfoDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_park_info_new, container, false);
+        View view = inflater.inflate(R.layout.dialog_park_info, container, false);
 
         Dialog dialog = getDialog();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
