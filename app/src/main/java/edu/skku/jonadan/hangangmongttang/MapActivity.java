@@ -161,12 +161,16 @@ public class MapActivity extends AppCompatActivity {
                     } else {
                         if (!checkLocationServicesStatus()) {
                             showDialogForLocationServiceSetting();
-                        }else {
+                        } else {
                             checkRunTimePermission();
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    if (!checkLocationServicesStatus()) {
+                        showDialogForLocationServiceSetting();
+                    } else {
+                        checkRunTimePermission();
+                    }
                 }
             }
         });
