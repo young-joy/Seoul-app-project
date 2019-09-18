@@ -45,6 +45,7 @@ public class ParkInfoDialog extends DialogFragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), MapActivity.class);
                 startActivity(intent);
+                dismiss();
             }
         });
         return view;

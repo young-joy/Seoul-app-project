@@ -5,11 +5,9 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.drawable.DrawableCompat;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -26,8 +24,6 @@ import android.widget.SlidingDrawer;
 import android.widget.TextView;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.drawer_layout)
     LinearLayout drawerLayout;
 
-    @BindView(R.id.imageView)
-    SubsamplingScaleImageView mapImageView;
+    @BindView(R.id.map_image_view)
+    PinView mapImageView;
 
     @BindView(R.id.bottom_drawer)
     SlidingDrawer bottomDrawer;
@@ -135,7 +131,16 @@ public class MainActivity extends AppCompatActivity {
         ParkInfoCrawler.start();
 
         mapImg = getBitmapFromVectorDrawable(MainActivity.this, R.drawable.map_image);
+
         mapImageView.setImage(ImageSource.bitmap(mapImg));
+        mapImageView.setZoomEnabled(true);
+        mapImageView.setPanEnabled(true);
+
+        ArrayList<MapPin> MapPins = new ArrayList();
+        //temp pins
+        MapPins.add(new MapPin(1718f, 581f, 1));
+        MapPins.add(new MapPin(500f, 681f, 2));
+        mapImageView.setPins(MapPins);
 
         infoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
