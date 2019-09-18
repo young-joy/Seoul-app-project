@@ -1,12 +1,14 @@
 package edu.skku.jonadan.hangangmongttang;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 public class ParkInfoDialog extends DialogFragment {
+    ImageButton closeBtn;
+    Button mapBtn;
+
     public ParkInfoDialog() {
     }
 
@@ -25,11 +30,21 @@ public class ParkInfoDialog extends DialogFragment {
         Dialog dialog = getDialog();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        ImageButton closeBtn = view.findViewById(R.id.btn_close);
+        closeBtn = view.findViewById(R.id.btn_close);
+        mapBtn = view.findViewById(R.id.btn_map);
+
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
+            }
+        });
+
+        mapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MapActivity.class);
+                startActivity(intent);
             }
         });
         return view;

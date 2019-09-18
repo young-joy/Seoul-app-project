@@ -44,8 +44,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 /// TODO: 2019-08-19 modify layout(drawer:linear->constraint), add event info  
 public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.btn_park)
-    ImageButton parkBtn;
     @BindView(R.id.button)
     Button button;
     @BindView(R.id.app_info_btn)
@@ -138,15 +136,6 @@ public class MainActivity extends AppCompatActivity {
 
         mapImg = getBitmapFromVectorDrawable(MainActivity.this, R.drawable.map_image);
         mapImageView.setImage(ImageSource.bitmap(mapImg));
-
-        // TODO: 2019-07-05 이미지 바꾸기
-        parkBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MapActivity.class);
-                startActivity(intent);
-            }
-        });
 
         infoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
