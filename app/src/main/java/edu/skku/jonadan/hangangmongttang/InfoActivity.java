@@ -1,5 +1,6 @@
 package edu.skku.jonadan.hangangmongttang;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
@@ -14,10 +15,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +38,11 @@ public class InfoActivity extends AppCompatActivity {
     TextView stateText;
     @BindView(R.id.info_back_btn)
     ImageButton backBtn;
+    @BindView(R.id.image_container)
+    ViewPager imageContainer;
+    @BindView(R.id.tab_layout)
+    TabLayout imageTab;
+
 
     InfoFragment infoFragment;
     ReviewFragment reviewFragment;
@@ -43,6 +53,8 @@ public class InfoActivity extends AppCompatActivity {
     private ConstraintSet reviseConstraintSet = new ConstraintSet();
     private ConstraintSet resetConstraintSet = new ConstraintSet();
 
+    private ArrayList<Integer> imageList;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +62,16 @@ public class InfoActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_info);
         ButterKnife.bind(this);
+
+        // set viewPager
+        imageList = new ArrayList<>();
+        imageList.add(R.drawable.turtle);
+        imageList.add(R.drawable.turtle);
+        imageList.add(R.drawable.turtle);
+
+        InfoPagerAdapter infoPagerAdapter = new InfoPagerAdapter(InfoActivity.this, imageList);
+        imageContainer.setAdapter(infoPagerAdapter);
+        imageTab.setupWithViewPager(imageContainer, true);
 
         reviseConstraintSet.clone(constraintLayout);
         resetConstraintSet.clone(constraintLayout);

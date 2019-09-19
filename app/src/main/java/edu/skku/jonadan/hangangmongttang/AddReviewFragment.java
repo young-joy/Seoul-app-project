@@ -60,7 +60,7 @@ public class AddReviewFragment extends DialogFragment {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismiss(); 
+                dismiss();
             }
         });
 

@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ex2" />
+                app:srcCompat="@drawable/turtle" />
 
             <LinearLayout
                 android:layout_width="match_parent"
