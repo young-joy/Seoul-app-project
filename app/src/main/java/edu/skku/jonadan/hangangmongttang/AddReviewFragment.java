@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ public class AddReviewFragment extends DialogFragment {
     private EditText passwordEdit;
     private RatingBar ratingEdit;
     private Button addBtn;
+    private ImageButton backBtn;
 
     private float rating;
     private String user;
@@ -53,6 +55,14 @@ public class AddReviewFragment extends DialogFragment {
         passwordEdit = view.findViewById(R.id.edit_pw);
         ratingEdit = view.findViewById(R.id.ratingBar);
         addBtn = view.findViewById(R.id.btn_add);
+        backBtn = view.findViewById(R.id.btn_back);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss(); 
+            }
+        });
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
