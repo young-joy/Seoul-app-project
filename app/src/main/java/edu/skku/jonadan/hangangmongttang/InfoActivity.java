@@ -122,6 +122,8 @@ public class InfoActivity extends AppCompatActivity {
 
         switch (index) {
             case 0 :
+                imageTab.setupWithViewPager(imageContainer, true);
+
                 transition.setDuration(300);
                 transition.setInterpolator(new AccelerateDecelerateInterpolator());
                 TransitionManager.beginDelayedTransition(constraintLayout, transition);
@@ -133,6 +135,8 @@ public class InfoActivity extends AppCompatActivity {
                 stateText.setText(getString(R.string.info_text));
                 break ;
             case 1 :
+                imageTab.removeAllTabs();
+
                 reviseConstraintSet.setMargin(R.id.container, ConstraintSet.TOP, 10);
                 transition.setDuration(300);
                 transition.setInterpolator(new AccelerateDecelerateInterpolator());
