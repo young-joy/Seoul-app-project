@@ -620,6 +620,8 @@ public class MapActivity extends AppCompatActivity {
         toiletList = new ArrayList<>();
         shopList = new ArrayList<>();
         waterList = new ArrayList<>();
+        entertainList = new ArrayList<>();
+        athleticList = new ArrayList<>();
 
         constraintSet.clone(mapLayout);
         for (FloatingActionButton fab : fabList) {
@@ -641,8 +643,8 @@ public class MapActivity extends AppCompatActivity {
             public void onClick(View view) {
                 removeAllMarkers();
                 toiletList.clear();
-                for (int i = 0; i < 6; i++) {
-                    Call<SeoulApiResult> call = apiProvider.callToilet(1000*i + 1);
+                ArrayList<Call<SeoulApiResult>> calls = apiProvider.callToilet();
+                for (Call call: calls) {
                     call.enqueue(callbacks.get(FABS.TOILET.ordinal()));
                 }
             }
@@ -655,6 +657,30 @@ public class MapActivity extends AppCompatActivity {
                 shopList.clear();
                 Call<SeoulApiResult> call = apiProvider.callShop();
                 call.enqueue(callbacks.get(FABS.SHOP.ordinal()));
+            }
+        });
+
+        menuEntertainBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeAllMarkers();
+                entertainList.clear();
+                ArrayList<Call<SeoulApiResult>> calls = apiProvider.callEntertain();
+                for (Call call: calls) {
+                    call.enqueue(callbacks.get(FABS.ENTERTAIN.ordinal()));
+                }
+            }
+        });
+
+        menuAthleticBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeAllMarkers();
+                athleticList.clear();
+                ArrayList<Call<SeoulApiResult>> calls = apiProvider.callAthletic();
+                for (Call call: calls) {
+                    call.enqueue(callbacks.get(FABS.ATHELETIC.ordinal()));
+                }
             }
         });
 
@@ -690,7 +716,7 @@ public class MapActivity extends AppCompatActivity {
                     return;
                 }
                 SeoulApiResult result = response.body();
-                ArrayList<Location> toilets = new ArrayList<Location>(result.getRow());
+                ArrayList<Location> toilets = result.getService().getItems();
                 for (Location toilet: toilets) {
                     if (getDistance(refLocation, toilet) < MARKING_SCOPE) {
                         toiletList.add(toilet);
@@ -712,7 +738,7 @@ public class MapActivity extends AppCompatActivity {
                     return;
                 }
                 SeoulApiResult result = response.body();
-                ArrayList<Location> shops = new ArrayList<Location>(result.getRow());
+                ArrayList<Location> shops = result.getService().getItems();
                 if (shops.size() > 0) {
                     for (Location shop: shops) {
                         if (getDistance(refLocation, shop) < MARKING_SCOPE) {
@@ -738,7 +764,7 @@ public class MapActivity extends AppCompatActivity {
                     return;
                 }
                 SeoulApiResult result = response.body();
-                ArrayList<Location> waters = new ArrayList<Location>(result.getRow());
+                ArrayList<Location> waters = result.getService().getItems();
                 if (waters.size() > 0) {
                     for (Location water: waters) {
                         if (getDistance(refLocation, water) < MARKING_SCOPE) {
@@ -749,6 +775,58 @@ public class MapActivity extends AppCompatActivity {
                     // No result
                 }
                 setMarker(waterList);
+            }
+
+            @Override
+            public void onFailure(Call<SeoulApiResult> call, Throwable t) {
+                Log.d("Callback", "" + t);
+            }
+        });
+        callbacks.add(new Callback<SeoulApiResult>() {
+            @Override
+            public void onResponse(Call<SeoulApiResult> call, Response<SeoulApiResult> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("Callback", "Response fail");
+                    return;
+                }
+                SeoulApiResult result = response.body();
+                ArrayList<Location> entertains = result.getService().getItems();
+                if (entertains.size() > 0) {
+                    for (Location entertain: entertains) {
+                        if (getDistance(refLocation, entertain) < MARKING_SCOPE) {
+                            entertainList.add(entertain);
+                        }
+                    }
+                } else {
+                    // No result
+                }
+                setMarker(entertainList);
+            }
+
+            @Override
+            public void onFailure(Call<SeoulApiResult> call, Throwable t) {
+                Log.d("Callback", "" + t);
+            }
+        });
+        callbacks.add(new Callback<SeoulApiResult>() {
+            @Override
+            public void onResponse(Call<SeoulApiResult> call, Response<SeoulApiResult> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("Callback", "Response fail");
+                    return;
+                }
+                SeoulApiResult result = response.body();
+                ArrayList<Location> athletics = result.getService().getItems();
+                if (athletics.size() > 0) {
+                    for (Location athletic: athletics) {
+                        if (getDistance(refLocation, athletic) < MARKING_SCOPE) {
+                            athleticList.add(athletic);
+                        }
+                    }
+                } else {
+                    // No result
+                }
+                setMarker(athleticList);
             }
 
             @Override

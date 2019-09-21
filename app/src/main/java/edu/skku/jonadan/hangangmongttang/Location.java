@@ -1,20 +1,29 @@
 package edu.skku.jonadan.hangangmongttang;
 
-import com.tickaroo.tikxml.annotation.PropertyElement;
-import com.tickaroo.tikxml.annotation.Xml;
 
-@Xml
+import com.google.gson.annotations.SerializedName;
+
 public class Location {
 
-    @PropertyElement(name="OBJECTID")
+    @SerializedName(value = "OBJECTID")
     private int objectId;
 
+    @SerializedName(value="ENAME", alternate={
+            // Entertain
+            "WRNAME", "BKNAME", "DUNAME", "WTAXINAME",
+
+            // Athletic
+            "RWNAME", "INNAME", "JONAME", "TRNAME", "BADNAME"
+    })
     private String name = "";
 
-    @PropertyElement(name="LAT")
+    @SerializedName(value = "TEL")
+    private String tel = "";
+
+    @SerializedName(value = "LAT")
     private double lat;
 
-    @PropertyElement(name="LNG")
+    @SerializedName(value = "LNG")
     private double lng;
 
     public Location() {
@@ -41,6 +50,14 @@ public class Location {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
     public double getLat() {

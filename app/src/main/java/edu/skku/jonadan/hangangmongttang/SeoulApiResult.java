@@ -1,22 +1,44 @@
 package edu.skku.jonadan.hangangmongttang;
 
-import com.tickaroo.tikxml.annotation.Element;
-import com.tickaroo.tikxml.annotation.Xml;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.List;
 
-@Xml
 public class SeoulApiResult {
 
-    @Element(name="row")
-    private List<Location> row;
+    @SerializedName(value = "GeoInfoPublicToiletWGS", alternate={
+            "GeoInfoStoreWGS", "GeoInfoDrinkWaterWGS",
 
-    public List<Location> getRow() {
-        return row;
+            // Entertain
+            "GeoInfoQuayWGS", "GeoInfoWaterLeisureWGS",
+            "GeoInfoBoatStorageWGS", "GeoInfoDuckBoatWGS",
+            "GeoInfoWaterTaxiWGS", "GeoInfoPlaygroundWGS",
+
+            // Athletic
+            "GeoInfoRockClimbWGS", "GeoInfoInlineSkateWGS",
+            "GeoInfoJokguWGS", "GeoInfoTrackWGS", "GeoInfoBadmintonWGS"
+    })
+    private SeoulApiService service;
+
+    public SeoulApiService getService() {
+        return service;
     }
 
-    public void setRow(List<Location> row) {
-        this.row = row;
+    public void setService(SeoulApiService service) {
+        this.service = service;
+    }
+
+    public class SeoulApiService {
+
+        @SerializedName(value = "row")
+        private ArrayList<Location> items;
+
+        public ArrayList<Location> getItems() {
+            return items;
+        }
+
+        public void setItems(ArrayList<Location> items) {
+            this.items = items;
+        }
     }
 }
