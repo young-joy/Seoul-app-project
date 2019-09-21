@@ -796,6 +796,9 @@ public class MapActivity extends AppCompatActivity {
                 if (entertains.size() > 0) {
                     for (Location entertain: entertains) {
                         if (getDistance(refLocation, entertain) < MARKING_SCOPE) {
+                            if (entertain.getName().equals("")) {
+                                entertain.setName("어린이 놀이터");
+                            }
                             entertainList.add(entertain);
                         }
                     }
