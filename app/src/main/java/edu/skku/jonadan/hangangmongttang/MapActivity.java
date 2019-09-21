@@ -52,6 +52,8 @@ import retrofit2.Response;
 //
 // TODO:
 //  - Dialog for no result
+//  - Implement function for searching location matched with marker
+//  - Describe OBJECTID rule
 //
 public class MapActivity extends AppCompatActivity {
 
@@ -345,7 +347,7 @@ public class MapActivity extends AppCompatActivity {
         markerListener = new MapView.POIItemEventListener() {
             @Override
             public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
-
+                // search location from marker
             }
 
             @Override

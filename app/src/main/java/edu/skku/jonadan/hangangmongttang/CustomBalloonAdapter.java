@@ -15,33 +15,39 @@ import butterknife.ButterKnife;
 
 public class CustomBalloonAdapter implements CalloutBalloonAdapter {
 
-    @BindView(R.id.balloon_title)
-    TextView title;
-
-    private final View mBalloon;
+    private View mBalloon;
+    private Context context;
 
     public CustomBalloonAdapter(Context context) {
-        mBalloon = LayoutInflater.from(context).inflate(R.layout.custom_balloon, null);
-        ButterKnife.bind(this, mBalloon);
+        this.context = context;
     }
 
     @Override
     public View getCalloutBalloon(MapPOIItem mapPOIItem) {
-        mBalloon.setVisibility(View.VISIBLE);
-        if (mapPOIItem.getItemName().equals("")) {
-            mBalloon.setVisibility(View.INVISIBLE);
+        if (mapPOIItem.getItemName().contains("주차장")) {
+            mBalloon = LayoutInflater.from(context).inflate(R.layout.custom_balloon_park, null);
+            TextView title = mBalloon.findViewById(R.id.balloon_park_title);
+            TextView state = mBalloon.findViewById(R.id.ballon_park_state);
+
+            mBalloon.setVisibility(View.VISIBLE);
+            title.setText(mapPOIItem.getItemName());
+        } else {
+            mBalloon = LayoutInflater.from(context).inflate(R.layout.custom_balloon, null);
+            TextView title = mBalloon.findViewById(R.id.balloon_title);
+
+            mBalloon.setVisibility(View.VISIBLE);
+            if (mapPOIItem.getItemName().equals("")) {
+                mBalloon.setVisibility(View.INVISIBLE);
+            } else {
+                title.setText(mapPOIItem.getItemName());
+            }
         }
-        title.setText(mapPOIItem.getItemName());
+
         return mBalloon;
     }
 
     @Override
     public View getPressedCalloutBalloon(MapPOIItem mapPOIItem) {
-        mBalloon.setVisibility(View.VISIBLE);
-        if (mapPOIItem.getItemName().equals("")) {
-            mBalloon.setVisibility(View.INVISIBLE);
-        }
-        title.setText(mapPOIItem.getItemName());
-        return mBalloon;
+        return null;
     }
 }

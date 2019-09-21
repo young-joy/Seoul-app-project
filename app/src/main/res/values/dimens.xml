@@ -17,6 +17,7 @@
     <dimen name="small_icon_size">24dp</dimen>
     <dimen name="balloon_width">120dp</dimen>
     <dimen name="balloon_height">30dp</dimen>
+    <dimen name="balloon_park_height">60dp</dimen>
 
     <!-- Related to text size -->
     <dimen name="title_text_size">28sp</dimen>
