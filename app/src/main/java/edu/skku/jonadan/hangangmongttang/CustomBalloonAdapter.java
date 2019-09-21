@@ -15,8 +15,6 @@ import butterknife.ButterKnife;
 
 public class CustomBalloonAdapter implements CalloutBalloonAdapter {
 
-    @BindView(R.id.balloon_badge)
-    ImageView badge;
     @BindView(R.id.balloon_title)
     TextView title;
 
@@ -33,7 +31,6 @@ public class CustomBalloonAdapter implements CalloutBalloonAdapter {
         if (mapPOIItem.getItemName().equals("")) {
             mBalloon.setVisibility(View.INVISIBLE);
         }
-        badge.setImageResource(R.drawable.ic_search);
         title.setText(mapPOIItem.getItemName());
         return mBalloon;
     }
@@ -44,7 +41,6 @@ public class CustomBalloonAdapter implements CalloutBalloonAdapter {
         if (mapPOIItem.getItemName().equals("")) {
             mBalloon.setVisibility(View.INVISIBLE);
         }
-        badge.setImageResource(R.drawable.ic_search);
         title.setText(mapPOIItem.getItemName());
         return mBalloon;
     }
