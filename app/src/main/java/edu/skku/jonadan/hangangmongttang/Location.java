@@ -5,6 +5,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class Location {
 
+    //////////////////////////////////////////////////////////
+    //
+    // Object ID format
+    // /SERVICE_CODE(2)/UNIQUE_ID(5)/
+    //
+    // SERVICE_CODE: Defined at SeoulApiProvider
+    //
+    // UNIQUE_ID:
+    // 1) Park(& parking lot) /PARK_ID(2)/UNIQUE_ID(3)/
+    // : park - 0, parking lot - 1 ~
+    // 2) etc: Unique object id according to Seoul API
+    //
+    //////////////////////////////////////////////////////////
     @SerializedName(value = "OBJECTID")
     private int objectId;
 

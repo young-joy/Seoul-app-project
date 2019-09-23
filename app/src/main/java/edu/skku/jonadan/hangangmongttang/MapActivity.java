@@ -53,7 +53,6 @@ import retrofit2.Response;
 // TODO:
 //  - Dialog for no result
 //  - Implement function for searching location matched with marker
-//  - Describe OBJECTID rule
 //
 public class MapActivity extends AppCompatActivity {
 
@@ -136,7 +135,7 @@ public class MapActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         // Get from intent
-        selectedParkId = ConstantPark.HANGANG_PARKS.GWANGNARU.ordinal();
+        selectedParkId = 0;
         refLocation = ConstantPark.PARK_LIST.get(selectedParkId);
 
         initParkList();
@@ -721,6 +720,10 @@ public class MapActivity extends AppCompatActivity {
                 ArrayList<Location> toilets = result.getService().getItems();
                 for (Location toilet: toilets) {
                     if (getDistance(refLocation, toilet) < MARKING_SCOPE) {
+                        toilet.setObjectId(
+                                SeoulApiProvider.SERVICE_CODE.TOILET.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                + toilet.getObjectId()
+                        );
                         toiletList.add(toilet);
                     }
                 }
@@ -744,6 +747,10 @@ public class MapActivity extends AppCompatActivity {
                 if (shops.size() > 0) {
                     for (Location shop: shops) {
                         if (getDistance(refLocation, shop) < MARKING_SCOPE) {
+                            shop.setObjectId(
+                                    SeoulApiProvider.SERVICE_CODE.SHOP.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                            + shop.getObjectId()
+                            );
                             shopList.add(shop);
                         }
                     }
@@ -770,6 +777,10 @@ public class MapActivity extends AppCompatActivity {
                 if (waters.size() > 0) {
                     for (Location water: waters) {
                         if (getDistance(refLocation, water) < MARKING_SCOPE) {
+                            water.setObjectId(
+                                    SeoulApiProvider.SERVICE_CODE.WATER.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                            + water.getObjectId()
+                            );
                             waterList.add(water);
                         }
                     }
@@ -796,8 +807,44 @@ public class MapActivity extends AppCompatActivity {
                 if (entertains.size() > 0) {
                     for (Location entertain: entertains) {
                         if (getDistance(refLocation, entertain) < MARKING_SCOPE) {
-                            if (entertain.getName().equals("")) {
-                                entertain.setName("어린이 놀이터");
+                            switch (response.toString().split("/")[6]) {
+                                case "GeoInfoQuayWGS":
+                                    entertain.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.QUAY.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + entertain.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoWaterLeisureWGS":
+                                    entertain.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.WATER_LEISURE.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + entertain.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoBoatStorageWGS":
+                                    entertain.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.BOAT.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + entertain.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoDuckBoatWGS":
+                                    entertain.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.DUCK_BOAT.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + entertain.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoWaterTaxiWGS":
+                                    entertain.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.WATER_TAXI.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + entertain.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoPlaygroundWGS":
+                                    entertain.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.PLAYGROUND.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + entertain.getObjectId()
+                                    );
+                                    entertain.setName("어린이 놀이터");
+                                    break;
                             }
                             entertainList.add(entertain);
                         }
@@ -825,6 +872,38 @@ public class MapActivity extends AppCompatActivity {
                 if (athletics.size() > 0) {
                     for (Location athletic: athletics) {
                         if (getDistance(refLocation, athletic) < MARKING_SCOPE) {
+                            switch (response.toString().split("/")[6]) {
+                                case "GeoInfoRockClimbWGS":
+                                    athletic.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.ROCK.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + athletic.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoInlineSkateWGS":
+                                    athletic.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.SKATE.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + athletic.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoJokguWGS":
+                                    athletic.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.JOKGU.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + athletic.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoTrackWGS":
+                                    athletic.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.TRACK.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + athletic.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoBadmintonWGS":
+                                    athletic.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.BADMINTON.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + athletic.getObjectId()
+                                    );
+                                    break;
+                            }
                             athleticList.add(athletic);
                         }
                     }

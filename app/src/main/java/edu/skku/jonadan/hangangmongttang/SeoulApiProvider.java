@@ -10,13 +10,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SeoulApiProvider {
 
+    public enum SERVICE_CODE {
+        PARK, TOILET, SHOP, WATER,
+        QUAY, WATER_LEISURE, BOAT, DUCK_BOAT, WATER_TAXI, PLAYGROUND,
+        ROCK, SKATE, JOKGU, TRACK, BADMINTON
+    }
+
+    public final static int SERVICE_PAD = 1000000;
+
     private final Retrofit retrofit;
     private final SeoulApi api;
     private final OkHttpClient client = createClient();
 
     private final String BASE_URL = "http://openAPI.seoul.go.kr:8088/";
     private final String APP_KEY = "436851527a756c6c3435456f5a4d4d";
-    private final int MAXIMUM_RQ = 999;
 
     public SeoulApiProvider() {
         this.retrofit = new Retrofit.Builder()
