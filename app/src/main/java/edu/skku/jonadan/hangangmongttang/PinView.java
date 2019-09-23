@@ -86,10 +86,10 @@ public class PinView extends SubsamplingScaleImageView {
             PointF vPin = sourceToViewCoord(mPin.getPoint());
             //in my case value of point are at center point of pin image, so we need to adjust it here
 
-            float vX = vPin.x - (bmpPin.getWidth() / 2);
-            float vY = vPin.y - bmpPin.getHeight();
-
-
+            //float vX = vPin.x - (bmpPin.getWidth() / 2);
+            //float vY = vPin.y - bmpPin.getHeight();
+            float vX = (density / 420f) * (vPin.x);
+            float vY = (density / 840f) * (vPin.y + bmpPin.getHeight()/2);
             canvas.drawBitmap(bmpPin, vX, vY, paint);
 
             //add added pin to an Array list to get touched pin

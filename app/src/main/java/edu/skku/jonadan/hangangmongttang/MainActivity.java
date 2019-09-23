@@ -133,13 +133,23 @@ public class MainActivity extends AppCompatActivity {
         mapImg = getBitmapFromVectorDrawable(MainActivity.this, R.drawable.map_image);
 
         mapImageView.setImage(ImageSource.bitmap(mapImg));
-        mapImageView.setZoomEnabled(true);
+        mapImageView.setZoomEnabled(false);
         mapImageView.setPanEnabled(true);
 
         ArrayList<MapPin> MapPins = new ArrayList();
         //temp pins
-        MapPins.add(new MapPin(1718f, 581f, 1));
-        MapPins.add(new MapPin(500f, 681f, 2));
+
+        MapPins.add(new MapPin(354f, 948f, 1));
+        MapPins.add(new MapPin(427f, 985f, 2));
+        MapPins.add(new MapPin(686f, 1110f, 3));
+        MapPins.add(new MapPin(1111f, 1053f, 4));
+        MapPins.add(new MapPin(162f, 1010f, 5));
+        MapPins.add(new MapPin(263f, 1108f, 6));
+        MapPins.add(new MapPin(492f, 1190f, 7));
+        MapPins.add(new MapPin(754f, 1298f, 8));
+        MapPins.add(new MapPin(920f, 1185f, 9));
+        MapPins.add(new MapPin(1192f, 1248f, 10));
+        MapPins.add(new MapPin(1297f, 1138f, 10));
         mapImageView.setPins(MapPins);
 
         infoBtn.setOnClickListener(new View.OnClickListener() {
