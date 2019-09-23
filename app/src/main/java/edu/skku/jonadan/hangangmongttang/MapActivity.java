@@ -49,11 +49,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-//
-// TODO:
-//  - Dialog for no result
-//  - Implement function for searching location matched with marker
-//
 public class MapActivity extends AppCompatActivity {
 
     @BindView(R.id.map_back_btn)
