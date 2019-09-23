@@ -1,16 +1,22 @@
 package edu.skku.jonadan.hangangmongttang;
 
-import android.content.res.Resources;
-
-import com.tickaroo.tikxml.TikXml;
-import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory;
+import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SeoulApiProvider {
+
+    public enum SERVICE_CODE {
+        PARK, TOILET, SHOP, WATER,
+        QUAY, WATER_LEISURE, BOAT, DUCK_BOAT, WATER_TAXI, PLAYGROUND,
+        ROCK, SKATE, JOKGU, TRACK, BADMINTON
+    }
+
+    public final static int SERVICE_PAD = 1000000;
 
     private final Retrofit retrofit;
     private final SeoulApi api;
@@ -18,13 +24,11 @@ public class SeoulApiProvider {
 
     private final String BASE_URL = "http://openAPI.seoul.go.kr:8088/";
     private final String APP_KEY = "436851527a756c6c3435456f5a4d4d";
-    private final int MAXIMUM_RQ = 999;
 
     public SeoulApiProvider() {
         this.retrofit = new Retrofit.Builder()
                 .baseUrl(initUrl())
-                .addConverterFactory(TikXmlConverterFactory.create(
-                        new TikXml.Builder().exceptionOnUnreadXml(false).build()))
+                .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
         this.api = this.retrofit.create(SeoulApi.class);
@@ -33,7 +37,7 @@ public class SeoulApiProvider {
     private String initUrl() {
         String url = BASE_URL;
         url += APP_KEY;
-        url += "/xml/";
+        url += "/json/";
         return url;
     }
 
@@ -45,10 +49,14 @@ public class SeoulApiProvider {
         return builder.build();
     }
 
-    public Call<SeoulApiResult> callToilet(int startIdx) {
-        Call<SeoulApiResult> callToilet =
-                api.getLocation("GeoInfoPublicToiletWGS", startIdx, startIdx + MAXIMUM_RQ);
-        return callToilet;
+    public ArrayList<Call<SeoulApiResult>> callToilet() {
+        ArrayList<Call<SeoulApiResult>> callToilets = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            callToilets.add(
+                    api.getLocation("GeoInfoPublicToiletWGS",
+                            1000*i+1, 1000*i+1000));
+        }
+        return callToilets;
     }
 
     public Call<SeoulApiResult> callShop() {
@@ -61,5 +69,37 @@ public class SeoulApiProvider {
         Call<SeoulApiResult> callWater =
                 api.getLocation("GeoInfoDrinkWaterWGS", 1, 1000);
         return callWater;
+    }
+
+    public ArrayList<Call<SeoulApiResult>> callEntertain() {
+        ArrayList<Call<SeoulApiResult>> callEntertains = new ArrayList<>();
+        // Dock
+        callEntertains.add(api.getLocation("GeoInfoQuayWGS", 1, 1000));
+        // Water Leisure
+        callEntertains.add(api.getLocation("GeoInfoWaterLeisureWGS", 1, 1000));
+        // Boat
+        callEntertains.add(api.getLocation("GeoInfoBoatStorageWGS", 1, 1000));
+        // Duck Boat
+        callEntertains.add(api.getLocation("GeoInfoDuckBoatWGS", 1, 1000));
+        // Water Taxi
+        callEntertains.add(api.getLocation("GeoInfoWaterTaxiWGS", 1, 1000));
+        // Play ground
+        callEntertains.add(api.getLocation("GeoInfoPlaygroundWGS", 1, 1000));
+        return callEntertains;
+    }
+
+    public ArrayList<Call<SeoulApiResult>> callAthletic() {
+        ArrayList<Call<SeoulApiResult>> callAthletics = new ArrayList<>();
+        // Rock climb
+        callAthletics.add(api.getLocation("GeoInfoRockClimbWGS", 1, 1000));
+        // Inline skate
+        callAthletics.add(api.getLocation("GeoInfoInlineSkateWGS", 1, 1000));
+        // Jokgu
+        callAthletics.add(api.getLocation("GeoInfoJokguWGS", 1, 1000));
+        // Track
+        callAthletics.add(api.getLocation("GeoInfoTrackWGS", 1, 1000));
+        // Badminton
+        callAthletics.add(api.getLocation("GeoInfoBadmintonWGS", 1, 1000));
+        return callAthletics;
     }
 }

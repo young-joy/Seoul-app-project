@@ -1,10 +1,11 @@
 package edu.skku.jonadan.hangangmongttang;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class ParkingLot extends Location {
 
     private int capacity = 0;
-
-    public static final int PARKING_LOT_ID = 10000;
 
     public ParkingLot(int objectId, String name, double lat, double lng) {
         super(objectId, name, lat, lng);

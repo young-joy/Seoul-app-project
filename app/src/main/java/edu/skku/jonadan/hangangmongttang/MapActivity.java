@@ -49,10 +49,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-//
-// TODO:
-//  - Dialog for no result
-//
 public class MapActivity extends AppCompatActivity {
 
     @BindView(R.id.map_back_btn)
@@ -134,7 +130,7 @@ public class MapActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         // Get from intent
-        selectedParkId = ConstantPark.HANGANG_PARKS.GWANGNARU.ordinal();
+        selectedParkId = 0;
         refLocation = ConstantPark.PARK_LIST.get(selectedParkId);
 
         initParkList();
@@ -345,7 +341,7 @@ public class MapActivity extends AppCompatActivity {
         markerListener = new MapView.POIItemEventListener() {
             @Override
             public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
-
+                // search location from marker
             }
 
             @Override
@@ -620,6 +616,8 @@ public class MapActivity extends AppCompatActivity {
         toiletList = new ArrayList<>();
         shopList = new ArrayList<>();
         waterList = new ArrayList<>();
+        entertainList = new ArrayList<>();
+        athleticList = new ArrayList<>();
 
         constraintSet.clone(mapLayout);
         for (FloatingActionButton fab : fabList) {
@@ -641,8 +639,8 @@ public class MapActivity extends AppCompatActivity {
             public void onClick(View view) {
                 removeAllMarkers();
                 toiletList.clear();
-                for (int i = 0; i < 6; i++) {
-                    Call<SeoulApiResult> call = apiProvider.callToilet(1000*i + 1);
+                ArrayList<Call<SeoulApiResult>> calls = apiProvider.callToilet();
+                for (Call call: calls) {
                     call.enqueue(callbacks.get(FABS.TOILET.ordinal()));
                 }
             }
@@ -665,6 +663,30 @@ public class MapActivity extends AppCompatActivity {
                 waterList.clear();
                 Call<SeoulApiResult> call = apiProvider.callWater();
                 call.enqueue(callbacks.get(FABS.WATER.ordinal()));
+            }
+        });
+
+        menuEntertainBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeAllMarkers();
+                entertainList.clear();
+                ArrayList<Call<SeoulApiResult>> calls = apiProvider.callEntertain();
+                for (Call call: calls) {
+                    call.enqueue(callbacks.get(FABS.ENTERTAIN.ordinal()));
+                }
+            }
+        });
+
+        menuAthleticBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeAllMarkers();
+                athleticList.clear();
+                ArrayList<Call<SeoulApiResult>> calls = apiProvider.callAthletic();
+                for (Call call: calls) {
+                    call.enqueue(callbacks.get(FABS.ATHELETIC.ordinal()));
+                }
             }
         });
     }
@@ -690,9 +712,13 @@ public class MapActivity extends AppCompatActivity {
                     return;
                 }
                 SeoulApiResult result = response.body();
-                ArrayList<Location> toilets = new ArrayList<Location>(result.getRow());
+                ArrayList<Location> toilets = result.getService().getItems();
                 for (Location toilet: toilets) {
                     if (getDistance(refLocation, toilet) < MARKING_SCOPE) {
+                        toilet.setObjectId(
+                                SeoulApiProvider.SERVICE_CODE.TOILET.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                + toilet.getObjectId()
+                        );
                         toiletList.add(toilet);
                     }
                 }
@@ -712,10 +738,14 @@ public class MapActivity extends AppCompatActivity {
                     return;
                 }
                 SeoulApiResult result = response.body();
-                ArrayList<Location> shops = new ArrayList<Location>(result.getRow());
+                ArrayList<Location> shops = result.getService().getItems();
                 if (shops.size() > 0) {
                     for (Location shop: shops) {
                         if (getDistance(refLocation, shop) < MARKING_SCOPE) {
+                            shop.setObjectId(
+                                    SeoulApiProvider.SERVICE_CODE.SHOP.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                            + shop.getObjectId()
+                            );
                             shopList.add(shop);
                         }
                     }
@@ -738,10 +768,14 @@ public class MapActivity extends AppCompatActivity {
                     return;
                 }
                 SeoulApiResult result = response.body();
-                ArrayList<Location> waters = new ArrayList<Location>(result.getRow());
+                ArrayList<Location> waters = result.getService().getItems();
                 if (waters.size() > 0) {
                     for (Location water: waters) {
                         if (getDistance(refLocation, water) < MARKING_SCOPE) {
+                            water.setObjectId(
+                                    SeoulApiProvider.SERVICE_CODE.WATER.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                            + water.getObjectId()
+                            );
                             waterList.add(water);
                         }
                     }
@@ -749,6 +783,129 @@ public class MapActivity extends AppCompatActivity {
                     // No result
                 }
                 setMarker(waterList);
+            }
+
+            @Override
+            public void onFailure(Call<SeoulApiResult> call, Throwable t) {
+                Log.d("Callback", "" + t);
+            }
+        });
+        callbacks.add(new Callback<SeoulApiResult>() {
+            @Override
+            public void onResponse(Call<SeoulApiResult> call, Response<SeoulApiResult> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("Callback", "Response fail");
+                    return;
+                }
+                SeoulApiResult result = response.body();
+                ArrayList<Location> entertains = result.getService().getItems();
+                if (entertains.size() > 0) {
+                    for (Location entertain: entertains) {
+                        if (getDistance(refLocation, entertain) < MARKING_SCOPE) {
+                            switch (response.toString().split("/")[6]) {
+                                case "GeoInfoQuayWGS":
+                                    entertain.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.QUAY.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + entertain.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoWaterLeisureWGS":
+                                    entertain.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.WATER_LEISURE.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + entertain.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoBoatStorageWGS":
+                                    entertain.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.BOAT.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + entertain.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoDuckBoatWGS":
+                                    entertain.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.DUCK_BOAT.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + entertain.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoWaterTaxiWGS":
+                                    entertain.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.WATER_TAXI.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + entertain.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoPlaygroundWGS":
+                                    entertain.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.PLAYGROUND.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + entertain.getObjectId()
+                                    );
+                                    entertain.setName("어린이 놀이터");
+                                    break;
+                            }
+                            entertainList.add(entertain);
+                        }
+                    }
+                } else {
+                    // No result
+                }
+                setMarker(entertainList);
+            }
+
+            @Override
+            public void onFailure(Call<SeoulApiResult> call, Throwable t) {
+                Log.d("Callback", "" + t);
+            }
+        });
+        callbacks.add(new Callback<SeoulApiResult>() {
+            @Override
+            public void onResponse(Call<SeoulApiResult> call, Response<SeoulApiResult> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("Callback", "Response fail");
+                    return;
+                }
+                SeoulApiResult result = response.body();
+                ArrayList<Location> athletics = result.getService().getItems();
+                if (athletics.size() > 0) {
+                    for (Location athletic: athletics) {
+                        if (getDistance(refLocation, athletic) < MARKING_SCOPE) {
+                            switch (response.toString().split("/")[6]) {
+                                case "GeoInfoRockClimbWGS":
+                                    athletic.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.ROCK.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + athletic.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoInlineSkateWGS":
+                                    athletic.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.SKATE.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + athletic.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoJokguWGS":
+                                    athletic.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.JOKGU.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + athletic.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoTrackWGS":
+                                    athletic.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.TRACK.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + athletic.getObjectId()
+                                    );
+                                    break;
+                                case "GeoInfoBadmintonWGS":
+                                    athletic.setObjectId(
+                                            SeoulApiProvider.SERVICE_CODE.BADMINTON.ordinal() * SeoulApiProvider.SERVICE_PAD
+                                                    + athletic.getObjectId()
+                                    );
+                                    break;
+                            }
+                            athleticList.add(athletic);
+                        }
+                    }
+                } else {
+                    // No result
+                }
+                setMarker(athleticList);
             }
 
             @Override
