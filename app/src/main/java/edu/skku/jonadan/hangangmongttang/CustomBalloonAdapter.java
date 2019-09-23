@@ -24,13 +24,24 @@ public class CustomBalloonAdapter implements CalloutBalloonAdapter {
 
     @Override
     public View getCalloutBalloon(MapPOIItem mapPOIItem) {
-        if (mapPOIItem.getItemName().contains("주차장")) {
+        Log.d("Object ID", "" + mapPOIItem.getTag());
+        if (mapPOIItem.getTag() > SeoulApiProvider.SERVICE_CODE.PARK.ordinal() * SeoulApiProvider.SERVICE_PAD
+                && mapPOIItem.getTag() < (SeoulApiProvider.SERVICE_CODE.PARK.ordinal()+1) * SeoulApiProvider.SERVICE_PAD
+                && mapPOIItem.getTag() % SeoulApiProvider.SERVICE_PAD % 1000 != 0) {
             mBalloon = LayoutInflater.from(context).inflate(R.layout.custom_balloon_park, null);
             TextView title = mBalloon.findViewById(R.id.balloon_park_title);
-            TextView state = mBalloon.findViewById(R.id.ballon_park_state);
+            TextView state = mBalloon.findViewById(R.id.balloon_park_state);
 
             mBalloon.setVisibility(View.VISIBLE);
             title.setText(mapPOIItem.getItemName());
+
+            int parkId = mapPOIItem.getTag() % SeoulApiProvider.SERVICE_PAD / 1000;
+            int parkingLotId = mapPOIItem.getTag() % SeoulApiProvider.SERVICE_PAD % 1000 - 1;
+            String capacity = new Integer(ConstantPark.PARK_LIST.get(parkId)
+                            .getParkingLots().get(parkingLotId)
+                            .getCapacity()).toString();
+            String curState = "0";
+            state.setText(curState + " / " + capacity);
         } else {
             mBalloon = LayoutInflater.from(context).inflate(R.layout.custom_balloon, null);
             TextView title = mBalloon.findViewById(R.id.balloon_title);
