@@ -662,6 +662,16 @@ public class MapActivity extends AppCompatActivity {
             }
         });
 
+        menuWaterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeAllMarkers();
+                waterList.clear();
+                Call<SeoulApiResult> call = apiProvider.callWater();
+                call.enqueue(callbacks.get(FABS.WATER.ordinal()));
+            }
+        });
+
         menuEntertainBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -683,16 +693,6 @@ public class MapActivity extends AppCompatActivity {
                 for (Call call: calls) {
                     call.enqueue(callbacks.get(FABS.ATHELETIC.ordinal()));
                 }
-            }
-        });
-
-        menuWaterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                removeAllMarkers();
-                waterList.clear();
-                Call<SeoulApiResult> call = apiProvider.callWater();
-                call.enqueue(callbacks.get(FABS.WATER.ordinal()));
             }
         });
     }
