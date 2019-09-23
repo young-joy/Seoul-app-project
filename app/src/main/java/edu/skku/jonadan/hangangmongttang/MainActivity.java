@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -135,21 +136,23 @@ public class MainActivity extends AppCompatActivity {
         mapImageView.setImage(ImageSource.bitmap(mapImg));
         mapImageView.setZoomEnabled(false);
         mapImageView.setPanEnabled(true);
+        mapImageView.setScaleX(1.3f);
+        mapImageView.setScaleY(1.3f);
 
         ArrayList<MapPin> MapPins = new ArrayList();
-        //temp pins
+        //dp-val pins
+        MapPins.add(new MapPin(443.0769f, 968.3654f,1));
+        MapPins.add(new MapPin(530.7223f, 997.6923f,2));
+        MapPins.add(new MapPin(707.4531f, 1080.8655f,3));
+        MapPins.add(new MapPin(1026.4001f, 1037.5962f,4));
+        MapPins.add(new MapPin(290.43268f, 1030.7115f,5));
+        MapPins.add(new MapPin(386.0156f, 1092.8846f,6));
+        MapPins.add(new MapPin(550.14905f, 1150.25f,7));
+        MapPins.add(new MapPin(764.24396f, 1230.6924f,8));
+        MapPins.add(new MapPin(890.91345f, 1150.7885f,9));
+        MapPins.add(new MapPin(1100.8882f, 1190.4038f,10));
+        MapPins.add(new MapPin(1190.2885f, 1109.7115f,11));
 
-        MapPins.add(new MapPin(354f, 948f, 1));
-        MapPins.add(new MapPin(427f, 985f, 2));
-        MapPins.add(new MapPin(686f, 1110f, 3));
-        MapPins.add(new MapPin(1111f, 1053f, 4));
-        MapPins.add(new MapPin(162f, 1010f, 5));
-        MapPins.add(new MapPin(263f, 1108f, 6));
-        MapPins.add(new MapPin(492f, 1190f, 7));
-        MapPins.add(new MapPin(754f, 1298f, 8));
-        MapPins.add(new MapPin(920f, 1185f, 9));
-        MapPins.add(new MapPin(1192f, 1248f, 10));
-        MapPins.add(new MapPin(1297f, 1138f, 10));
         mapImageView.setPins(MapPins);
 
         infoBtn.setOnClickListener(new View.OnClickListener() {

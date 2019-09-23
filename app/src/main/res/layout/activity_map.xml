@@ -175,7 +175,7 @@
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:maxImageSize="35dp"
+            app:maxImageSize="30dp"
             app:srcCompat="@drawable/ic_menu_dot" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

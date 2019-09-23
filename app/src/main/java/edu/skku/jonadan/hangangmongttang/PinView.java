@@ -79,19 +79,24 @@ public class PinView extends SubsamplingScaleImageView {
             //Bitmap bmpPin = Utils.getBitmapFromAsset(context, mPin.getPinImgSrc());
             Bitmap bmpPin = MainActivity.getBitmapFromVectorDrawable(context, R.drawable.marker);
 
-            float w = (density / 420f) * bmpPin.getWidth();
-            float h = (density / 420f) * bmpPin.getHeight();
+            float w = (density / 160f) * 30;
+            float h = (density / 160f) * 30;
             bmpPin = Bitmap.createScaledBitmap(bmpPin, (int) w, (int) h, true);
 
-            PointF vPin = sourceToViewCoord(mPin.getPoint());
+            //PointF vPin = sourceToViewCoord(mPin.getPoint());
+            PointF vPin = mPin.getPoint();
             //in my case value of point are at center point of pin image, so we need to adjust it here
 
-            //float vX = vPin.x - (bmpPin.getWidth() / 2);
-            //float vY = vPin.y - bmpPin.getHeight();
-            float vX = (density / 420f) * (vPin.x);
-            float vY = (density / 840f) * (vPin.y + bmpPin.getHeight()/2);
-            canvas.drawBitmap(bmpPin, vX, vY, paint);
+            //Log.d("touch_event",vPin.toString());
+            Log.d("touch_event","density : "+new Float(density).toString());
+            float x_px = (640f/160f)*(vPin.x - (bmpPin.getWidth() / 2));
+            float y_px = (640f/160f)*(vPin.y - bmpPin.getHeight()/2 -40);
+            Log.d("touch_event","px: "+new Float(x_px).toString() + ", "+ new Float(y_px).toString());
 
+            float vX = x_px * 160f / density;
+            float vY = y_px * 160f / density;
+            Log.d("touch_event","dp: "+new Float(vX).toString()+", "+new Float(vY).toString());
+            canvas.drawBitmap(bmpPin, vX, vY, paint);
             //add added pin to an Array list to get touched pin
             DrawPin dPin = new DrawPin();
             dPin.setStartX(mPin.getX() - w / 2);
