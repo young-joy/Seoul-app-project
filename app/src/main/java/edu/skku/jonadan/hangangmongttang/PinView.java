@@ -4,12 +4,16 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
@@ -72,6 +76,13 @@ public class PinView extends SubsamplingScaleImageView {
         paint.setAntiAlias(true);
         float density = getResources().getDisplayMetrics().densityDpi;
 
+        WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = manager.getDefaultDisplay();
+        Point sizePoint = new Point();
+        display.getSize(sizePoint);
+        float width = sizePoint.x;
+        float height = sizePoint.y;
+        Log.d("get_size",sizePoint.toString());
 
         for (int i = 0; i < mapPins.size(); i++) {
             MapPin mPin = mapPins.get(i);
@@ -93,8 +104,8 @@ public class PinView extends SubsamplingScaleImageView {
             float y_px = (640f/160f)*(vPin.y - bmpPin.getHeight()/2 -40);
             Log.d("touch_event","px: "+new Float(x_px).toString() + ", "+ new Float(y_px).toString());
 
-            float vX = x_px * 160f / density;
-            float vY = y_px * 160f / density;
+            float vX = (vPin.x - (bmpPin.getWidth() / 2)) * width / 1440f;
+            float vY = (vPin.y - bmpPin.getHeight()/2 -40f) * height / 2560f;
             Log.d("touch_event","dp: "+new Float(vX).toString()+", "+new Float(vY).toString());
             canvas.drawBitmap(bmpPin, vX, vY, paint);
             //add added pin to an Array list to get touched pin
