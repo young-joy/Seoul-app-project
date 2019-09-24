@@ -111,15 +111,6 @@
             android:layout_height="60dp"
             android:background="@android:color/white"
             android:fontFamily="@font/circle_jaedan"
-            android:text="정보동의 설정"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/appinfo_btn4"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/white"
-            android:fontFamily="@font/circle_jaedan"
             android:text="오픈소스 라이센스"
             android:textSize="16sp" />
     </LinearLayout>
