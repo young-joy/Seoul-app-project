@@ -167,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 park_info_dialog.show(getSupportFragmentManager(), "TAG");
-                
                 if(drawer_opened){
                     bottomDrawer.close();
                     drawer_opened = false;

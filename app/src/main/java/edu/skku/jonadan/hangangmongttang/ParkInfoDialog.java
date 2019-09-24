@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +20,14 @@ import androidx.fragment.app.DialogFragment;
 public class ParkInfoDialog extends DialogFragment {
     ImageButton closeBtn;
     Button mapBtn;
+
+    ImageView iconIv;
+    ImageView parkIv;
+    TextView nameTv;
+    TextView locationTv;
+    TextView numberTv;
+    TextView attractionTv;
+    TextView facilityTv;
 
     public ParkInfoDialog() {
     }
@@ -32,6 +42,14 @@ public class ParkInfoDialog extends DialogFragment {
 
         closeBtn = view.findViewById(R.id.btn_close);
         mapBtn = view.findViewById(R.id.btn_map);
+
+        iconIv = view.findViewById(R.id.park_icon);
+        parkIv = view.findViewById(R.id.park_img);
+        nameTv = view.findViewById(R.id.park_name);
+        locationTv = view.findViewById(R.id.location);
+        numberTv = view.findViewById(R.id.number);
+        attractionTv = view.findViewById(R.id.attraction);
+        facilityTv = view.findViewById(R.id.facility);
 
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override

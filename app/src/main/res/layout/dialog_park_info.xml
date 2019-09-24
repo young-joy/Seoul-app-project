@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/park_image"
+            android:id="@+id/park_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_park_temp" />
@@ -41,7 +41,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView12"
+        android:id="@+id/park_img"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
@@ -80,7 +80,7 @@
                     android:textColor="@android:color/black" />
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/location"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
@@ -103,7 +103,7 @@
                     android:textColor="@android:color/black" />
 
                 <TextView
-                    android:id="@+id/textView18"
+                    android:id="@+id/number"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
@@ -126,7 +126,7 @@
                     android:textColor="@android:color/black" />
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/attraction"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
@@ -150,7 +150,7 @@
                     android:textColor="@android:color/black" />
 
                 <TextView
-                    android:id="@+id/textView22"
+                    android:id="@+id/facility"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
