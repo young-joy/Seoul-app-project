@@ -5,17 +5,17 @@ import java.util.Arrays;
 
 public class ConstantPark {
 
-    public static final int GWANGNARU = 0;
-    public static final int JAMSIL = 1000;
-    public static final int TTUKSEOM = 2000;
-    public static final int JAMWON = 3000;
-    public static final int BANPO = 4000;
-    public static final int ICHON = 5000;
-    public static final int YEOUIDO = 6000;
-    public static final int MANGWON = 7000;
-    public static final int NANJI = 8000;
-    public static final int GANGSEO = 9000;
-    public static final int YANGHWA = 10000;
+    public static final int GWANGNARU = 100000;
+    public static final int JAMSIL = 101000;
+    public static final int TTUKSEOM = 102000;
+    public static final int JAMWON = 103000;
+    public static final int BANPO = 104000;
+    public static final int ICHON = 105000;
+    public static final int YEOUIDO = 106000;
+    public static final int MANGWON = 107000;
+    public static final int NANJI = 108000;
+    public static final int GANGSEO = 109000;
+    public static final int YANGHWA = 110000;
 
     public static final ArrayList<ParkingLot> GWANGNARU_PARKING_LOTS = new ArrayList<>(
             Arrays.asList(

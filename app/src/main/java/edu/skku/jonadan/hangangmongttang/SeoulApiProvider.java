@@ -11,12 +11,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SeoulApiProvider {
 
     public enum SERVICE_CODE {
-        PARK, TOILET, SHOP, WATER,
+        USER, PARK, TOILET, SHOP, WATER,
         QUAY, WATER_LEISURE, BOAT, DUCK_BOAT, WATER_TAXI, PLAYGROUND,
         ROCK, SKATE, JOKGU, TRACK, BADMINTON
     }
 
-    public final static int SERVICE_PAD = 1000000;
+    public final static int SERVICE_PAD = 100000;
 
     private final Retrofit retrofit;
     private final SeoulApi api;

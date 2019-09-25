@@ -214,7 +214,7 @@ public class MapActivity extends AppCompatActivity {
 
                         mapView.removePOIItem(parkMarker);
                         parkMarker = new MapPOIItem();
-                        parkMarker.setItemName("");
+                        parkMarker.setItemName(park.getName());
                         parkMarker.setTag(park.getObjectId());
                         parkMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(park.getLat(), park.getLng()));
 
@@ -313,7 +313,7 @@ public class MapActivity extends AppCompatActivity {
                 }
                 
                 curMarker = new MapPOIItem();
-                curMarker.setItemName("");
+                curMarker.setItemName("사용자 위치");
                 curMarker.setTag(0);
                 curMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude));
 
@@ -388,7 +388,7 @@ public class MapActivity extends AppCompatActivity {
         markerList = new ArrayList<>();
 
         parkMarker = new MapPOIItem();
-        parkMarker.setItemName("");
+        parkMarker.setItemName(location.getName());
         parkMarker.setTag(location.getObjectId());
         parkMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(location.getLat(), location.getLng()));
 
