@@ -233,6 +233,21 @@ public class MapActivity extends AppCompatActivity {
                         parkMarker.setCustomImageAnchor(0.5f, 1.0f);
                         mapView.addPOIItem(parkMarker);
                     }
+
+                    @Override
+                    public void focusParkList() {
+                        if (isFabOpen) {
+                            for (FloatingActionButton fab : fabList) {
+                                fab.startAnimation(fabClose);
+                                constraintSet.connect(
+                                        fab.getId(), ConstraintSet.BOTTOM,
+                                        menuBtn.getId(), ConstraintSet.BOTTOM);
+                                constraintSet.setMargin(fab.getId(), ConstraintSet.BOTTOM, 0);
+                                fab.setClickable(false);
+                            }
+                            isFabOpen = !isFabOpen;
+                        }
+                    }
                 });
         parkListView.setAdapter(parkListAdapter);
         parkListView.setLayoutManager(new LinearLayoutManager(this));

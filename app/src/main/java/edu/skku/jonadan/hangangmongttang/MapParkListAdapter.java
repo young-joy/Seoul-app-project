@@ -28,6 +28,7 @@ public class MapParkListAdapter extends RecyclerView.Adapter {
 
     public interface ParkClickListener {
         void movePark(Park park);
+        void focusParkList();
     }
 
     public MapParkListAdapter(Park curPark, ParkClickListener parkClickListener) {
@@ -80,6 +81,7 @@ public class MapParkListAdapter extends RecyclerView.Adapter {
                         for (Park p: ConstantPark.PARK_LIST) {
                             parkList.add(p);
                         }
+                        parkClickListener.focusParkList();
                         notifyDataSetChanged();
                     }
                 }
