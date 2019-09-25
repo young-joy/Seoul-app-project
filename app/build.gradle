@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 
 android {
     compileSdkVersion 29
@@ -57,4 +58,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 }
