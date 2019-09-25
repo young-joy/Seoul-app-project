@@ -79,49 +79,16 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/appinfo_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
-        android:background="@android:color/white"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/appinfo_top_Layout">
-
-        <Button
-            android:id="@+id/appinfo_btn1"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/white"
-            android:fontFamily="@font/circle_jaedan"
-            android:text="공지사항"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/appinfo_btn2"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/white"
-            android:fontFamily="@font/circle_jaedan"
-            android:text="피드백 보내기"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/appinfo_btn3"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/white"
-            android:fontFamily="@font/circle_jaedan"
-            android:text="정보동의 설정"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/appinfo_btn4"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/white"
-            android:fontFamily="@font/circle_jaedan"
-            android:text="오픈소스 라이센스"
-            android:textSize="16sp" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/appinfo_top_Layout"
+        app:layout_constraintVertical_weight="9"
+        android:scrollbarFadeDuration="0"
+        android:scrollbarSize="5dp"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        android:scrollbars="vertical"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
