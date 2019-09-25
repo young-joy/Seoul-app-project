@@ -361,13 +361,25 @@ public class MapActivity extends AppCompatActivity {
 
             @Override
             public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
-                if (mapPOIItem.getItemName().equals("")) {
-                    return;
-                }
                 int id = mapPOIItem.getTag();
-                Intent intent = new Intent(MapActivity.this, InfoActivity.class);
-                intent.putExtra("location_id", id);
-                startActivity(intent);
+                int type = mapPOIItem.getTag() / SeoulApiProvider.SERVICE_PAD;
+                switch (SeoulApiProvider.SERVICE_CODE.values()[type]) {
+                    case QUAY:
+                    case WATER_LEISURE:
+                    case BOAT:
+                    case DUCK_BOAT:
+                    case WATER_TAXI:
+                    case PLAYGROUND:
+                    case ROCK:
+                    case SKATE:
+                    case JOKGU:
+                    case TRACK:
+                    case BADMINTON:
+                        Intent intent = new Intent(MapActivity.this, InfoActivity.class);
+                        intent.putExtra("location_id", id);
+                        startActivity(intent);
+                        break;
+                }
             }
 
             @Override
