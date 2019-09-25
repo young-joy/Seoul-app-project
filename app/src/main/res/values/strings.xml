@@ -27,4 +27,5 @@
     <string name="todays_weather">오늘의 날씨</string>
 
     <string name="map_balloon_state_title">[실시간 정보]</string>
+    <string name="notice_title">공지사항</string>
 </resources>

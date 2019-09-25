@@ -15,8 +15,10 @@ import butterknife.ButterKnife;
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
 public class AppInfoActivity extends AppCompatActivity {
+
     @BindView(R.id.appinfo_back_btn) ImageButton backBtn;
     @BindView(R.id.appinfo_icon) ImageView iconView;
+    @BindView(R.id.appinfo_btn1) Button noticeBtn;
     @BindView(R.id.appinfo_btn3) Button osBtn;
 
     @Override
@@ -31,6 +33,14 @@ public class AppInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        noticeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AppInfoActivity.this, AppNoticeActivity.class);
+                startActivity(intent);
             }
         });
 

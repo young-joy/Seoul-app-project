@@ -13,10 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AppInfoActivity"></activity>
-        <activity android:name=".MapActivity"></activity>
-        <activity android:name=".InfoActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".AppNoticeActivity"></activity>
+        <activity android:name=".AppInfoActivity" />
+        <activity android:name=".MapActivity" />
+        <activity android:name=".InfoActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

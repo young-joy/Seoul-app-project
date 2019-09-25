@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/notice_child_container"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/notice_content_height"
+    android:background="@color/colorPrimaryLightGrey"
+    android:elevation="@dimen/elevation"
+    android:orientation="vertical"
+    android:padding="@dimen/notice_padding">
+
+    <TextView
+        android:id="@+id/notice_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:textSize="@dimen/notice_content_text_size" />
+
+</LinearLayout>

@@ -33,6 +33,13 @@
     <dimen name="event_place_size">16sp</dimen>
     <dimen name="event_date_size">14sp</dimen>
     <dimen name="event_time_size">14sp</dimen>
+    <dimen name="notice_title_text_size">18sp</dimen>
+    <dimen name="notice_content_text_size">14sp</dimen>
+
+    <!-- For AppNotice Activity -->
+    <dimen name="notice_padding">10dp</dimen>
+    <dimen name="notice_title_height">48dp</dimen>
+    <dimen name="notice_content_height">192dp</dimen>
 
     <!-- For Main Activity -->
     <dimen name="bottom_drawer_height">360dp</dimen>
