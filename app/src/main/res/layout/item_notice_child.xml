@@ -3,7 +3,7 @@
     android:id="@+id/notice_child_container"
     android:layout_width="match_parent"
     android:layout_height="@dimen/notice_content_height"
-    android:background="@color/colorPrimaryLightGrey"
+    android:background="#F0F0F0"
     android:elevation="@dimen/elevation"
     android:orientation="vertical"
     android:padding="@dimen/notice_padding">
