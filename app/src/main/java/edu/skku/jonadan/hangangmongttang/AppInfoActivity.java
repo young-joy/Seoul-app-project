@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
-
 public class AppInfoActivity extends AppCompatActivity {
 
     @BindView(R.id.appinfo_back_btn) ImageButton backBtn;
@@ -47,8 +45,8 @@ public class AppInfoActivity extends AppCompatActivity {
         osBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AppInfoActivity.this, OssLicensesMenuActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(AppInfoActivity.this, );
+                //startActivity(intent);
             }
         });
     }

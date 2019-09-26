@@ -141,17 +141,17 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<MapPin> MapPins = new ArrayList();
         //dp-val pins
-        MapPins.add(new MapPin(443.0769f, 968.3654f,1));
-        MapPins.add(new MapPin(530.7223f, 997.6923f,2));
-        MapPins.add(new MapPin(707.4531f, 1080.8655f,3));
-        MapPins.add(new MapPin(1026.4001f, 1037.5962f,4));
-        MapPins.add(new MapPin(290.43268f, 1030.7115f,5));
-        MapPins.add(new MapPin(386.0156f, 1092.8846f,6));
-        MapPins.add(new MapPin(550.14905f, 1150.25f,7));
-        MapPins.add(new MapPin(764.24396f, 1230.6924f,8));
-        MapPins.add(new MapPin(890.91345f, 1150.7885f,9));
-        MapPins.add(new MapPin(1100.8882f, 1190.4038f,10));
-        MapPins.add(new MapPin(1190.2885f, 1109.7115f,11));
+        MapPins.add(new MapPin(1190.2885f, 1109.7115f,1)); // 광나루
+        MapPins.add(new MapPin(1100.8882f, 1190.4038f,2)); // 잠실
+        MapPins.add(new MapPin(1026.4001f, 1037.5962f,3)); // 뚝섬
+        MapPins.add(new MapPin(890.91345f, 1150.7885f,4)); // 잠원
+        MapPins.add(new MapPin(764.24396f, 1230.6924f,5)); // 반포
+        MapPins.add(new MapPin(707.4531f, 1080.8655f,6)); // 이촌
+        MapPins.add(new MapPin(550.14905f, 1150.25f,7)); // 여의도
+        MapPins.add(new MapPin(530.7223f, 997.6923f,8)); // 망원
+        MapPins.add(new MapPin(443.0769f, 968.3654f,9)); // 난지
+        MapPins.add(new MapPin(290.43268f, 1040.7115f,10)); //강서
+        MapPins.add(new MapPin(386.0156f, 1092.8846f,11)); // 양화
 
         mapImageView.setPins(MapPins);
 
@@ -359,11 +359,11 @@ public class MainActivity extends AppCompatActivity {
                 setWeatherImage(weather[3],weather4,time[3]);
                 setWeatherImage(weather[4],weather5,time[4]);
 
-                time1.setText(time[0]);
-                time2.setText(time[1]);
-                time3.setText(time[2]);
-                time4.setText(time[3]);
-                time5.setText(time[4]);
+                time1.setText(time[0]+":00");
+                time2.setText(time[1]+":00");
+                time3.setText(time[2]+":00");
+                time4.setText(time[3]+":00");
+                time5.setText(time[4]+":00");
             }else{
                 weather_container.setVisibility(View.GONE);
                 text_error.setVisibility(View.VISIBLE);

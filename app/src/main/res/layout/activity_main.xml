@@ -93,7 +93,7 @@
                 android:background="@drawable/btn_bottom_drawer"
                 android:fontFamily="@font/ubuntumono_bolditalic"
                 android:text="@string/todays_info"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/black" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/drawer_container"
@@ -109,7 +109,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/circle_jaedan"
                     android:gravity="center"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/black"
                     android:textSize="@dimen/info_content_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -135,7 +135,7 @@
                     android:fontFamily="@font/circle_jaedan"
                     android:gravity="center"
                     android:text="@string/todays_weather"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/black"
                     android:textSize="@dimen/info_content_text_size"
                     app:layout_constraintBottom_toTopOf="@id/weather_container"
                     app:layout_constraintEnd_toEndOf="parent"
