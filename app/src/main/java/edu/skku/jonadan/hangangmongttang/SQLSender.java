@@ -47,18 +47,25 @@ public class SQLSender extends Thread {
                 URL url = new URL("http://"+SERVER_IP+"/sql?query="+sql);
                 con = (HttpURLConnection)url.openConnection();
 
+                Log.d("db_conn",sql);
+
                 con.setRequestProperty("Accept-Charset", "UTF-8");
                 con.setRequestProperty("Accept", "application/json");
 
+                Log.d("db_conn","start conn");
+
                 InputStream is = con.getInputStream();
+                Log.d("db_conn","여기까지 됨1");
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 StringBuilder sb = new StringBuilder();
                 String line;
+                Log.d("db_conn","여기까지 됨2");
                 while ((line = br.readLine()) != null) {
                     sb.append(line);
                 }
                 br.close();
                 result = new JSONObject(sb.toString());
+                Log.d("db_conn",result.toString());
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.e("Exception", "IOException occurred in SQLSender.java");
