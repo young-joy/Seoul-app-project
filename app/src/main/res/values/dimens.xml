@@ -47,6 +47,8 @@
     <dimen name="search_bar_ver_margin">24dp</dimen>
     <dimen name="search_bar_hor_margin">24dp</dimen>
     <dimen name="search_bar_padding">5dp</dimen>
+    <dimen name="loading_diameter">120dp</dimen>
+    <dimen name="loading_icon">80dp</dimen>
 
     <!-- For Info Activity -->
     <dimen name="info_image_height">270dp</dimen>
