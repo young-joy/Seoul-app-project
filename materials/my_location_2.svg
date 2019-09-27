@@ -1,21 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="218" height="218" viewBox="0 0 218 218">
-  <defs>
-    <filter id="bg" x="0" y="0" width="218" height="218" filterUnits="userSpaceOnUse">
-      <feOffset dy="3" input="SourceAlpha"/>
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feFlood flood-opacity="0.161"/>
-      <feComposite operator="in" in2="blur"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
-  </defs>
-  <g id="my_location_btn" data-name="my location btn" transform="translate(9 5.804)">
-    <g transform="matrix(1, 0, 0, 1, -9, -5.8)" filter="url(#bg)">
-      <circle id="bg-2" data-name="bg" cx="100" cy="100" r="100" transform="translate(9 6)" fill="#fddc35"/>
-    </g>
-    <g id="iconfinder_safari_246006" transform="translate(38.499 38.499)">
-      <path id="패스_2125" data-name="패스 2125" d="M62.506-.2a61.6,61.6,0,1,0,61.6,61.6A61.6,61.6,0,0,0,62.506-.2Zm0,111.648a50.049,50.049,0,1,1,50.049-50.049A50.048,50.048,0,0,1,62.506,111.443Z" transform="translate(-0.907 0.205)" fill="#2196f3" fill-rule="evenodd"/>
-      <path id="패스_2126" data-name="패스 2126" d="M54.957,7.48,31.118,47.658,14.787,31.323,54.957,7.48Z" transform="translate(38.65 22.107)" fill="#fb4a5e" fill-rule="evenodd"/>
-      <path id="패스_2127" data-name="패스 2127" d="M8.594,53.852,48.768,30.009,32.437,13.674,8.594,53.852Z" transform="translate(21 39.759)" fill="#e4e7e7" fill-rule="evenodd"/>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <g id="my_location_2" transform="translate(-0.907 0.205)">
+    <path id="패스_2133" data-name="패스 2133" d="M100.907-.2a100,100,0,1,0,100,100,100,100,0,0,0-100-100Zm0,181.25a81.25,81.25,0,1,1,81.25-81.25A81.248,81.248,0,0,1,100.907,181.045Z" transform="translate(0 0)" fill="#2196f3" fill-rule="evenodd"/>
+    <path id="패스_2134" data-name="패스 2134" d="M79.986,7.48,41.294,72.691,14.787,46.178Z" transform="translate(72.879 40.351)" fill="#fb4a5e" fill-rule="evenodd"/>
+    <path id="패스_2135" data-name="패스 2135" d="M8.594,78.885l65.2-38.7L47.292,13.674,8.594,78.885Z" transform="translate(40.362 72.874)" fill="#e4e7e7" fill-rule="evenodd"/>
   </g>
 </svg>
