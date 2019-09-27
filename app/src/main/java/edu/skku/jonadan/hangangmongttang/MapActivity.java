@@ -40,6 +40,8 @@ import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindAnim;
 import butterknife.BindDimen;
@@ -82,6 +84,8 @@ public class MapActivity extends AppCompatActivity {
     Animation fabClose;
 
     @BindDimen(R.dimen.fab_margin) int fabMargin;
+
+    private CustomLoadingDialog loadingDialog;
 
     private MapView.MapViewEventListener mapEventListener;
     private MapView.CurrentLocationEventListener curLocationListener;
@@ -140,6 +144,8 @@ public class MapActivity extends AppCompatActivity {
 
         apiProvider = new SeoulApiProvider();
         initCallbacks();
+
+        loadingDialog = new CustomLoadingDialog(MapActivity.this);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -312,7 +318,7 @@ public class MapActivity extends AppCompatActivity {
                 if (curMarker != null) {
                     mapView.removePOIItem(curMarker);
                 }
-                
+
                 curMarker = new MapPOIItem();
                 curMarker.setItemName("사용자 위치");
                 curMarker.setTag(0);
@@ -649,15 +655,25 @@ public class MapActivity extends AppCompatActivity {
         menuParkingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loadingDialog.show();
                 removeAllMarkers();
                 parkingLotList = ConstantPark.PARK_LIST.get(selectedParkId).getParkingLots();
                 setMarker(parkingLotList);
+                Timer timer = new Timer();
+                TimerTask timerTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        if (loadingDialog.isShowing()) loadingDialog.dismiss();
+                    }
+                };
+                timer.schedule(timerTask, 500);
             }
         });
 
         menuToiletBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loadingDialog.show();
                 removeAllMarkers();
                 toiletList.clear();
                 disableFabs();
@@ -672,6 +688,7 @@ public class MapActivity extends AppCompatActivity {
         menuShopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loadingDialog.show();
                 removeAllMarkers();
                 shopList.clear();
                 disableFabs();
@@ -684,6 +701,7 @@ public class MapActivity extends AppCompatActivity {
         menuWaterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loadingDialog.show();
                 removeAllMarkers();
                 waterList.clear();
                 disableFabs();
@@ -696,6 +714,7 @@ public class MapActivity extends AppCompatActivity {
         menuEntertainBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loadingDialog.show();
                 removeAllMarkers();
                 entertainList.clear();
                 disableFabs();
@@ -710,6 +729,7 @@ public class MapActivity extends AppCompatActivity {
         menuAthleticBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loadingDialog.show();
                 removeAllMarkers();
                 athleticList.clear();
                 disableFabs();
@@ -757,6 +777,14 @@ public class MapActivity extends AppCompatActivity {
                 callCount += 1;
                 if (callCount == SeoulApiProvider.CALL_NUM.TOTILET.getValue()) {
                     enableFabs();
+                    Timer timer = new Timer();
+                    TimerTask timerTask = new TimerTask() {
+                        @Override
+                        public void run() {
+                            if (loadingDialog.isShowing()) loadingDialog.dismiss();
+                        }
+                    };
+                    timer.schedule(timerTask, 500);
                 }
             }
 
@@ -791,6 +819,14 @@ public class MapActivity extends AppCompatActivity {
                 callCount += 1;
                 if (callCount == SeoulApiProvider.CALL_NUM.SHOP.getValue()) {
                     enableFabs();
+                    Timer timer = new Timer();
+                    TimerTask timerTask = new TimerTask() {
+                        @Override
+                        public void run() {
+                            if (loadingDialog.isShowing()) loadingDialog.dismiss();
+                        }
+                    };
+                    timer.schedule(timerTask, 500);
                 }
             }
 
@@ -825,6 +861,14 @@ public class MapActivity extends AppCompatActivity {
                 callCount += 1;
                 if (callCount == SeoulApiProvider.CALL_NUM.WATER.getValue()) {
                     enableFabs();
+                    Timer timer = new Timer();
+                    TimerTask timerTask = new TimerTask() {
+                        @Override
+                        public void run() {
+                            if (loadingDialog.isShowing()) loadingDialog.dismiss();
+                        }
+                    };
+                    timer.schedule(timerTask, 500);
                 }
             }
 
@@ -894,6 +938,14 @@ public class MapActivity extends AppCompatActivity {
                 callCount += 1;
                 if (callCount == SeoulApiProvider.CALL_NUM.ENTERTAIN.getValue()) {
                     enableFabs();
+                    Timer timer = new Timer();
+                    TimerTask timerTask = new TimerTask() {
+                        @Override
+                        public void run() {
+                            if (loadingDialog.isShowing()) loadingDialog.dismiss();
+                        }
+                    };
+                    timer.schedule(timerTask, 500);
                 }
             }
 
@@ -956,6 +1008,14 @@ public class MapActivity extends AppCompatActivity {
                 callCount += 1;
                 if (callCount == SeoulApiProvider.CALL_NUM.ATHLETIC.getValue()) {
                     enableFabs();
+                    Timer timer = new Timer();
+                    TimerTask timerTask = new TimerTask() {
+                        @Override
+                        public void run() {
+                            if (loadingDialog.isShowing()) loadingDialog.dismiss();
+                        }
+                    };
+                    timer.schedule(timerTask, 500);
                 }
             }
 
