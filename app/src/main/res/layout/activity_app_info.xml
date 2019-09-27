@@ -79,40 +79,58 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/appinfo_Buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@android:color/white"
-        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/appinfo_top_Layout">
 
-        <Button
-            android:id="@+id/appinfo_btn1"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/white"
-            android:fontFamily="@font/circle_jaedan"
-            android:text="공지사항"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/appinfo_btn2"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/white"
-            android:fontFamily="@font/circle_jaedan"
-            android:text="피드백 보내기"
-            android:textSize="16sp" />
+            <Button
+                android:id="@+id/appinfo_btn1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@android:color/white"
+                android:fontFamily="@font/circle_jaedan"
+                android:foreground="?selectableItemBackground"
+                android:text="공지사항"
+                android:textAlignment="viewStart"
+                android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/appinfo_btn3"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/white"
-            android:fontFamily="@font/circle_jaedan"
-            android:text="오픈소스 라이센스"
-            android:textSize="16sp" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/appinfo_btn2"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="1dp"
+                android:background="@android:color/white"
+                android:fontFamily="@font/circle_jaedan"
+                android:foreground="?selectableItemBackground"
+                android:text="피드백 보내기"
+                android:textAlignment="viewStart"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/appinfo_btn3"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="1dp"
+                android:background="@android:color/white"
+                android:fontFamily="@font/circle_jaedan"
+                android:foreground="?selectableItemBackground"
+                android:text="오픈소스 라이센스"
+                android:textAlignment="viewStart"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

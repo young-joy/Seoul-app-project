@@ -41,8 +41,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 /// TODO: 2019-08-19 modify layout(drawer:linear->constraint), add event info  
 public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.button)
-    Button button;
     @BindView(R.id.app_info_btn)
     ImageButton infoBtn;
 
@@ -53,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.map_image_view)
     PinView mapImageView;
-
-    @BindView(R.id.bottom_drawer)
-    SlidingDrawer bottomDrawer;
 
     //weather info
     @BindView(R.id.temp1)
@@ -105,20 +100,25 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.date_info)
     TextView date_info;
 
+    private static SlidingDrawer bottomDrawer;
+
+    private final int PARK_NUM = 11;
+
     private HashMap<String, String> weatherInfo = new HashMap<>();
     private ArrayList<EventListItem> eventList = new ArrayList<>();
-    private ArrayList<ParkListItem> parkList = new ArrayList<>();
+    public static ArrayList<ParkListItem> parkList = new ArrayList<>();
 
     private Bitmap mapImg;
 
     private EventListAdapter eventListAdapter;
 
-    private boolean park_layout_opened = false;
-    private boolean drawer_opened = false;
+    private static boolean park_layout_opened = false;
+    private static boolean drawer_opened = false;
     final String api_key = "d0c498afb7199ff9bf703f95c14e007a";
     final int cnt = 5;
 
-    private ParkInfoDialog park_info_dialog;
+    private static ParkInfoDialog park_info_dialog;
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,11 +126,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        bottomDrawer = findViewById(R.id.bottom_drawer);
+
         //check connection - temp
         JSONObject get_park_info = new SQLSender().sendSQL("SELECT * from park;");
         try{
             if(!get_park_info.getBoolean("isError")){
-                Log.d("db_conn",get_park_info.toString());
+                JSONObject park_info;
+                ParkListItem item;
+                int park_id;
+                String park_name;
+                String park_location;
+                String park_number;
+                String park_attraction;
+                String park_facility;
+                String park_img_src;
+
+                for(int i=0;i<PARK_NUM;i++){
+                    park_info = get_park_info.getJSONArray("result").getJSONObject(i);
+                    park_id = park_info.getInt("pid");
+                    park_name = park_info.getString("name");
+                    park_location = park_info.getString("location");
+                    park_number = park_info.getString("number");
+                    park_attraction = park_info.getString("attraction");
+                    park_facility = park_info.getString("facility");
+                    park_img_src = park_info.getString("img_src");
+
+                    item = new ParkListItem(park_id, park_name, park_img_src, park_location, park_number, park_attraction,
+                            park_facility);
+                    parkList.add(item);
+                    Log.d("db_conn", parkList.get(i).getName());
+                }
             }
         }catch (JSONException e){
             e.printStackTrace();
@@ -143,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
 
         mapImg = getBitmapFromVectorDrawable(MainActivity.this, R.drawable.map_image);
 
+        mapImageView.setFragmentManager(getSupportFragmentManager());
         mapImageView.setImage(ImageSource.bitmap(mapImg));
         mapImageView.setZoomEnabled(false);
         mapImageView.setPanEnabled(true);
@@ -173,19 +200,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                park_info_dialog.show(getSupportFragmentManager(), "TAG");
-                if(drawer_opened){
-                    bottomDrawer.close();
-                    drawer_opened = false;
-                }
-
-                park_layout_opened = true;
-            }
-        });
-
         SlidingDrawer.OnDrawerOpenListener onDrawerOpenListener = new OnSlidingDrawerOpenListener();
         SlidingDrawer.OnDrawerCloseListener onDrawerCloseListener = new OnSlidingDrawerCloseListener();
 
@@ -193,12 +207,21 @@ public class MainActivity extends AppCompatActivity {
         bottomDrawer.setOnDrawerCloseListener(onDrawerCloseListener);
     }
 
+    static public void setDialogOpened(){
+        if(drawer_opened){
+            bottomDrawer.close();
+            drawer_opened = false;
+        }
+
+        park_layout_opened = true;
+    }
+
     // TODO: 2019-08-21 progress bar 추가  
     public void setData(){
         //use parsed data
         weatherInfo = ParkInfoCrawler.getWeatherInfo();
         eventList = ParkInfoCrawler.getEventList();
-        parkList = ParkInfoCrawler.getParkList();
+        //parkList = ParkInfoCrawler.getParkList();
 
         eventListAdapter = new EventListAdapter(eventList);
         event_container.setAdapter(eventListAdapter);

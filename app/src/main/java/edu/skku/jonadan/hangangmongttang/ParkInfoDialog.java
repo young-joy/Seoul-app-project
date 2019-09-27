@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.bumptech.glide.Glide;
+
 public class ParkInfoDialog extends DialogFragment {
     ImageButton closeBtn;
     Button mapBtn;
@@ -28,6 +31,19 @@ public class ParkInfoDialog extends DialogFragment {
     TextView numberTv;
     TextView attractionTv;
     TextView facilityTv;
+
+    Bundle dialogInfo;
+
+    int parkIndex;
+    ParkListItem selectedPark;
+
+    String parkName;
+    String parkLocation;
+    String parkNumber;
+    String parkAttraction;
+    String parkFacility;
+    String parkImgSrc;
+    int parkIcRes;
 
     public ParkInfoDialog() {
     }
@@ -73,6 +89,30 @@ public class ParkInfoDialog extends DialogFragment {
     public void onStart() {
         super.onStart();
 
+        dialogInfo = getArguments();
+        parkIndex = dialogInfo.getInt("PARK_INDEX");
+
+        Log.d("park_dialog",new Integer(parkIndex).toString());
         //getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        selectedPark = MainActivity.parkList.get(parkIndex);
+        parkName = selectedPark.getName();
+        parkLocation = selectedPark.getLocation();
+        parkNumber = selectedPark.getNumber();
+        parkAttraction = selectedPark.getAttraction();
+        parkFacility = selectedPark.getFacility();
+        parkImgSrc = selectedPark.getImg_src();
+        parkIcRes = getResources().getIdentifier("ic_park_"+new Integer(parkIndex).toString(),"drawable",getContext().getPackageName());
+
+        Glide
+                .with(this)
+                .load(parkImgSrc)
+                .into(parkIv);
+        iconIv.setImageResource(parkIcRes);
+        nameTv.setText(parkName);
+        locationTv.setText(parkLocation);
+        numberTv.setText(parkNumber);
+        attractionTv.setText(parkAttraction);
+        facilityTv.setText(parkFacility);
     }
 }
