@@ -1,5 +1,6 @@
 package edu.skku.jonadan.hangangmongttang;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -16,6 +17,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 import java.lang.reflect.Array;
@@ -29,6 +33,8 @@ public class PinView extends SubsamplingScaleImageView {
     ArrayList<PointF> deeplinkCoordinates = new ArrayList<>();
     ArrayList<PointF> modifiedCoordinates = new ArrayList<>();
     Context context;
+    Activity mainActivity;
+    FragmentManager fragmentManager;
     String tag = getClass().getSimpleName();
 
     float pin_width;
@@ -54,6 +60,14 @@ public class PinView extends SubsamplingScaleImageView {
 
     public void setPin(PointF pin) {
         this.sPin = pin;
+    }
+
+    public void setMainActivity(Activity mainActivity) {
+        this.mainActivity = mainActivity;
+    }
+
+    public void setFragmentManager(FragmentManager fragmentManager){
+        this.fragmentManager = fragmentManager;
     }
 
     public PointF getPin() {
@@ -156,6 +170,10 @@ public class PinView extends SubsamplingScaleImageView {
                         if (tappedCoordinate.x >= pinX - pin_width && tappedCoordinate.x <= pinX + pin_width &&
                                 tappedCoordinate.y >= pinY - pin_height && tappedCoordinate.y <= pinY + pin_height) {
                             Log.d("touch_event",new Integer(i).toString() + "pin touched");
+
+                            ParkInfoDialog park_info_dialog = new ParkInfoDialog();
+                            park_info_dialog.show(fragmentManager, "PARK_INFO_DIALOG");
+
                             Toast.makeText(context,"pin touched",Toast.LENGTH_SHORT).show();
                             break;
                         }

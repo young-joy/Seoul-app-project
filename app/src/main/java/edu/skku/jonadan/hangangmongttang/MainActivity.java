@@ -54,9 +54,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.map_image_view)
     PinView mapImageView;
 
-    @BindView(R.id.bottom_drawer)
-    SlidingDrawer bottomDrawer;
-
     //weather info
     @BindView(R.id.temp1)
     TextView temp1;
@@ -105,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.date_info)
     TextView date_info;
 
+    private static SlidingDrawer bottomDrawer;
+
     private final int PARK_NUM = 11;
 
     private HashMap<String, String> weatherInfo = new HashMap<>();
@@ -115,18 +114,21 @@ public class MainActivity extends AppCompatActivity {
 
     private EventListAdapter eventListAdapter;
 
-    private boolean park_layout_opened = false;
-    private boolean drawer_opened = false;
+    private static boolean park_layout_opened = false;
+    private static boolean drawer_opened = false;
     final String api_key = "d0c498afb7199ff9bf703f95c14e007a";
     final int cnt = 5;
 
-    private ParkInfoDialog park_info_dialog;
+    private static ParkInfoDialog park_info_dialog;
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        bottomDrawer = findViewById(R.id.bottom_drawer);
 
         //check connection - temp
         JSONObject get_park_info = new SQLSender().sendSQL("SELECT * from park;");
@@ -169,6 +171,8 @@ public class MainActivity extends AppCompatActivity {
 
         mapImg = getBitmapFromVectorDrawable(MainActivity.this, R.drawable.map_image);
 
+        mapImageView.setFragmentManager(getSupportFragmentManager());
+        mapImageView.setMainActivity(this);
         mapImageView.setImage(ImageSource.bitmap(mapImg));
         mapImageView.setZoomEnabled(false);
         mapImageView.setPanEnabled(true);
@@ -203,12 +207,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 park_info_dialog.show(getSupportFragmentManager(), "TAG");
-                if(drawer_opened){
-                    bottomDrawer.close();
-                    drawer_opened = false;
-                }
-
-                park_layout_opened = true;
             }
         });
 
@@ -217,6 +215,15 @@ public class MainActivity extends AppCompatActivity {
 
         bottomDrawer.setOnDrawerOpenListener(onDrawerOpenListener);
         bottomDrawer.setOnDrawerCloseListener(onDrawerCloseListener);
+    }
+
+    static public void setDialogOpened(){
+        if(drawer_opened){
+            bottomDrawer.close();
+            drawer_opened = false;
+        }
+
+        park_layout_opened = true;
     }
 
     // TODO: 2019-08-21 progress bar 추가  
