@@ -55,11 +55,9 @@ class SQLSender extends Thread {
                 con.setRequestMethod("GET");
 
                 InputStream is = con.getInputStream();
-                Log.d("db_conn","여기까지 됨1");
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 StringBuilder sb = new StringBuilder();
                 String line;
-                Log.d("db_conn","여기까지 됨2");
                 while ((line = br.readLine()) != null) {
                     sb.append(line);
                 }
