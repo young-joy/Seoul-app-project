@@ -34,6 +34,8 @@ public class CustomBalloonAdapter implements CalloutBalloonAdapter {
 
                 TextView titleUser = mBalloon.findViewById(R.id.balloon_title);
                 titleUser.setText(mapPOIItem.getItemName());
+
+                mBalloon.findViewById(R.id.balloon_enter).setVisibility(View.GONE);
                 break;
             case PARK:
                 if (mapPOIItem.getTag() % SeoulApiProvider.SERVICE_PAD % 1000 != 0) {
@@ -60,6 +62,8 @@ public class CustomBalloonAdapter implements CalloutBalloonAdapter {
 
                     TextView title = mBalloon.findViewById(R.id.balloon_title);
                     title.setText(mapPOIItem.getItemName());
+
+                    mBalloon.findViewById(R.id.balloon_enter).setVisibility(View.GONE);
                 }
                 break;
             default:
@@ -73,6 +77,7 @@ public class CustomBalloonAdapter implements CalloutBalloonAdapter {
                     title.setText(mapPOIItem.getItemName());
                     LinearLayout bg = mBalloon.findViewById(R.id.balloon_bg);
                     bg.setBackgroundResource(R.drawable.ic_balloon);
+                    mBalloon.findViewById(R.id.balloon_enter).setVisibility(View.VISIBLE);
                 }
         }
 
