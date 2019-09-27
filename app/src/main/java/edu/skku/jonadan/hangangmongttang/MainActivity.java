@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
     private HashMap<String, String> weatherInfo = new HashMap<>();
     private ArrayList<EventListItem> eventList = new ArrayList<>();
-    private ArrayList<ParkListItem> parkList = new ArrayList<>();
+    public static ArrayList<ParkListItem> parkList = new ArrayList<>();
 
     private Bitmap mapImg;
 
@@ -170,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
         mapImg = getBitmapFromVectorDrawable(MainActivity.this, R.drawable.map_image);
 
         mapImageView.setFragmentManager(getSupportFragmentManager());
-        mapImageView.setMainActivity(this);
         mapImageView.setImage(ImageSource.bitmap(mapImg));
         mapImageView.setZoomEnabled(false);
         mapImageView.setPanEnabled(true);
