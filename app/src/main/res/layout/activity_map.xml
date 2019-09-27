@@ -190,7 +190,8 @@
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/map_fab_menu"
-            app:srcCompat="@drawable/ic_compass_on" />
+            app:maxImageSize="28dp"
+            app:srcCompat="@drawable/ic_my_location_1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
