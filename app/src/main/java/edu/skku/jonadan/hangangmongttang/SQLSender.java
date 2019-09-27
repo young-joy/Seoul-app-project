@@ -12,8 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class SQLSender extends Thread {
-    private String URL;
+class SQLSender extends Thread {
     private String SERVER_IP = "15.164.233.89";
     private JSONObject result;
 
@@ -52,14 +51,13 @@ public class SQLSender extends Thread {
                 con.setRequestProperty("Accept-Charset", "UTF-8");
                 con.setRequestProperty("Accept", "application/json");
 
-                Log.d("db_conn","start conn");
+                Log.d("db_conn","url : "+url.toString());
+                con.setRequestMethod("GET");
 
                 InputStream is = con.getInputStream();
-                Log.d("db_conn","여기까지 됨1");
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 StringBuilder sb = new StringBuilder();
                 String line;
-                Log.d("db_conn","여기까지 됨2");
                 while ((line = br.readLine()) != null) {
                     sb.append(line);
                 }
