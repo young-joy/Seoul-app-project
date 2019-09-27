@@ -126,6 +126,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        //check connection - temp
+        JSONObject get_park_info = new SQLSender().sendSQL("SELECT * from park;");
+        try{
+            if(!get_park_info.getBoolean("isError")){
+                Log.d("db_conn",get_park_info.toString());
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        //
         park_info_dialog = new ParkInfoDialog();
 
         ParkInfoCrawler.setMainContext(MainActivity.this);
