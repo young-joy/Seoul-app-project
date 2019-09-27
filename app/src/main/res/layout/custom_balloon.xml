@@ -6,6 +6,7 @@
     android:background="@android:color/transparent">
 
     <LinearLayout
+        android:id="@+id/balloon_bg"
         android:layout_width="@dimen/balloon_width"
         android:layout_height="@dimen/balloon_height"
         android:layout_margin="@dimen/balloon_margin"

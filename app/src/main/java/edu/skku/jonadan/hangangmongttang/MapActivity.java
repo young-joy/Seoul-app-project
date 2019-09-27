@@ -214,7 +214,7 @@ public class MapActivity extends AppCompatActivity {
 
                         mapView.removePOIItem(parkMarker);
                         parkMarker = new MapPOIItem();
-                        parkMarker.setItemName("");
+                        parkMarker.setItemName(park.getName());
                         parkMarker.setTag(park.getObjectId());
                         parkMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(park.getLat(), park.getLng()));
 
@@ -232,6 +232,21 @@ public class MapActivity extends AppCompatActivity {
                         parkMarker.setCustomImageAutoscale(true);
                         parkMarker.setCustomImageAnchor(0.5f, 1.0f);
                         mapView.addPOIItem(parkMarker);
+                    }
+
+                    @Override
+                    public void focusParkList() {
+                        if (isFabOpen) {
+                            for (FloatingActionButton fab : fabList) {
+                                fab.startAnimation(fabClose);
+                                constraintSet.connect(
+                                        fab.getId(), ConstraintSet.BOTTOM,
+                                        menuBtn.getId(), ConstraintSet.BOTTOM);
+                                constraintSet.setMargin(fab.getId(), ConstraintSet.BOTTOM, 0);
+                                fab.setClickable(false);
+                            }
+                            isFabOpen = !isFabOpen;
+                        }
                     }
                 });
         parkListView.setAdapter(parkListAdapter);
@@ -298,7 +313,7 @@ public class MapActivity extends AppCompatActivity {
                 }
                 
                 curMarker = new MapPOIItem();
-                curMarker.setItemName("");
+                curMarker.setItemName("사용자 위치");
                 curMarker.setTag(0);
                 curMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude));
 
@@ -346,13 +361,25 @@ public class MapActivity extends AppCompatActivity {
 
             @Override
             public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
-                if (mapPOIItem.getItemName().equals("")) {
-                    return;
-                }
                 int id = mapPOIItem.getTag();
-                Intent intent = new Intent(MapActivity.this, InfoActivity.class);
-                intent.putExtra("location_id", id);
-                startActivity(intent);
+                int type = mapPOIItem.getTag() / SeoulApiProvider.SERVICE_PAD;
+                switch (SeoulApiProvider.SERVICE_CODE.values()[type]) {
+                    case QUAY:
+                    case WATER_LEISURE:
+                    case BOAT:
+                    case DUCK_BOAT:
+                    case WATER_TAXI:
+                    case PLAYGROUND:
+                    case ROCK:
+                    case SKATE:
+                    case JOKGU:
+                    case TRACK:
+                    case BADMINTON:
+                        Intent intent = new Intent(MapActivity.this, InfoActivity.class);
+                        intent.putExtra("location_id", id);
+                        startActivity(intent);
+                        break;
+                }
             }
 
             @Override
@@ -373,7 +400,7 @@ public class MapActivity extends AppCompatActivity {
         markerList = new ArrayList<>();
 
         parkMarker = new MapPOIItem();
-        parkMarker.setItemName("");
+        parkMarker.setItemName(location.getName());
         parkMarker.setTag(location.getObjectId());
         parkMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(location.getLat(), location.getLng()));
 
@@ -391,13 +418,6 @@ public class MapActivity extends AppCompatActivity {
         parkMarker.setCustomImageAutoscale(true);
         parkMarker.setCustomImageAnchor(0.5f, 1.0f);
         mapView.addPOIItem(parkMarker);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
-        mapView.setShowCurrentLocationMarker(false);
     }
 
     @Override
