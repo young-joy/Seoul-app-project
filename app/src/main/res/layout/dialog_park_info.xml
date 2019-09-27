@@ -15,9 +15,8 @@
 
         <ImageView
             android:id="@+id/park_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_park_temp" />
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
 
         <TextView
             android:id="@+id/park_name"
@@ -28,7 +27,6 @@
             android:layout_weight="1"
             android:fontFamily="@font/circle_jaedan"
             android:gravity="center"
-            android:text="반포 한강공원"
             android:textColor="@android:color/black"
             android:textSize="24sp" />
 
@@ -41,7 +39,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/park_img"
+        android:id="@+id/line_image"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
@@ -58,11 +56,10 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView10"
+                android:id="@+id/park_img"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/turtle" />
+                android:scaleType="centerCrop" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,8 +80,7 @@
                     android:id="@+id/location"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:text="서울시 서초구 신반포로11길 40 (반포동 115-5)" />
+                    android:layout_weight="4" />
             </LinearLayout>
 
             <LinearLayout
@@ -106,8 +102,7 @@
                     android:id="@+id/number"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:text="3780 - 0541" />
+                    android:layout_weight="4" />
             </LinearLayout>
 
             <LinearLayout
@@ -129,8 +124,7 @@
                     android:id="@+id/attraction"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:text="수변무대, 달빛광장" />
+                    android:layout_weight="4" />
             </LinearLayout>
 
             <LinearLayout

@@ -1,11 +1,13 @@
 package edu.skku.jonadan.hangangmongttang;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
@@ -15,6 +17,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
@@ -29,7 +34,8 @@ public class PinView extends SubsamplingScaleImageView {
     ArrayList<PointF> deeplinkCoordinates = new ArrayList<>();
     ArrayList<PointF> modifiedCoordinates = new ArrayList<>();
     Context context;
-    String tag = getClass().getSimpleName();
+    FragmentManager fragmentManager;
+    Bundle dialog_args;
 
     float pin_width;
     float pin_height;
@@ -56,12 +62,17 @@ public class PinView extends SubsamplingScaleImageView {
         this.sPin = pin;
     }
 
+    public void setFragmentManager(FragmentManager fragmentManager){
+        this.fragmentManager = fragmentManager;
+    }
+
     public PointF getPin() {
         return sPin;
     }
 
     private void initialise() {
         Log.d("touch_event","set");
+        dialog_args = new Bundle();
         setTouchListener();
     }
 
@@ -153,10 +164,15 @@ public class PinView extends SubsamplingScaleImageView {
                         int pinX = (int) pinCoord.x;
                         int pinY = (int) pinCoord.y;
 
-                        if (tappedCoordinate.x >= pinX - pin_width && tappedCoordinate.x <= pinX + pin_width &&
-                                tappedCoordinate.y >= pinY - pin_height && tappedCoordinate.y <= pinY + pin_height) {
+                        if (tappedCoordinate.x >= pinX - pin_width*2/3 && tappedCoordinate.x <= pinX + pin_width*2/3 &&
+                                tappedCoordinate.y >= pinY - pin_height*2/3 && tappedCoordinate.y <= pinY + pin_height*2/3) {
+                            Log.d("touch_event","pin : "+pinCoord.toString());
                             Log.d("touch_event",new Integer(i).toString() + "pin touched");
-                            Toast.makeText(context,"pin touched",Toast.LENGTH_SHORT).show();
+
+                            ParkInfoDialog park_info_dialog = new ParkInfoDialog();
+                            dialog_args.putInt("PARK_INDEX",i);
+                            park_info_dialog.setArguments(dialog_args);
+                            park_info_dialog.show(fragmentManager, "PARK_INFO_DIALOG");
                             break;
                         }
                     }
