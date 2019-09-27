@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.date_info)
     TextView date_info;
 
+    private final int PARK_NUM = 11;
+
     private HashMap<String, String> weatherInfo = new HashMap<>();
     private ArrayList<EventListItem> eventList = new ArrayList<>();
     private ArrayList<ParkListItem> parkList = new ArrayList<>();
@@ -130,7 +132,31 @@ public class MainActivity extends AppCompatActivity {
         JSONObject get_park_info = new SQLSender().sendSQL("SELECT * from park;");
         try{
             if(!get_park_info.getBoolean("isError")){
-                Log.d("db_conn",get_park_info.toString());
+                JSONObject park_info;
+                ParkListItem item;
+                int park_id;
+                String park_name;
+                String park_location;
+                String park_number;
+                String park_attraction;
+                String park_facility;
+                String park_img_src;
+
+                for(int i=0;i<PARK_NUM;i++){
+                    park_info = get_park_info.getJSONArray("result").getJSONObject(i);
+                    park_id = park_info.getInt("pid");
+                    park_name = park_info.getString("name");
+                    park_location = park_info.getString("location");
+                    park_number = park_info.getString("number");
+                    park_attraction = park_info.getString("attraction");
+                    park_facility = park_info.getString("facility");
+                    park_img_src = park_info.getString("img_src");
+
+                    item = new ParkListItem(park_id, park_name, park_img_src, park_location, park_number, park_attraction,
+                            park_facility);
+                    parkList.add(item);
+                    Log.d("db_conn", parkList.get(i).getName());
+                }
             }
         }catch (JSONException e){
             e.printStackTrace();
@@ -198,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         //use parsed data
         weatherInfo = ParkInfoCrawler.getWeatherInfo();
         eventList = ParkInfoCrawler.getEventList();
-        parkList = ParkInfoCrawler.getParkList();
+        //parkList = ParkInfoCrawler.getParkList();
 
         eventListAdapter = new EventListAdapter(eventList);
         event_container.setAdapter(eventListAdapter);
