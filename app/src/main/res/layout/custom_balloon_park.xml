@@ -36,12 +36,6 @@
                 android:textSize="@dimen/balloon_text_size"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/balloon_park_enter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent" />
         </LinearLayout>
 
         <LinearLayout
