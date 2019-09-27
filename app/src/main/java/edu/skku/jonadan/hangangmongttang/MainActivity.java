@@ -41,8 +41,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 /// TODO: 2019-08-19 modify layout(drawer:linear->constraint), add event info  
 public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.button)
-    Button button;
     @BindView(R.id.app_info_btn)
     ImageButton infoBtn;
 
@@ -200,13 +198,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AppInfoActivity.class);
                 startActivity(intent);
-            }
-        });
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                park_info_dialog.show(getSupportFragmentManager(), "TAG");
             }
         });
 
