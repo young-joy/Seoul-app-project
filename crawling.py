@@ -1,4 +1,5 @@
 import pymysql
+import datetime
 
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
@@ -35,3 +36,4 @@ for event in event_list:
     cur.execute(query)
 db.commit()
 db.close()
+print(datetime.datetime.now())
