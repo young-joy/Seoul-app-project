@@ -16,6 +16,25 @@ public class SeoulApiProvider {
         ROCK, SKATE, JOKGU, TRACK, BADMINTON
     }
 
+    public enum CALL_NUM {
+        TOTILET(6), SHOP(1), WATER(1),
+        ENTERTAIN(6), ATHLETIC(5);
+
+        private int value;
+
+        CALL_NUM(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public void setValue(int value) {
+            this.value = value;
+        }
+    }
+
     public final static int SERVICE_PAD = 100000;
 
     private final Retrofit retrofit;

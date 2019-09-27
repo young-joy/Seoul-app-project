@@ -110,6 +110,7 @@ public class MapActivity extends AppCompatActivity {
     private MapPOIItem parkMarker;
     private MapPOIItem curMarker;
     private Location refLocation;
+    private int callCount;
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
@@ -659,6 +660,8 @@ public class MapActivity extends AppCompatActivity {
             public void onClick(View view) {
                 removeAllMarkers();
                 toiletList.clear();
+                disableFabs();
+                callCount = 0;
                 ArrayList<Call<SeoulApiResult>> calls = apiProvider.callToilet();
                 for (Call call: calls) {
                     call.enqueue(callbacks.get(FABS.TOILET.ordinal()));
@@ -671,6 +674,8 @@ public class MapActivity extends AppCompatActivity {
             public void onClick(View view) {
                 removeAllMarkers();
                 shopList.clear();
+                disableFabs();
+                callCount = 0;
                 Call<SeoulApiResult> call = apiProvider.callShop();
                 call.enqueue(callbacks.get(FABS.SHOP.ordinal()));
             }
@@ -681,6 +686,8 @@ public class MapActivity extends AppCompatActivity {
             public void onClick(View view) {
                 removeAllMarkers();
                 waterList.clear();
+                disableFabs();
+                callCount = 0;
                 Call<SeoulApiResult> call = apiProvider.callWater();
                 call.enqueue(callbacks.get(FABS.WATER.ordinal()));
             }
@@ -691,6 +698,8 @@ public class MapActivity extends AppCompatActivity {
             public void onClick(View view) {
                 removeAllMarkers();
                 entertainList.clear();
+                disableFabs();
+                callCount = 0;
                 ArrayList<Call<SeoulApiResult>> calls = apiProvider.callEntertain();
                 for (Call call: calls) {
                     call.enqueue(callbacks.get(FABS.ENTERTAIN.ordinal()));
@@ -703,6 +712,8 @@ public class MapActivity extends AppCompatActivity {
             public void onClick(View view) {
                 removeAllMarkers();
                 athleticList.clear();
+                disableFabs();
+                callCount = 0;
                 ArrayList<Call<SeoulApiResult>> calls = apiProvider.callAthletic();
                 for (Call call: calls) {
                     call.enqueue(callbacks.get(FABS.ATHELETIC.ordinal()));
@@ -743,6 +754,10 @@ public class MapActivity extends AppCompatActivity {
                     }
                 }
                 setMarker(toiletList);
+                callCount += 1;
+                if (callCount == SeoulApiProvider.CALL_NUM.TOTILET.getValue()) {
+                    enableFabs();
+                }
             }
 
             @Override
@@ -773,6 +788,10 @@ public class MapActivity extends AppCompatActivity {
                     // No result
                 }
                 setMarker(shopList);
+                callCount += 1;
+                if (callCount == SeoulApiProvider.CALL_NUM.SHOP.getValue()) {
+                    enableFabs();
+                }
             }
 
             @Override
@@ -803,6 +822,10 @@ public class MapActivity extends AppCompatActivity {
                     // No result
                 }
                 setMarker(waterList);
+                callCount += 1;
+                if (callCount == SeoulApiProvider.CALL_NUM.WATER.getValue()) {
+                    enableFabs();
+                }
             }
 
             @Override
@@ -868,6 +891,10 @@ public class MapActivity extends AppCompatActivity {
                     // No result
                 }
                 setMarker(entertainList);
+                callCount += 1;
+                if (callCount == SeoulApiProvider.CALL_NUM.ENTERTAIN.getValue()) {
+                    enableFabs();
+                }
             }
 
             @Override
@@ -926,6 +953,10 @@ public class MapActivity extends AppCompatActivity {
                     // No result
                 }
                 setMarker(athleticList);
+                callCount += 1;
+                if (callCount == SeoulApiProvider.CALL_NUM.ATHLETIC.getValue()) {
+                    enableFabs();
+                }
             }
 
             @Override
@@ -952,5 +983,17 @@ public class MapActivity extends AppCompatActivity {
 
     private double deg2rad(double degree) {
         return degree * Math.PI / 180;
+    }
+
+    private void disableFabs() {
+        for (FloatingActionButton fab: fabList) {
+            fab.setEnabled(false);
+        }
+    }
+
+    private void enableFabs() {
+        for (FloatingActionButton fab: fabList) {
+            fab.setEnabled(true);
+        }
     }
 }
