@@ -173,8 +173,6 @@ public class PinView extends SubsamplingScaleImageView {
                             dialog_args.putInt("PARK_INDEX",i);
                             park_info_dialog.setArguments(dialog_args);
                             park_info_dialog.show(fragmentManager, "PARK_INFO_DIALOG");
-
-                            Toast.makeText(context,"pin touched",Toast.LENGTH_SHORT).show();
                             break;
                         }
                     }

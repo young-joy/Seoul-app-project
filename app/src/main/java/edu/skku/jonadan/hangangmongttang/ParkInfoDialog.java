@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.bumptech.glide.Glide;
+
 public class ParkInfoDialog extends DialogFragment {
     ImageButton closeBtn;
     Button mapBtn;
@@ -41,6 +43,7 @@ public class ParkInfoDialog extends DialogFragment {
     String parkAttraction;
     String parkFacility;
     String parkImgSrc;
+    int parkIcRes;
 
     public ParkInfoDialog() {
     }
@@ -99,7 +102,13 @@ public class ParkInfoDialog extends DialogFragment {
         parkAttraction = selectedPark.getAttraction();
         parkFacility = selectedPark.getFacility();
         parkImgSrc = selectedPark.getImg_src();
+        parkIcRes = getResources().getIdentifier("ic_park_"+new Integer(parkIndex).toString(),"drawable",getContext().getPackageName());
 
+        Glide
+                .with(this)
+                .load(parkImgSrc)
+                .into(parkIv);
+        iconIv.setImageResource(parkIcRes);
         nameTv.setText(parkName);
         locationTv.setText(parkLocation);
         numberTv.setText(parkNumber);
