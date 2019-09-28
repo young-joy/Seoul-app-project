@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ public class ReviewListAdapter extends BaseAdapter {
     private TextView contentTv;
     private TextView dateTv;
     private RatingBar ratingBar;
+    private ImageButton deleteBtn;
 
     public ReviewListAdapter(ArrayList<ReviewListItem> reviewList) {
         this.reviewList = reviewList;
@@ -64,11 +66,19 @@ public class ReviewListAdapter extends BaseAdapter {
         dateTv = view.findViewById(R.id.date);
         contentTv = view.findViewById(R.id.review);
         ratingBar = view.findViewById(R.id.ratingBar);
+        deleteBtn = view.findViewById(R.id.delete_btn);
 
         userTv.setText(user);
         dateTv.setText(date);
         contentTv.setText(content);
         ratingBar.setRating(rate);
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReviewFragment.deleteReview(i);
+            }
+        });
 
         return view;
     }
