@@ -29,51 +29,32 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/user_id"
+                android:id="@+id/user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/circle_jaedan"
-                android:text="영민"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
-            <ImageView
-                android:id="@+id/imageView3"
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_star_filled" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_star_filled" />
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_star_filled" />
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_star" />
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_star" />
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginStart="@dimen/activity_min_margin"
+                android:layout_marginEnd="@dimen/activity_min_margin"
+                android:isIndicator="true"
+                android:max="5"
+                android:progressBackgroundTint="@android:color/darker_gray"
+                android:progressTint="@color/colorAccent" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="2019.08.30"
                 android:textColor="@android:color/tertiary_text_light" />
         </LinearLayout>
 
@@ -82,7 +63,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="세상 개꿀 앱입니다. 사랑해요 한강몽땅!\n세상 개꿀 앱입니다. 사랑해요 한강몽땅!\n세상 개꿀 앱입니다. 사랑해요 한강몽땅!\n세상 개꿀 앱입니다. 사랑해요 한강몽땅!"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

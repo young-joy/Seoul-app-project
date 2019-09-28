@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -23,10 +24,13 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -96,18 +100,7 @@ public class InfoActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().add(R.id.container,infoFragment, "1").commit();
         activeFragment = infoFragment;
 
-        //get facility info
-        JSONObject get_facility_info = new SQLSender().sendSQL("SELECT * from facility where fid="+new Integer(facilityId).toString()+";");
-        try{
-            if(!get_facility_info.getBoolean("isError")){
-                JSONObject facility_info = get_facility_info.getJSONArray("result").getJSONObject(0);
-
-                facilityName = facility_info.getString("name");
-                facilityLocation = facility_info.getString("location");
-            }
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
+        getFacilityInfo();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -139,6 +132,20 @@ public class InfoActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         infoFragment.removeMapView();
+    }
+
+    private void getFacilityInfo(){
+        JSONObject get_facility_info = new SQLSender().sendSQL("SELECT * from facility where fid="+new Integer(facilityId).toString()+";");
+        try{
+            if(!get_facility_info.getBoolean("isError")){
+                JSONObject facility_info = get_facility_info.getJSONArray("result").getJSONObject(0);
+
+                facilityName = facility_info.getString("name");
+                facilityLocation = facility_info.getString("location");
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
     }
 
     private void changView(int index) {
