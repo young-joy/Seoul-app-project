@@ -178,17 +178,17 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<MapPin> MapPins = new ArrayList();
         //dp-val pins
-        MapPins.add(new MapPin(1190.2885f, 1109.7115f,1)); // 광나루
-        MapPins.add(new MapPin(1100.8882f, 1190.4038f,2)); // 잠실
-        MapPins.add(new MapPin(1026.4001f, 1050.5962f,3)); // 뚝섬
-        MapPins.add(new MapPin(890.91345f, 1150.7885f,4)); // 잠원
-        MapPins.add(new MapPin(764.24396f, 1230.6924f,5)); // 반포
-        MapPins.add(new MapPin(680.4531f, 1100.8655f,6)); // 이촌
-        MapPins.add(new MapPin(545.14905f, 1130.25f,7)); // 여의도
-        MapPins.add(new MapPin(530.7223f, 997.6923f,8)); // 망원
-        MapPins.add(new MapPin(443.0769f, 968.3654f,9)); // 난지
-        MapPins.add(new MapPin(290.43268f, 1040.7115f,10)); //강서
-        MapPins.add(new MapPin(386.0156f, 1092.8846f,11)); // 양화
+        MapPins.add(new MapPin(1190.2885f, 1103.7115f,1)); // 광나루
+        MapPins.add(new MapPin(1100.8882f, 1184.4038f,2)); // 잠실
+        MapPins.add(new MapPin(1026.4001f, 1044.5962f,3)); // 뚝섬
+        MapPins.add(new MapPin(890.91345f, 1144.7885f,4)); // 잠원
+        MapPins.add(new MapPin(764.24396f, 1224.6924f,5)); // 반포
+        MapPins.add(new MapPin(680.4531f, 1094.8655f,6)); // 이촌
+        MapPins.add(new MapPin(545.14905f, 1124.25f,7)); // 여의도
+        MapPins.add(new MapPin(530.7223f, 991.6923f,8)); // 망원
+        MapPins.add(new MapPin(443.0769f, 962.3654f,9)); // 난지
+        MapPins.add(new MapPin(290.43268f, 1034.7115f,10)); //강서
+        MapPins.add(new MapPin(386.0156f, 1086.8846f,11)); // 양화
 
         mapImageView.setPins(MapPins);
 
