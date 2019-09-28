@@ -1,5 +1,6 @@
 package edu.skku.jonadan.hangangmongttang;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -47,6 +48,8 @@ public class AddReviewFragment extends DialogFragment {
     private String password;
     private String review;
     private String date;
+
+    public static boolean endFragment = false;
 
     private int reviewLength = 0;
     public AddReviewFragment() {
@@ -111,7 +114,21 @@ public class AddReviewFragment extends DialogFragment {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismiss();
+                if(reviewEdit.getText().length()!=0 || userEdit.getText().length()!=0
+                || passwordEdit.getText().length()!=0 || ratingEdit.getRating()!=1){
+                    ReviewCancelDialog cancelDialog = new ReviewCancelDialog();
+                    cancelDialog.show(getFragmentManager(), "PARK_INFO_DIALOG");
+                    getFragmentManager().executePendingTransactions();
+                    cancelDialog.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            if(endFragment)
+                                dismiss();
+                        }
+                    });
+                }else{
+                    dismiss();
+                }
             }
         });
 

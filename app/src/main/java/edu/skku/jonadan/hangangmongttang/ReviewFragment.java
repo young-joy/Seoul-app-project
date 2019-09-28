@@ -100,4 +100,19 @@ public class ReviewFragment extends Fragment {
 
         reviewListAdapter.notifyDataSetChanged();
     }
+
+    public static void deleteReview(int index){
+        int target_rid = reviewList.get(index).getRid();
+        //delete from database
+        JSONObject delete_review = new SQLSender().sendSQL("DELETE from review where rid="+new Integer(target_rid).toString()+";");
+        try{
+            if(!delete_review.getBoolean("isError")){
+                Log.d("db_conn",delete_review.toString());
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        //reload
+        getReview();
+    }
 }
