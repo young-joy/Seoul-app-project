@@ -102,7 +102,7 @@ public class ParkInfoDialog extends DialogFragment {
         parkAttraction = selectedPark.getAttraction();
         parkFacility = selectedPark.getFacility();
         parkImgSrc = selectedPark.getImg_src();
-        parkIcRes = getResources().getIdentifier("ic_park_"+new Integer(parkIndex).toString(),"drawable",getContext().getPackageName());
+        parkIcRes = getResources().getIdentifier("ic_park_"+new Integer(parkIndex+1).toString(),"drawable",getContext().getPackageName());
 
         Glide
                 .with(this)
