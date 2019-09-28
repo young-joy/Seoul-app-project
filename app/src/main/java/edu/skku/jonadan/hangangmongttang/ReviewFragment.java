@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
@@ -24,6 +25,8 @@ public class ReviewFragment extends Fragment {
     ListView reviewListView;
     Button reviewBtn;
 
+    static ConstraintLayout noResultLayout;
+
     public static ArrayList<ReviewListItem> reviewList = new ArrayList<>();
     public static ReviewListAdapter reviewListAdapter;
 
@@ -36,6 +39,7 @@ public class ReviewFragment extends Fragment {
 
         reviewBtn = rootView.findViewById(R.id.btn_review);
         reviewListView = rootView.findViewById(R.id.review_list);
+        noResultLayout = rootView.findViewById(R.id.no_result);
 
         reviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +103,12 @@ public class ReviewFragment extends Fragment {
         }
 
         reviewListAdapter.notifyDataSetChanged();
+
+        if(reviewList.size()==0){
+            noResultLayout.setVisibility(View.VISIBLE);
+        }else{
+            noResultLayout.setVisibility(View.GONE);
+        }
     }
 
     public static void deleteReview(int index){
