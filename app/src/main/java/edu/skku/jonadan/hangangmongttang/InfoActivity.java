@@ -66,7 +66,6 @@ public class InfoActivity extends AppCompatActivity {
     public static int facilityId;
     public static String facilityName = "";
     public static String facilityLocation = "";
-    public static String curDate = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,7 +101,6 @@ public class InfoActivity extends AppCompatActivity {
         activeFragment = infoFragment;
 
         getFacilityInfo();
-        getCurDate();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -148,14 +146,6 @@ public class InfoActivity extends AppCompatActivity {
         }catch (JSONException e){
             e.printStackTrace();
         }
-    }
-
-    private void getCurDate(){
-        long now = System.currentTimeMillis();
-        Date date = new Date(now);
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-        curDate = dateFormat.format(date);
     }
 
     private void changView(int index) {
