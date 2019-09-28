@@ -2,6 +2,7 @@ package edu.skku.jonadan.hangangmongttang;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +14,20 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class ReviewFragment extends Fragment {
     ListView reviewListView;
     Button reviewBtn;
 
-    private ArrayList<ReviewListItem> reviewList = new ArrayList<>();
-    private ReviewListAdapter reviewListAdapter;
+    public static ArrayList<ReviewListItem> reviewList = new ArrayList<>();
+    public static ReviewListAdapter reviewListAdapter;
 
-    private int facilityId;
+    public static int facilityId;
 
     @Nullable
     @Override
@@ -47,8 +52,52 @@ public class ReviewFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        reviewList = InfoActivity.reviewList;
+        facilityId = InfoActivity.facilityId;
         reviewListAdapter = new ReviewListAdapter(reviewList);
         reviewListView.setAdapter(reviewListAdapter);
+
+        getReview();
+    }
+
+    public static void getReview(){
+        reviewList.clear();
+
+        int review_num;
+
+        int rid;
+        String user;
+        String password;
+        String content;
+        String date;
+        float rate;
+
+        JSONObject get_review = new SQLSender().sendSQL("SELECT * from review where fid="+new Integer(facilityId).toString()+";");
+        try{
+            if(!get_review.getBoolean("isError")){
+                Log.d("db_conn",get_review.toString());
+
+                JSONArray reviews = get_review.getJSONArray("result");
+                JSONObject review;
+                ReviewListItem reviewItem;
+                review_num = reviews.length();
+
+                for(int i=0;i<review_num;i++){
+                    review = reviews.getJSONObject(i);
+                    rid = review.getInt("rid");
+                    user = review.getString("user");
+                    password = review.getString("password");
+                    date = review.getString("date");
+                    rate = review.getInt("rate");
+                    content = review.getString("content");
+
+                    reviewItem = new ReviewListItem(rid, user, password, date, rate, content);
+                    reviewList.add(reviewItem);
+                }
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        reviewListAdapter.notifyDataSetChanged();
     }
 }

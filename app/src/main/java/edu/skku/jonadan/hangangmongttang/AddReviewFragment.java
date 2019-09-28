@@ -40,6 +40,7 @@ public class AddReviewFragment extends DialogFragment {
     private String user;
     private String password;
     private String review;
+    private String date;
     public AddReviewFragment() {
         super();
     }
@@ -94,7 +95,7 @@ public class AddReviewFragment extends DialogFragment {
                 review = reviewEdit.getText().toString();
                 user = userEdit.getText().toString();
                 password = passwordEdit.getText().toString();
-                String date = "2019.9.28";
+                date = InfoActivity.curDate;
 
                 JSONObject insert_review = new SQLSender().sendSQL("INSERT INTO review (fid, user, password, date, rate, content) VALUES ("+new Integer(facilityId).toString()+", '"+user+"', '"+password+"', '"
                         +date+"', "+ new Float(rating).toString()+", '"+review+"');");
@@ -107,6 +108,7 @@ public class AddReviewFragment extends DialogFragment {
                     e.printStackTrace();
                 }
 
+                ReviewFragment.getReview();
                 dismiss();
             }
         });

@@ -28,7 +28,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,7 +66,7 @@ public class InfoActivity extends AppCompatActivity {
     public static int facilityId;
     public static String facilityName = "";
     public static String facilityLocation = "";
-    public static ArrayList<ReviewListItem> reviewList = new ArrayList();
+    public static String curDate = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,7 +102,7 @@ public class InfoActivity extends AppCompatActivity {
         activeFragment = infoFragment;
 
         getFacilityInfo();
-        getReview();
+        getCurDate();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -148,42 +150,12 @@ public class InfoActivity extends AppCompatActivity {
         }
     }
 
-    private void getReview(){
-        int review_num;
+    private void getCurDate(){
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
 
-        int rid;
-        String user;
-        String password;
-        String content;
-        String date;
-        float rate;
-
-        JSONObject get_review = new SQLSender().sendSQL("SELECT * from review where fid="+new Integer(facilityId).toString()+";");
-        try{
-            if(!get_review.getBoolean("isError")){
-                Log.d("db_conn",get_review.toString());
-
-                JSONArray reviews = get_review.getJSONArray("result");
-                JSONObject review;
-                ReviewListItem reviewItem;
-                review_num = reviews.length();
-
-                for(int i=0;i<review_num;i++){
-                    review = reviews.getJSONObject(i);
-                    rid = review.getInt("rid");
-                    user = review.getString("user");
-                    password = review.getString("password");
-                    date = review.getString("date");
-                    rate = review.getInt("rate");
-                    content = review.getString("content");
-
-                    reviewItem = new ReviewListItem(rid, user, password, date, rate, content);
-                    reviewList.add(reviewItem);
-                }
-            }
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        curDate = dateFormat.format(date);
     }
 
     private void changView(int index) {
