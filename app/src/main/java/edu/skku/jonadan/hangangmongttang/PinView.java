@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
@@ -118,8 +119,8 @@ public class PinView extends SubsamplingScaleImageView {
             Log.d("touch_event",vPin.toString());
 
             PointF newPin = new PointF();
-            float vX = (vPin.x - (bmpPin.getWidth() / 2)) * width / 1440f;
-            float vY = (vPin.y - bmpPin.getHeight()/2 -40f) * height / 2560f;
+            float vX = (vPin.x - (bmpPin.getWidth()/2));
+            float vY = (vPin.y - bmpPin.getHeight()/2);
             newPin.x = vX;
             newPin.y = vY;
             modifiedCoordinates.add(newPin);
@@ -127,12 +128,19 @@ public class PinView extends SubsamplingScaleImageView {
             canvas.drawBitmap(bmpPin, vX, vY, paint);
             //add added pin to an Array list to get touched pin
             DrawPin dPin = new DrawPin();
-            dPin.setStartX(newPin.x - pin_width/2);
-            dPin.setEndX(newPin.x + pin_width/2);
-            dPin.setStartY(newPin.y + pin_height/2);
-            dPin.setEndY(newPin.y + pin_height/ 2);
+            dPin.setStartX(newPin.x);
+            dPin.setEndX(newPin.x + pin_width);
+            dPin.setStartY(newPin.y);
+            dPin.setEndY(newPin.y + pin_height);
             dPin.setId(mPin.getId());
             drawnPins.add(dPin);
+
+//            Paint paintRed = new Paint();
+//            paintRed.setColor(Color.RED);
+//            paintRed.setStrokeWidth(10f);
+//            canvas.drawPoint(newPin.x, newPin.y, paintRed);
+//            canvas.drawRect(newPin.x, newPin.y,
+//                    newPin.x + pin_width, newPin.y + pin_height, paintRed);
         }
     }
 
@@ -164,8 +172,8 @@ public class PinView extends SubsamplingScaleImageView {
                         int pinX = (int) pinCoord.x;
                         int pinY = (int) pinCoord.y;
 
-                        if (tappedCoordinate.x >= pinX - pin_width*2/3 && tappedCoordinate.x <= pinX + pin_width*2/3 &&
-                                tappedCoordinate.y >= pinY - pin_height*2/3 && tappedCoordinate.y <= pinY + pin_height*2/3) {
+                        if (tappedCoordinate.x >= pinX && tappedCoordinate.x <= pinX + pin_width&&
+                                tappedCoordinate.y >= pinY && tappedCoordinate.y <= pinY + pin_height) {
                             Log.d("touch_event","pin : "+pinCoord.toString());
                             Log.d("touch_event",new Integer(i).toString() + "pin touched");
 
