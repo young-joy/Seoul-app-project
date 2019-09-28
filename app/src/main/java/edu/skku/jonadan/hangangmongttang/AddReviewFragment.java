@@ -24,6 +24,8 @@ public class AddReviewFragment extends DialogFragment {
     private Button addBtn;
     private ImageButton backBtn;
 
+    private int facilityId;
+
     private float rating;
     private String user;
     private String password;

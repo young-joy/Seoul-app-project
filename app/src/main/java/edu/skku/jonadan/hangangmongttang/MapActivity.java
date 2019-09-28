@@ -384,7 +384,7 @@ public class MapActivity extends AppCompatActivity {
                     case TRACK:
                     case BADMINTON:
                         Intent intent = new Intent(MapActivity.this, InfoActivity.class);
-                        intent.putExtra("location_id", id);
+                        intent.putExtra("facility_id", id);
                         startActivity(intent);
                         break;
                 }

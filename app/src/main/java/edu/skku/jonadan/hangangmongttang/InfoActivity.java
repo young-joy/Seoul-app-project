@@ -1,5 +1,6 @@
 package edu.skku.jonadan.hangangmongttang;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.transition.AutoTransition;
@@ -55,6 +56,8 @@ public class InfoActivity extends AppCompatActivity {
 
     private ArrayList<Integer> imageList;
 
+    public static int facilityId;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +65,9 @@ public class InfoActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_info);
         ButterKnife.bind(this);
+
+        Intent intent = getIntent();
+        facilityId = intent.getExtras().getInt("facility_id");
 
         // set viewPager
         imageList = new ArrayList<>();
