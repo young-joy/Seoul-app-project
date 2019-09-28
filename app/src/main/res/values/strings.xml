@@ -21,6 +21,7 @@
     <string name="add_review_text">리뷰 작성</string>
     <string name="review_hint">리뷰를 작성해 주세요</string>
     <string name="cancel_review">정말 나가시겠습니까?</string>
+    <string name="empty_review">내용을 입력해주세요!</string>
 
     <string name="weather_error">날씨 정보를 불러올 수 없습니다</string>
     <string name ="dust_grade1">미세먼지</string>

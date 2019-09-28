@@ -1,6 +1,7 @@
 package edu.skku.jonadan.hangangmongttang;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,6 +50,8 @@ public class AddReviewFragment extends DialogFragment {
     private String password;
     private String review;
     private String date;
+
+    private View emptyDialogView;
 
     public static boolean endFragment = false;
 
@@ -92,6 +96,8 @@ public class AddReviewFragment extends DialogFragment {
 
         addBtn = view.findViewById(R.id.btn_add);
         backBtn = view.findViewById(R.id.btn_back);
+
+        emptyDialogView = View.inflate(getContext(),R.layout.dialog_isempty,null);
 
         reviewEdit.addTextChangedListener(new TextWatcher() {
             @Override
@@ -141,19 +147,23 @@ public class AddReviewFragment extends DialogFragment {
                 password = passwordEdit.getText().toString();
                 date = getCurDate();
 
-                JSONObject insert_review = new SQLSender().sendSQL("INSERT INTO review (fid, user, password, date, rate, content) VALUES ("+new Integer(facilityId).toString()+", '"+user+"', '"+password+"', '"
-                        +date+"', "+ new Float(rating).toString()+", '"+review+"');");
-                try{
-                    if(!insert_review.getBoolean("isError")){
-                        //insert_review is success
-                        Log.d("db_conn",insert_review.toString());
+                if(review.length()==0 || user.length()==0 || password.length()==0){
+                    Toast.makeText(getContext(), R.string.empty_review,Toast.LENGTH_SHORT).show(); 
+                }else{
+                    JSONObject insert_review = new SQLSender().sendSQL("INSERT INTO review (fid, user, password, date, rate, content) VALUES ("+new Integer(facilityId).toString()+", '"+user+"', '"+password+"', '"
+                            +date+"', "+ new Float(rating).toString()+", '"+review+"');");
+                    try{
+                        if(!insert_review.getBoolean("isError")){
+                            //insert_review is success
+                            Log.d("db_conn",insert_review.toString());
+                        }
+                    }catch (JSONException e){
+                        e.printStackTrace();
                     }
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
 
-                ReviewFragment.getReview();
-                dismiss();
+                    ReviewFragment.getReview();
+                    dismiss();
+                }
             }
         });
 
