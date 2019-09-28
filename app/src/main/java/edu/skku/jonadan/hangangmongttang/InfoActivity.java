@@ -23,6 +23,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -57,6 +60,8 @@ public class InfoActivity extends AppCompatActivity {
     private ArrayList<Integer> imageList;
 
     public static int facilityId;
+    public static String facilityName = "";
+    public static String facilityLocation = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,6 +95,20 @@ public class InfoActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().add(R.id.container, reviewFragment, "2").hide(reviewFragment).commit();
         fragmentManager.beginTransaction().add(R.id.container,infoFragment, "1").commit();
         activeFragment = infoFragment;
+
+        //get facility info
+        JSONObject get_facility_info = new SQLSender().sendSQL("SELECT * from facility where fid="+new Integer(facilityId).toString()+";");
+        try{
+            if(!get_facility_info.getBoolean("isError")){
+                JSONObject facility_info = get_facility_info.getJSONArray("result").getJSONObject(0);
+
+                facilityName = facility_info.getString("name");
+                facilityLocation = facility_info.getString("location");
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+
+        }
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

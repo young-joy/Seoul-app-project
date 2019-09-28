@@ -64,11 +64,10 @@
         app:layout_constraintTop_toBottomOf="@id/info_top_bar">
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/facility_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/circle_jaedan"
-            android:text="광나루 어린이 야구장"
             android:textColor="@android:color/black"
             android:textSize="@dimen/title_text_size" />
 
@@ -86,13 +85,14 @@
                 app:srcCompat="@drawable/ic_ilocation_red" />
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/facility_location"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
+                android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:text="서울특별시 송파구 풍납동 49-2" />
+                android:maxLines="1" />
         </LinearLayout>
 
         <ImageView

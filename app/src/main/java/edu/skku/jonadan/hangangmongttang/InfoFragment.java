@@ -51,22 +51,13 @@ public class InfoFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         facilityId = InfoActivity.facilityId;
+        facilityName = InfoActivity.facilityName;
+        facilityLocation = InfoActivity.facilityLocation;
 
-        //get facility info
-        JSONObject get_facility_info = new SQLSender().sendSQL("SELECT * from facility where fid="+new Integer(facilityId).toString()+";");
-        try{
-            if(!get_facility_info.getBoolean("isError")){
-                JSONObject facility_info = get_facility_info.getJSONArray("result").getJSONObject(0);
-
-                facilityName = facility_info.getString("name");
-                facilityLocation = facility_info.getString("location");
-
-                nameTv.setText(facilityName);
-                locationTv.setText(facilityLocation);
-            }
-        }catch (JSONException e){
-            e.printStackTrace();
-
+        if(!facilityName.equals("") || !facilityLocation.equals("")){
+            nameTv.setText(facilityName);
+            locationTv.setText(facilityLocation);
+        }else{
             infoTv.setText("시설 정보를 불러올 수 없습니다");
         }
     }
