@@ -17,6 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class AddReviewFragment extends DialogFragment {
     private TextView nameTv;
     private TextView locationTv;
@@ -91,6 +94,18 @@ public class AddReviewFragment extends DialogFragment {
                 review = reviewEdit.getText().toString();
                 user = userEdit.getText().toString();
                 password = passwordEdit.getText().toString();
+                String date = "2019.9.28";
+
+                JSONObject insert_review = new SQLSender().sendSQL("INSERT INTO review (fid, user, password, date, rate, content) VALUES ("+new Integer(facilityId).toString()+", '"+user+"', '"+password+"', '"
+                        +date+"', "+ new Float(rating).toString()+", '"+review+"');");
+                try{
+                    if(!insert_review.getBoolean("isError")){
+                        //insert_review is success
+                        Log.d("db_conn",insert_review.toString());
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
 
                 dismiss();
             }

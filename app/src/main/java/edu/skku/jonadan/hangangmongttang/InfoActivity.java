@@ -107,7 +107,6 @@ public class InfoActivity extends AppCompatActivity {
             }
         }catch (JSONException e){
             e.printStackTrace();
-
         }
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
