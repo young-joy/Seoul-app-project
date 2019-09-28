@@ -78,6 +78,7 @@ public class ParkInfoDialog extends DialogFragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), MapActivity.class);
+                intent.putExtra("park_id", parkIndex);
                 startActivity(intent);
                 dismiss();
             }

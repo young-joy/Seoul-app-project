@@ -134,8 +134,9 @@ public class MapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
 
-        // Get from intent
-        selectedParkId = 0;
+        // Get initial park from intent
+        Intent intent = getIntent();
+        selectedParkId = intent.getExtras().getInt("park_id");
         refLocation = ConstantPark.PARK_LIST.get(selectedParkId);
 
         initParkList();
