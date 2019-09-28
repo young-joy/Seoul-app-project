@@ -22,6 +22,8 @@ public class ReviewFragment extends Fragment {
     private ArrayList<ReviewListItem> reviewList = new ArrayList<>();
     private ReviewListAdapter reviewListAdapter;
 
+    private int facilityId;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -29,13 +31,6 @@ public class ReviewFragment extends Fragment {
 
         reviewBtn = rootView.findViewById(R.id.btn_review);
         reviewListView = rootView.findViewById(R.id.review_list);
-
-        for(int i=0;i<3;i++){
-            ReviewListItem item = new ReviewListItem();
-            reviewList.add(item);
-        }
-        reviewListAdapter = new ReviewListAdapter(reviewList);
-        reviewListView.setAdapter(reviewListAdapter);
 
         reviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,5 +41,14 @@ public class ReviewFragment extends Fragment {
             }
         });
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        reviewList = InfoActivity.reviewList;
+        reviewListAdapter = new ReviewListAdapter(reviewList);
+        reviewListView.setAdapter(reviewListAdapter);
     }
 }

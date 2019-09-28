@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -23,6 +24,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,6 +64,7 @@ public class InfoActivity extends AppCompatActivity {
     public static int facilityId;
     public static String facilityName = "";
     public static String facilityLocation = "";
+    public static ArrayList<ReviewListItem> reviewList = new ArrayList();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,18 +99,8 @@ public class InfoActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().add(R.id.container,infoFragment, "1").commit();
         activeFragment = infoFragment;
 
-        //get facility info
-        JSONObject get_facility_info = new SQLSender().sendSQL("SELECT * from facility where fid="+new Integer(facilityId).toString()+";");
-        try{
-            if(!get_facility_info.getBoolean("isError")){
-                JSONObject facility_info = get_facility_info.getJSONArray("result").getJSONObject(0);
-
-                facilityName = facility_info.getString("name");
-                facilityLocation = facility_info.getString("location");
-            }
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
+        getFacilityInfo();
+        getReview();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -139,6 +132,58 @@ public class InfoActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         infoFragment.removeMapView();
+    }
+
+    private void getFacilityInfo(){
+        JSONObject get_facility_info = new SQLSender().sendSQL("SELECT * from facility where fid="+new Integer(facilityId).toString()+";");
+        try{
+            if(!get_facility_info.getBoolean("isError")){
+                JSONObject facility_info = get_facility_info.getJSONArray("result").getJSONObject(0);
+
+                facilityName = facility_info.getString("name");
+                facilityLocation = facility_info.getString("location");
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void getReview(){
+        int review_num;
+
+        int rid;
+        String user;
+        String password;
+        String content;
+        String date;
+        float rate;
+
+        JSONObject get_review = new SQLSender().sendSQL("SELECT * from review where fid="+new Integer(facilityId).toString()+";");
+        try{
+            if(!get_review.getBoolean("isError")){
+                Log.d("db_conn",get_review.toString());
+
+                JSONArray reviews = get_review.getJSONArray("result");
+                JSONObject review;
+                ReviewListItem reviewItem;
+                review_num = reviews.length();
+
+                for(int i=0;i<review_num;i++){
+                    review = reviews.getJSONObject(i);
+                    rid = review.getInt("rid");
+                    user = review.getString("user");
+                    password = review.getString("password");
+                    date = review.getString("date");
+                    rate = review.getInt("rate");
+                    content = review.getString("content");
+
+                    reviewItem = new ReviewListItem(rid, user, password, date, rate, content);
+                    reviewList.add(reviewItem);
+                }
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
     }
 
     private void changView(int index) {
