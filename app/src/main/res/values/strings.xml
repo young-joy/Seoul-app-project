@@ -33,4 +33,15 @@
 
     <string name="map_balloon_state_title">[실시간 정보]</string>
     <string name="notice_title">공지사항</string>
+
+    <string name="entertain_info">공원 이용할 때 지켜야 할 사항</string>
+    <string name="entertain_info_content">1.지정된 관찰로만 이용하기\n2.애완동물과 동반할 때 목줄 매기
+        \n3.나물 채취하지 않기\n4.금연하기\n5.취사하지 않기\n6.쓰레기 되가져가기(위반 시 과태료 10만원)
+        \n7.자전거, 인라인 천천히 타기\n8.시설물 깨끗이 사용하기\n9.오토바이 타고 들어오지 않기
+        \n10.큰 소리로 소리치거나 이야기하지 않기\n11.그늘막 이용 시 설치 허용기준 준수(위반 시 과태료 300만원 이내)</string>
+    <string name="athletic_info">시설물 이용요금</string>
+    <string name="athletic_info_content">족구장 : 2시간당 4,000원\n체력단련 기구 사용 : 무료
+        \n자전거 대여료\n  - 1인용 : 3,000원/시간 (15분 초과시마다 500원 추가)\n  - 2인용 : 6,000원/시간 (15분 초과시마다 1,000원 추가)
+        \n주차요금 : 승용차 10,000원/일 (월정기권 : 50,000원)\n녹화/촬영
+        \n  - 녹화 : 1시간당 26,000원 (초과시간당 13,000원)\n  - 영화촬영 : 주간 - 1회당 130,000원 야간은 주간의 2배</string>
 </resources>

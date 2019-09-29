@@ -24,6 +24,7 @@ public class InfoFragment extends Fragment {
     TextView nameTv;
     TextView locationTv;
     TextView infoTv;
+    TextView infoContentTv;
 
     private int facilityId;
     private String facilityName;
@@ -37,6 +38,7 @@ public class InfoFragment extends Fragment {
         nameTv = rootView.findViewById(R.id.facility_name);
         locationTv = rootView.findViewById(R.id.facility_location);
         infoTv = rootView.findViewById(R.id.facility_info);
+        infoContentTv = rootView.findViewById(R.id.facility_info_content);
 
         mapLayout = rootView.findViewById(R.id.map_container);
         scrollView = rootView.findViewById(R.id.scroll_view);
@@ -60,9 +62,13 @@ public class InfoFragment extends Fragment {
         }else{
             infoTv.setText("시설 정보를 불러올 수 없습니다");
         }
-    }
 
-    public void removeMapView(){
-        mapLayout.removeAllViews();
+        if(facilityId/100000<11){
+            infoTv.setText(R.string.entertain_info);
+            infoContentTv.setText(R.string.entertain_info_content);
+        }else{
+            infoTv.setText(R.string.athletic_info);
+            infoContentTv.setText(R.string.athletic_info_content);
+        }
     }
 }
