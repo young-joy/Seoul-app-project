@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ReviewFragment extends Fragment {
+
     ListView reviewListView;
     Button reviewBtn;
 
@@ -45,7 +46,10 @@ public class ReviewFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 AddReviewFragment addReviewFragment = new AddReviewFragment();
-                addReviewFragment.setStyle( DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light );
+                Bundle bundle = new Bundle();
+                bundle.putInt("request_code", AddReviewFragment.REVIEW_CREATE);
+                addReviewFragment.setArguments(bundle);
+                addReviewFragment.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light );
                 addReviewFragment.show(getActivity().getSupportFragmentManager(),"tag");
             }
         });
@@ -57,7 +61,42 @@ public class ReviewFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         facilityId = InfoActivity.facilityId;
-        reviewListAdapter = new ReviewListAdapter(reviewList);
+        reviewListAdapter = new ReviewListAdapter(reviewList, new ReviewListAdapter.ReviewInterface() {
+            @Override
+            public void deleteReview(int index) {
+                int target_rid = reviewList.get(index).getRid();
+                //delete from database
+                JSONObject delete_review = new SQLSender().sendSQL(
+                        "DELETE from review where rid="+new Integer(target_rid).toString()+";"
+                );
+                try{
+                    if(!delete_review.getBoolean("isError")){
+                        Log.d("db_conn",delete_review.toString());
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+                reviewList.remove(index);
+                reviewListAdapter.notifyDataSetChanged();
+                if(reviewList.size()==0){
+                    noResultLayout.setVisibility(View.VISIBLE);
+                }else{
+                    noResultLayout.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void updateReview(int index) {
+                int target_rid = reviewList.get(index).getRid();
+                AddReviewFragment addReviewFragment = new AddReviewFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("request_code", AddReviewFragment.REVIEW_UPDATE);
+                bundle.putInt("rid", target_rid);
+                addReviewFragment.setArguments(bundle);
+                addReviewFragment.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light );
+                addReviewFragment.show(getActivity().getSupportFragmentManager(),"tag");
+            }
+        });
         reviewListView.setAdapter(reviewListAdapter);
 
         getReview();
@@ -109,20 +148,5 @@ public class ReviewFragment extends Fragment {
         }else{
             noResultLayout.setVisibility(View.GONE);
         }
-    }
-
-    public static void deleteReview(int index){
-        int target_rid = reviewList.get(index).getRid();
-        //delete from database
-        JSONObject delete_review = new SQLSender().sendSQL("DELETE from review where rid="+new Integer(target_rid).toString()+";");
-        try{
-            if(!delete_review.getBoolean("isError")){
-                Log.d("db_conn",delete_review.toString());
-            }
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
-        //reload
-        getReview();
     }
 }
