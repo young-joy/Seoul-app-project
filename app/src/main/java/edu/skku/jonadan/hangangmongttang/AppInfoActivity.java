@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.psdev.licensesdialog.LicensesDialog;
 
 public class AppInfoActivity extends AppCompatActivity {
 
@@ -54,8 +55,12 @@ public class AppInfoActivity extends AppCompatActivity {
         osBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(AppInfoActivity.this, );
-                //startActivity(intent);
+                new LicensesDialog.Builder(AppInfoActivity.this)
+                        .setNotices(R.raw.license)
+                        .setIncludeOwnLicense(true)
+                        .setThemeResourceId(R.style.dialog_license)
+                        .build()
+                        .show();
             }
         });
     }

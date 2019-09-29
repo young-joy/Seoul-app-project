@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<notices>
+    <notice>
+        <name>ButterKnife</name>
+        <url>https://jakewharton.github.io/butterknife/</url>
+        <copyright>Copyright 2013 Jake Wharton</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Retrofit</name>
+        <url>https://github.com/square/retrofit/</url>
+        <copyright>Copyright 2013 Square, Inc.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>OkHttp</name>
+        <url>https://square.github.io/okhttp/</url>
+        <copyright>Copyright 2019 Square, Inc.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Glide</name>
+        <url>https://bumptech.github.io/glide/</url>
+        <copyright>Copyright 2014 Google, Inc.</copyright>
+        <license>BSD 3-Clause License</license>
+    </notice>
+    <notice>
+        <name>Subsampling Scale Image View</name>
+        <url>https://github.com/davemorrissey/subsampling-scale-image-view</url>
+        <copyright>Copyright 2018 David Morrissey</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>CookieBar 2</name>
+        <url>https://github.com/AviranAbady/CookieBar2</url>
+        <copyright>Copyright 2018, Aviran Abady.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+</notices>

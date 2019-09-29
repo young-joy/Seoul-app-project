@@ -21,4 +21,8 @@
         <item name="android:windowExitAnimation">@anim/dialog_slide_down</item>
     </style>
 
+    <style name="dialog_license">
+        <item name="colorAccent">@android:color/black</item>
+    </style>
+
 </resources>
