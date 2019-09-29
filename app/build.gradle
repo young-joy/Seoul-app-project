@@ -57,4 +57,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
+    implementation 'org.aviran.cookiebar2:cookiebar2:1.1.3'
 }

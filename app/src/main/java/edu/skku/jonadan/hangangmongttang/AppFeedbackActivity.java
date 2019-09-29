@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.aviran.cookiebar2.CookieBar;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,6 +28,9 @@ public class AppFeedbackActivity extends AppCompatActivity {
     private String feedback;
     private String date;
 
+    final private int FEEDBACK_YES = 200;
+    final private int FEEDBACK_NO = 300;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,7 @@ public class AppFeedbackActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setResult(FEEDBACK_NO);
                 finish();
             }
         });
@@ -54,6 +59,8 @@ public class AppFeedbackActivity extends AppCompatActivity {
                         if(!insert_feedback.getBoolean("isError")){
                             //insert_review is success
                             Log.d("db_conn",insert_feedback.toString());
+                            setResult(FEEDBACK_YES);
+                            finish();
                         }
                     }catch (JSONException e){
                         e.printStackTrace();
