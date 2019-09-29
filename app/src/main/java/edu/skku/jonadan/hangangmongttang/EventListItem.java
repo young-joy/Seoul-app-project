@@ -6,6 +6,13 @@ public class EventListItem {
     private String date;
     private String time;
 
+    public EventListItem(String name, String place, String date, String time) {
+        this.name = name;
+        this.place = place;
+        this.date = date;
+        this.time = time;
+    }
+
     public String getName() {
         return name;
     }

@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,12 +35,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-/// TODO: 2019-08-19 modify layout(drawer:linear->constraint), add event info  
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+/// TODO: 2019-08-19 modify layout(drawer:linear->constraint), add event info
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.app_info_btn)
     ImageButton infoBtn;
@@ -104,8 +111,10 @@ public class MainActivity extends AppCompatActivity {
 
     private final int PARK_NUM = 11;
 
-    private HashMap<String, String> weatherInfo = new HashMap<>();
-    private ArrayList<EventListItem> eventList = new ArrayList<>();
+    private SeoulApiProvider apiProvider;
+
+    private boolean requestReady = false;
+    private ArrayList<EventListItem> eventInfo;
     public static ArrayList<ParkListItem> parkList = new ArrayList<>();
 
     private Bitmap mapImg;
@@ -126,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        apiProvider = new SeoulApiProvider();
         bottomDrawer = findViewById(R.id.bottom_drawer);
 
         //check connection - temp
@@ -164,9 +174,6 @@ public class MainActivity extends AppCompatActivity {
         //
         park_info_dialog = new ParkInfoDialog();
 
-        ParkInfoCrawler.setMainContext(MainActivity.this);
-        ParkInfoCrawler.start();
-
         mapImg = getBitmapFromVectorDrawable(MainActivity.this, R.drawable.map_image);
 
         mapImageView.setFragmentManager(getSupportFragmentManager());
@@ -178,17 +185,17 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<MapPin> MapPins = new ArrayList();
         //dp-val pins
-        MapPins.add(new MapPin(1190.2885f, 1109.7115f,1)); // 광나루
-        MapPins.add(new MapPin(1100.8882f, 1190.4038f,2)); // 잠실
-        MapPins.add(new MapPin(1026.4001f, 1050.5962f,3)); // 뚝섬
-        MapPins.add(new MapPin(890.91345f, 1150.7885f,4)); // 잠원
-        MapPins.add(new MapPin(764.24396f, 1230.6924f,5)); // 반포
-        MapPins.add(new MapPin(680.4531f, 1100.8655f,6)); // 이촌
-        MapPins.add(new MapPin(545.14905f, 1130.25f,7)); // 여의도
-        MapPins.add(new MapPin(530.7223f, 997.6923f,8)); // 망원
-        MapPins.add(new MapPin(443.0769f, 968.3654f,9)); // 난지
-        MapPins.add(new MapPin(290.43268f, 1040.7115f,10)); //강서
-        MapPins.add(new MapPin(386.0156f, 1092.8846f,11)); // 양화
+        MapPins.add(new MapPin(1190.2885f, 1103.7115f,1)); // 광나루
+        MapPins.add(new MapPin(1100.8882f, 1184.4038f,2)); // 잠실
+        MapPins.add(new MapPin(1026.4001f, 1044.5962f,3)); // 뚝섬
+        MapPins.add(new MapPin(890.91345f, 1144.7885f,4)); // 잠원
+        MapPins.add(new MapPin(764.24396f, 1224.6924f,5)); // 반포
+        MapPins.add(new MapPin(680.4531f, 1094.8655f,6)); // 이촌
+        MapPins.add(new MapPin(545.14905f, 1124.25f,7)); // 여의도
+        MapPins.add(new MapPin(530.7223f, 991.6923f,8)); // 망원
+        MapPins.add(new MapPin(443.0769f, 962.3654f,9)); // 난지
+        MapPins.add(new MapPin(290.43268f, 1034.7115f,10)); //강서
+        MapPins.add(new MapPin(386.0156f, 1086.8846f,11)); // 양화
 
         mapImageView.setPins(MapPins);
 
@@ -214,21 +221,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         park_layout_opened = true;
-    }
-
-    // TODO: 2019-08-21 progress bar 추가  
-    public void setData(){
-        //use parsed data
-        weatherInfo = ParkInfoCrawler.getWeatherInfo();
-        eventList = ParkInfoCrawler.getEventList();
-
-        eventListAdapter = new EventListAdapter(eventList);
-        event_container.setAdapter(eventListAdapter);
-
-        date_info.setText(weatherInfo.get("TODAY"));
-
-        dust_g1.setText(weatherInfo.get("DUST-G1"));
-        dust_g2.setText(weatherInfo.get("DUST-G2"));
     }
 
     private void getWeather(){
@@ -391,11 +383,84 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void setTodayInfo() {
+        // Set today date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+        Date today = new Date();
+        date_info.setText(dateFormat.format(today));
+
+        getWeather();
+        getDust();
+        getEvents();
+
+        // Request only once
+        requestReady = true;
+    }
+
+    private void getDust() {
+        ArrayList<Call<SeoulApiResult>> calls = apiProvider.callDust();
+        for (Call call: calls) {
+            call.enqueue(new Callback<SeoulApiResult>() {
+                @Override
+                public void onResponse(Call<SeoulApiResult> call, Response<SeoulApiResult> response) {
+                    if (!response.isSuccessful()) {
+                        Log.d("Callback", "Response fail");
+                        return;
+                    }
+                    SeoulApiResult result = response.body();
+                    Log.d("dustdust", "" + result.getServiceForecast().getItems().size());
+                    if (result.getServiceForecast().getItems().size() > 0) {
+                        Log.d("dustdust", response.toString().split("/")[6]);
+                        switch (response.toString().split("/")[6]) {
+                            case "ForecastWarningMinuteParticleOfDustService":
+                                dust_g1.setText(result.getServiceForecast().getItems().get(0).getRank());
+                                break;
+                            case "ForecastWarningUltrafineParticleOfDustService":
+                                dust_g2.setText(result.getServiceForecast().getItems().get(0).getRank());
+                                break;
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<SeoulApiResult> call, Throwable t) {
+                    Log.d("Callback", "" + t);
+                }
+            });
+        }
+    }
+
+    private void getEvents() {
+        eventInfo = new ArrayList<>();
+        JSONObject sqlNotice = new SQLSender().
+                sendSQL("SELECT * FROM event");
+        try {
+            if (!sqlNotice.getBoolean("isError")) {
+                JSONArray noticeResult = sqlNotice.getJSONArray("result");
+                for (int i = 0; i < noticeResult.length(); i++) {
+                    JSONObject noticeJson = noticeResult.getJSONObject(i);
+                    eventInfo.add(new EventListItem(
+                            noticeJson.getString("title"),
+                            noticeJson.getString("location"),
+                            noticeJson.getString("date"),
+                            noticeJson.getString("time")
+                    ));
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        eventListAdapter = new EventListAdapter(eventInfo);
+        event_container.setAdapter(eventListAdapter);
+    }
+
     private class OnSlidingDrawerOpenListener implements SlidingDrawer.OnDrawerOpenListener {
         @Override
         public void onDrawerOpened() {
             drawer_opened = true;
-            getWeather();
+            if (!requestReady) {
+                setTodayInfo();
+            }
 
             if(park_layout_opened){
                 park_info_dialog.dismiss();

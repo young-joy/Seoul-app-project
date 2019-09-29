@@ -764,7 +764,7 @@ public class MapActivity extends AppCompatActivity {
                     return;
                 }
                 SeoulApiResult result = response.body();
-                ArrayList<Location> toilets = result.getService().getItems();
+                ArrayList<Location> toilets = result.getServiceWGS().getItems();
                 for (Location toilet: toilets) {
                     if (getDistance(refLocation, toilet) < MARKING_SCOPE) {
                         toilet.setObjectId(
@@ -802,7 +802,7 @@ public class MapActivity extends AppCompatActivity {
                     return;
                 }
                 SeoulApiResult result = response.body();
-                ArrayList<Location> shops = result.getService().getItems();
+                ArrayList<Location> shops = result.getServiceWGS().getItems();
                 if (shops.size() > 0) {
                     for (Location shop: shops) {
                         if (getDistance(refLocation, shop) < MARKING_SCOPE) {
@@ -844,7 +844,7 @@ public class MapActivity extends AppCompatActivity {
                     return;
                 }
                 SeoulApiResult result = response.body();
-                ArrayList<Location> waters = result.getService().getItems();
+                ArrayList<Location> waters = result.getServiceWGS().getItems();
                 if (waters.size() > 0) {
                     for (Location water: waters) {
                         if (getDistance(refLocation, water) < MARKING_SCOPE) {
@@ -886,7 +886,7 @@ public class MapActivity extends AppCompatActivity {
                     return;
                 }
                 SeoulApiResult result = response.body();
-                ArrayList<Location> entertains = result.getService().getItems();
+                ArrayList<Location> entertains = result.getServiceWGS().getItems();
                 if (entertains.size() > 0) {
                     for (Location entertain: entertains) {
                         if (getDistance(refLocation, entertain) < MARKING_SCOPE) {
@@ -963,7 +963,7 @@ public class MapActivity extends AppCompatActivity {
                     return;
                 }
                 SeoulApiResult result = response.body();
-                ArrayList<Location> athletics = result.getService().getItems();
+                ArrayList<Location> athletics = result.getServiceWGS().getItems();
                 if (athletics.size() > 0) {
                     for (Location athletic: athletics) {
                         if (getDistance(refLocation, athletic) < MARKING_SCOPE) {

@@ -16,19 +16,32 @@ public class SeoulApiResult {
 
             // Athletic
             "GeoInfoRockClimbWGS", "GeoInfoInlineSkateWGS",
-            "GeoInfoJokguWGS", "GeoInfoTrackWGS", "GeoInfoBadmintonWGS"
+            "GeoInfoJokguWGS", "GeoInfoTrackWGS", "GeoInfoBadmintonWGS",
     })
-    private SeoulApiService service;
+    private SeoulApiWGS serviceWGS;
 
-    public SeoulApiService getService() {
-        return service;
+    @SerializedName(value = "ForecastWarningMinuteParticleOfDustService", alternate = {
+            "ForecastWarningUltrafineParticleOfDustService"
+    })
+    private SeoulApiForecast serviceForecast;
+
+    public SeoulApiWGS getServiceWGS() {
+        return serviceWGS;
     }
 
-    public void setService(SeoulApiService service) {
-        this.service = service;
+    public void setServiceWGS(SeoulApiWGS serviceWGS) {
+        this.serviceWGS = serviceWGS;
     }
 
-    public class SeoulApiService {
+    public SeoulApiForecast getServiceForecast() {
+        return serviceForecast;
+    }
+
+    public void setServiceForecast(SeoulApiForecast serviceForecast) {
+        this.serviceForecast = serviceForecast;
+    }
+
+    public class SeoulApiWGS {
 
         @SerializedName(value = "row")
         private ArrayList<Location> items;
@@ -38,6 +51,20 @@ public class SeoulApiResult {
         }
 
         public void setItems(ArrayList<Location> items) {
+            this.items = items;
+        }
+    }
+
+    public class SeoulApiForecast {
+
+        @SerializedName(value = "row")
+        private ArrayList<Dust> items;
+
+        public ArrayList<Dust> getItems() {
+            return items;
+        }
+
+        public void setItems(ArrayList<Dust> items) {
             this.items = items;
         }
     }
