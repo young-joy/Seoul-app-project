@@ -32,5 +32,11 @@
     <string name="todays_weather">오늘의 날씨</string>
 
     <string name="map_balloon_state_title">[실시간 정보]</string>
-    <string name="notice_title">공지사항</string>
+
+    <string name="app_version">현재 버전 1.0.0</string>
+    <string name="app_notice">공지사항</string>
+    <string name="app_feedback">피드백 보내기</string>
+    <string name="app_open_source">오픈소스 라이센스</string>
+    <string name="app_feedback_hint">여러분의 피드백은 큰 힘이 됩니다!</string>
+
 </resources>

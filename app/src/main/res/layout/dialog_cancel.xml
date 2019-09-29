@@ -37,18 +37,20 @@
             android:id="@+id/confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_blue_border"
+            android:background="@drawable/round_box_blue"
             android:fontFamily="@font/circle_jaedan"
-            android:text="@string/confirm" />
+            android:text="@string/confirm"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:background="@drawable/round_blue_border"
+            android:background="@drawable/round_box_blue"
             android:fontFamily="@font/circle_jaedan"
-            android:text="@string/cancel" />
+            android:text="@string/cancel"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
