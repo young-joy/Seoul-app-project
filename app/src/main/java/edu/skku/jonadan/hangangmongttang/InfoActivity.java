@@ -137,12 +137,6 @@ public class InfoActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        infoFragment.removeMapView();
-    }
-
     private void getFacilityInfo(){
         JSONObject get_facility_info = new SQLSender().sendSQL("SELECT * from facility where fid="+new Integer(facilityId).toString()+";");
         try{
