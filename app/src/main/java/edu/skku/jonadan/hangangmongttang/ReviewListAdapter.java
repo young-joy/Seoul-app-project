@@ -25,6 +25,7 @@ public class ReviewListAdapter extends BaseAdapter {
     private TextView dateTv;
     private RatingBar ratingBar;
     private ImageButton deleteBtn;
+    private ImageButton modifyBtn;
 
     public ReviewListAdapter(ArrayList<ReviewListItem> reviewList) {
         this.reviewList = reviewList;
@@ -67,6 +68,7 @@ public class ReviewListAdapter extends BaseAdapter {
         contentTv = view.findViewById(R.id.review);
         ratingBar = view.findViewById(R.id.ratingBar);
         deleteBtn = view.findViewById(R.id.delete_btn);
+        modifyBtn = view.findViewById(R.id.modify_btn);
 
         userTv.setText(user);
         dateTv.setText(date);
@@ -80,6 +82,12 @@ public class ReviewListAdapter extends BaseAdapter {
             }
         });
 
+        modifyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
         return view;
     }
 }
