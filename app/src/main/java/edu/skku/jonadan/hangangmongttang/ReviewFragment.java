@@ -1,13 +1,16 @@
 package edu.skku.jonadan.hangangmongttang;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -71,38 +74,83 @@ public class ReviewFragment extends Fragment {
         facilityId = InfoActivity.facilityId;
         reviewListAdapter = new ReviewListAdapter(reviewList, new ReviewListAdapter.ReviewInterface() {
             @Override
-            public void deleteReview(int index) {
-                int target_rid = reviewList.get(index).getRid();
-                //delete from database
-                JSONObject delete_review = new SQLSender().sendSQL(
-                        "DELETE from review where rid="+new Integer(target_rid).toString()+";"
-                );
-                try{
-                    if(!delete_review.getBoolean("isError")){
-                        Log.d("db_conn",delete_review.toString());
-                    }
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
-                reviewList.remove(index);
-                reviewListAdapter.notifyDataSetChanged();
-                if(reviewList.size()==0){
-                    noResultLayout.setVisibility(View.VISIBLE);
-                }else{
-                    noResultLayout.setVisibility(View.GONE);
-                }
+            public void deleteReviewRequest(int index) {
+                View view = getLayoutInflater().inflate(R.layout.dialog_alert_pwd, null);
+                AlertDialog.Builder altBuilder = new AlertDialog.Builder(getContext(), R.style.alert_dialog);
+                altBuilder.setCancelable(false)
+                        .setView(view)
+                        .setPositiveButton(getText(R.string.confirm), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                EditText pwdEdit = view.findViewById(R.id.alert_pwd_edit);
+                                String pwd = pwdEdit.getText().toString();
+                                int target_rid = reviewList.get(index).getRid();
+                                if (checkPwd(pwd, target_rid)) {
+                                    //delete from database
+                                    JSONObject delete_review = new SQLSender().sendSQL(
+                                            "DELETE from review where rid="+new Integer(target_rid).toString()+";"
+                                    );
+                                    try{
+                                        if(!delete_review.getBoolean("isError")){
+                                            Log.d("db_conn",delete_review.toString());
+                                        }
+                                    }catch (JSONException e){
+                                        e.printStackTrace();
+                                    }
+                                    reviewList.remove(index);
+                                    reviewListAdapter.notifyDataSetChanged();
+                                    if(reviewList.size()==0){
+                                        noResultLayout.setVisibility(View.VISIBLE);
+                                    }else{
+                                        noResultLayout.setVisibility(View.GONE);
+                                    }
+                                    dialogInterface.dismiss();
+                                }
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setNegativeButton(getText(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                AlertDialog alert = altBuilder.create();
+                alert.show();
             }
 
             @Override
-            public void updateReview(int index) {
-                int target_rid = reviewList.get(index).getRid();
-                AddReviewFragment addReviewFragment = new AddReviewFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt("request_code", AddReviewFragment.REVIEW_UPDATE);
-                bundle.putInt("rid", target_rid);
-                addReviewFragment.setArguments(bundle);
-                addReviewFragment.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light );
-                addReviewFragment.show(getActivity().getSupportFragmentManager(),"tag");
+            public void updateReviewRequest(int index) {
+                View view = getLayoutInflater().inflate(R.layout.dialog_alert_pwd, null);
+                AlertDialog.Builder altBuilder = new AlertDialog.Builder(getContext(), R.style.alert_dialog);
+                altBuilder.setCancelable(false)
+                        .setView(view)
+                        .setPositiveButton(getText(R.string.confirm), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                EditText pwdEdit = view.findViewById(R.id.alert_pwd_edit);
+                                String pwd = pwdEdit.getText().toString();
+                                int target_rid = reviewList.get(index).getRid();
+                                if (checkPwd(pwd, target_rid)) {
+                                    AddReviewFragment addReviewFragment = new AddReviewFragment();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putInt("request_code", AddReviewFragment.REVIEW_UPDATE);
+                                    bundle.putInt("rid", target_rid);
+                                    addReviewFragment.setArguments(bundle);
+                                    addReviewFragment.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light );
+                                    addReviewFragment.show(getActivity().getSupportFragmentManager(),"tag");
+                                }
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setNegativeButton(getText(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                AlertDialog alert = altBuilder.create();
+                alert.show();
             }
         });
         reviewListView.setAdapter(reviewListAdapter);
@@ -167,5 +215,25 @@ public class ReviewFragment extends Fragment {
         }else{
             noResultLayout.setVisibility(View.GONE);
         }
+    }
+
+    private boolean checkPwd(String pwd, int rid) {
+        String ans = "";
+        JSONObject sqlPwd = new SQLSender().sendSQL(
+                "SELECT password FROM review WHERE rid = " + rid
+        );
+        try{
+            if(!sqlPwd.getBoolean("isError")){
+                JSONArray pwdResult = sqlPwd.getJSONArray("result");
+                for (int i = 0; i < pwdResult.length(); i++) {
+                    JSONObject reviewJson = pwdResult.getJSONObject(i);
+                    ans = reviewJson.getString("password");
+                }
+            }
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return ans.equals(pwd);
     }
 }

@@ -25,4 +25,9 @@
         <item name="colorAccent">@android:color/black</item>
     </style>
 
+    <style name="alert_dialog" parent="@style/Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:background">@color/colorBackgroundWhite</item>
+    </style>
 </resources>
