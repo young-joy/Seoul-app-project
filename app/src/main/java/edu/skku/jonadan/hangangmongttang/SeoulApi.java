@@ -6,6 +6,6 @@ import retrofit2.http.Path;
 
 public interface SeoulApi {
     @GET("{service}/{start}/{end}")
-    Call<SeoulApiResult> getLocation(@Path("service") String service, @Path("start") int start,
-                                     @Path("end") int end);
+    Call<SeoulApiResult> getService(@Path("service") String service, @Path("start") int start,
+                                    @Path("end") int end);
 }

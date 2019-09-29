@@ -13,7 +13,8 @@ public class SeoulApiProvider {
     public enum SERVICE_CODE {
         USER, PARK, TOILET, SHOP, WATER,
         QUAY, WATER_LEISURE, BOAT, DUCK_BOAT, WATER_TAXI, PLAYGROUND,
-        ROCK, SKATE, JOKGU, TRACK, BADMINTON
+        ROCK, SKATE, JOKGU, TRACK, BADMINTON,
+        DUST1, DUST2
     }
 
     public enum CALL_NUM {
@@ -72,7 +73,7 @@ public class SeoulApiProvider {
         ArrayList<Call<SeoulApiResult>> callToilets = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             callToilets.add(
-                    api.getLocation("GeoInfoPublicToiletWGS",
+                    api.getService("GeoInfoPublicToiletWGS",
                             1000*i+1, 1000*i+1000));
         }
         return callToilets;
@@ -80,45 +81,52 @@ public class SeoulApiProvider {
 
     public Call<SeoulApiResult> callShop() {
         Call<SeoulApiResult> callShop =
-                api.getLocation("GeoInfoStoreWGS", 1, 1000);
+                api.getService("GeoInfoStoreWGS", 1, 1000);
         return callShop;
     }
 
     public Call<SeoulApiResult> callWater() {
         Call<SeoulApiResult> callWater =
-                api.getLocation("GeoInfoDrinkWaterWGS", 1, 1000);
+                api.getService("GeoInfoDrinkWaterWGS", 1, 1000);
         return callWater;
     }
 
     public ArrayList<Call<SeoulApiResult>> callEntertain() {
         ArrayList<Call<SeoulApiResult>> callEntertains = new ArrayList<>();
         // Dock
-        callEntertains.add(api.getLocation("GeoInfoQuayWGS", 1, 1000));
+        callEntertains.add(api.getService("GeoInfoQuayWGS", 1, 1000));
         // Water Leisure
-        callEntertains.add(api.getLocation("GeoInfoWaterLeisureWGS", 1, 1000));
+        callEntertains.add(api.getService("GeoInfoWaterLeisureWGS", 1, 1000));
         // Boat
-        callEntertains.add(api.getLocation("GeoInfoBoatStorageWGS", 1, 1000));
+        callEntertains.add(api.getService("GeoInfoBoatStorageWGS", 1, 1000));
         // Duck Boat
-        callEntertains.add(api.getLocation("GeoInfoDuckBoatWGS", 1, 1000));
+        callEntertains.add(api.getService("GeoInfoDuckBoatWGS", 1, 1000));
         // Water Taxi
-        callEntertains.add(api.getLocation("GeoInfoWaterTaxiWGS", 1, 1000));
+        callEntertains.add(api.getService("GeoInfoWaterTaxiWGS", 1, 1000));
         // Play ground
-        callEntertains.add(api.getLocation("GeoInfoPlaygroundWGS", 1, 1000));
+        callEntertains.add(api.getService("GeoInfoPlaygroundWGS", 1, 1000));
         return callEntertains;
     }
 
     public ArrayList<Call<SeoulApiResult>> callAthletic() {
         ArrayList<Call<SeoulApiResult>> callAthletics = new ArrayList<>();
         // Rock climb
-        callAthletics.add(api.getLocation("GeoInfoRockClimbWGS", 1, 1000));
+        callAthletics.add(api.getService("GeoInfoRockClimbWGS", 1, 1000));
         // Inline skate
-        callAthletics.add(api.getLocation("GeoInfoInlineSkateWGS", 1, 1000));
+        callAthletics.add(api.getService("GeoInfoInlineSkateWGS", 1, 1000));
         // Jokgu
-        callAthletics.add(api.getLocation("GeoInfoJokguWGS", 1, 1000));
+        callAthletics.add(api.getService("GeoInfoJokguWGS", 1, 1000));
         // Track
-        callAthletics.add(api.getLocation("GeoInfoTrackWGS", 1, 1000));
+        callAthletics.add(api.getService("GeoInfoTrackWGS", 1, 1000));
         // Badminton
-        callAthletics.add(api.getLocation("GeoInfoBadmintonWGS", 1, 1000));
+        callAthletics.add(api.getService("GeoInfoBadmintonWGS", 1, 1000));
         return callAthletics;
+    }
+
+    public ArrayList<Call<SeoulApiResult>> callDust() {
+        ArrayList<Call<SeoulApiResult>> callDusts = new ArrayList<>();
+        callDusts.add(api.getService("ForecastWarningMinuteParticleOfDustService", 1, 2));
+        callDusts.add(api.getService("ForecastWarningUltrafineParticleOfDustService", 1, 2));
+        return callDusts;
     }
 }
