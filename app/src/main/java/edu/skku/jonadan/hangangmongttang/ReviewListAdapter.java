@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ReviewListAdapter extends BaseAdapter {
+
     private ArrayList<ReviewListItem> reviewList = new ArrayList<>();
     private int rid;
     private String user;
@@ -25,9 +26,20 @@ public class ReviewListAdapter extends BaseAdapter {
     private TextView dateTv;
     private RatingBar ratingBar;
     private ImageButton deleteBtn;
+    private ImageButton modifyBtn;
+    private ReviewInterface reviewInterface;
 
-    public ReviewListAdapter(ArrayList<ReviewListItem> reviewList) {
+    public interface ReviewInterface {
+        void deleteReview(int index);
+        void updateReview(int index);
+    }
+
+    public ReviewListAdapter() {
+    }
+
+    public ReviewListAdapter(ArrayList<ReviewListItem> reviewList, ReviewInterface reviewInterface) {
         this.reviewList = reviewList;
+        this.reviewInterface = reviewInterface;
     }
 
     @Override
@@ -67,6 +79,7 @@ public class ReviewListAdapter extends BaseAdapter {
         contentTv = view.findViewById(R.id.review);
         ratingBar = view.findViewById(R.id.ratingBar);
         deleteBtn = view.findViewById(R.id.delete_btn);
+        modifyBtn = view.findViewById(R.id.modify_btn);
 
         userTv.setText(user);
         dateTv.setText(date);
@@ -76,10 +89,16 @@ public class ReviewListAdapter extends BaseAdapter {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReviewFragment.deleteReview(i);
+                reviewInterface.deleteReview(i);
             }
         });
 
+        modifyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reviewInterface.updateReview(i);
+            }
+        });
         return view;
     }
 }

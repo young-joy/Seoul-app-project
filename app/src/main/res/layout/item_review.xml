@@ -68,6 +68,20 @@
             app:layout_constraintTop_toBottomOf="@id/user_grade" />
 
         <ImageButton
+            android:id="@+id/modify_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_min_margin"
+            android:layout_marginEnd="@dimen/activity_min_margin"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/delete_btn"
+            app:layout_constraintTop_toBottomOf="@+id/review"
+            app:layout_goneMarginBottom="@dimen/activity_min_margin"
+            app:layout_goneMarginEnd="@dimen/activity_min_margin"
+            app:srcCompat="@drawable/ic_modify" />
+
+        <ImageButton
             android:id="@+id/delete_btn"
             android:layout_width="20dp"
             android:layout_height="20dp"
