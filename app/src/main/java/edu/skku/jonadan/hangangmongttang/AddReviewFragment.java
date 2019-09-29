@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +30,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AddReviewFragment extends DialogFragment {
+
+    public static final int REVIEW_CREATE = 0;
+    public static final int REVIEW_UPDATE = 1;
+
     private TextView nameTv;
     private TextView locationTv;
     private TextView reviewLenTv;
@@ -50,6 +55,10 @@ public class AddReviewFragment extends DialogFragment {
     private String password;
     private String review;
     private String date;
+
+    private int requestCode;
+
+    private View emptyDialogView;
 
     public static boolean endFragment = false;
 
@@ -82,6 +91,9 @@ public class AddReviewFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        requestCode = getArguments().getInt("request_code");
+
         View view = inflater.inflate(R.layout.fragment_add_review, container, false);
         nameTv = view.findViewById(R.id.facility_name);
         locationTv = view.findViewById(R.id.facility_location);
@@ -123,31 +135,76 @@ public class AddReviewFragment extends DialogFragment {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rating = ratingEdit.getRating();
-                review = reviewEdit.getText().toString();
-                user = userEdit.getText().toString();
-                password = passwordEdit.getText().toString();
-                date = getCurDate();
 
-                if(review.length()==0 || user.length()==0 || password.length()==0){
-                    Toast.makeText(getContext(), R.string.empty_review,Toast.LENGTH_SHORT).show(); 
-                }else{
-                    JSONObject insert_review = new SQLSender().sendSQL("INSERT INTO review (fid, user, password, date, rate, content) VALUES ("+new Integer(facilityId).toString()+", '"+user+"', '"+password+"', '"
-                            +date+"', "+ new Float(rating).toString()+", '"+review+"');");
-                    try{
-                        if(!insert_review.getBoolean("isError")){
-                            //insert_review is success
-                            Log.d("db_conn",insert_review.toString());
+                switch (requestCode) {
+                    case REVIEW_CREATE:
+                        rating = ratingEdit.getRating();
+                        review = reviewEdit.getText().toString();
+                        user = userEdit.getText().toString();
+                        password = passwordEdit.getText().toString();
+                        date = getCurDate();
+
+                        if(review.length()==0 || user.length()==0 || password.length()==0){
+                            Toast.makeText(getContext(), R.string.empty_review,Toast.LENGTH_SHORT).show();
+                        }else{
+                            JSONObject insert_review = new SQLSender().sendSQL("INSERT INTO review (fid, user, password, date, rate, content) VALUES ("+new Integer(facilityId).toString()+", '"+user+"', '"+password+"', '"
+                                    +date+"', "+ new Float(rating).toString()+", '"+review+"');");
+                            try{
+                                if(!insert_review.getBoolean("isError")){
+                                    //insert_review is success
+                                    Log.d("db_conn",insert_review.toString());
+                                }
+                            }catch (JSONException e){
+                                e.printStackTrace();
+                            }
+                            ReviewFragment.getReview();
+                            dismiss();
                         }
-                    }catch (JSONException e){
-                        e.printStackTrace();
-                    }
+                        break;
 
-                    ReviewFragment.getReview();
-                    dismiss();
+                    case REVIEW_UPDATE:
+                        int rid = getArguments().getInt("rid");
+                        rating = ratingEdit.getRating();
+                        review = reviewEdit.getText().toString();
+                        user = userEdit.getText().toString();
+                        password = passwordEdit.getText().toString();
+                        date = getCurDate();
+
+                        if(review.length()==0 || user.length()==0 || password.length()==0){
+                            Toast.makeText(getContext(), R.string.empty_review,Toast.LENGTH_SHORT).show();
+                        }else{
+                            JSONObject updateReview = new SQLSender().sendSQL(
+                                    "UPDATE review SET " +
+                                            "user = '" + user + "', " +
+                                            "password = '" + password + "', " +
+                                            "date = '" + date + "', " +
+                                            "rate = " + rating + ", " +
+                                            "content = '" + review + "' " +
+                                            "WHERE rid = " + rid
+                            );
+                            try{
+                                if(!updateReview.getBoolean("isError")){
+                                    Log.d("db_conn", updateReview.toString());
+                                }
+                            }catch (JSONException e){
+                                e.printStackTrace();
+                            }
+                            ReviewFragment.getReview();
+                            dismiss();
+                        }
+                        break;
                 }
             }
         });
+
+        switch (requestCode) {
+            case REVIEW_CREATE:
+                break;
+            case REVIEW_UPDATE:
+                int rid = getArguments().getInt("rid");
+                getReview(rid);
+                break;
+        }
 
         return view;
     }
@@ -158,5 +215,24 @@ public class AddReviewFragment extends DialogFragment {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
         return dateFormat.format(date);
+    }
+
+    private void getReview(int rid) {
+        JSONObject sqlReview = new SQLSender().sendSQL(
+                "SELECT * FROM review WHERE rid = " + rid
+        );
+        try{
+            if(!sqlReview.getBoolean("isError")){
+                JSONArray reviewResult = sqlReview.getJSONArray("result");
+                for (int i = 0; i < reviewResult.length(); i++) {
+                    JSONObject reviewJson = reviewResult.getJSONObject(i);
+                    ratingEdit.setRating(reviewJson.getInt("rate"));
+                    reviewEdit.setText(reviewJson.getString("content"));
+                    userEdit.setText(reviewJson.getString("user"));
+                }
+            }
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
     }
 }
