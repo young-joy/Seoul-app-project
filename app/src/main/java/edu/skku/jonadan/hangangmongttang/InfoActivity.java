@@ -61,7 +61,9 @@ public class InfoActivity extends AppCompatActivity {
     private ConstraintSet reviseConstraintSet = new ConstraintSet();
     private ConstraintSet resetConstraintSet = new ConstraintSet();
 
-    private ArrayList<Integer> imageList;
+    public InfoPagerAdapter infoPagerAdapter;
+    private ArrayList<String> entertainImageList;
+    private ArrayList<String> athleticImageList;
 
     public static int facilityId;
     public static String facilityName = "";
@@ -79,12 +81,19 @@ public class InfoActivity extends AppCompatActivity {
         facilityId = intent.getExtras().getInt("facility_id");
 
         // set viewPager
-        imageList = new ArrayList<>();
-        imageList.add(R.drawable.turtle);
-        imageList.add(R.drawable.turtle);
-        imageList.add(R.drawable.turtle);
-
-        InfoPagerAdapter infoPagerAdapter = new InfoPagerAdapter(InfoActivity.this, imageList);
+        if(facilityId/100000<11){
+            entertainImageList = new ArrayList<>();
+            entertainImageList.add("http://hangang.seoul.go.kr/files/2013/12/enjoy01_06_03_4.jpg");
+            entertainImageList.add("http://hangang.seoul.go.kr/files/2013/12/enjoy01_06_03_2.jpg");
+            entertainImageList.add("http://hangang.seoul.go.kr/files/2013/12/enjoy01_06_03_3.jpg");
+            infoPagerAdapter = new InfoPagerAdapter(InfoActivity.this, entertainImageList);
+        }else{
+            athleticImageList = new ArrayList<>();
+            athleticImageList.add("http://hangang.seoul.go.kr/files/2013/12/enjoy01_06_03_1.jpg");
+            athleticImageList.add("http://hangang.seoul.go.kr/files/2013/12/enjoy01_06_01_10.jpg");
+            athleticImageList.add("http://hangang.seoul.go.kr/files/2013/12/enjoy01_06_01_9.jpg");
+            infoPagerAdapter = new InfoPagerAdapter(InfoActivity.this, athleticImageList);
+        }
         imageContainer.setAdapter(infoPagerAdapter);
         imageTab.setupWithViewPager(imageContainer, true);
 
