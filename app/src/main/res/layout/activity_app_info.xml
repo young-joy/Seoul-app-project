@@ -59,8 +59,8 @@
 
             <ImageView
                 android:id="@+id/appinfo_icon"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="@dimen/app_icon_size"
+                android:layout_height="@dimen/app_icon_size"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/roundcorner"
                 app:srcCompat="@drawable/ic_launcher_icon" />
@@ -73,7 +73,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/circle_jaedan"
-                android:text="현재 버전 1.0.0" />
+                android:text="@string/app_version" />
 
         </RelativeLayout>
 
@@ -97,37 +97,37 @@
             <Button
                 android:id="@+id/appinfo_btn1"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/list_button_height"
                 android:background="@android:color/white"
                 android:fontFamily="@font/circle_jaedan"
                 android:foreground="?selectableItemBackground"
-                android:text="공지사항"
+                android:text="@string/app_notice"
                 android:textAlignment="viewStart"
-                android:textSize="16sp" />
+                android:textSize="@dimen/list_text_size" />
 
             <Button
                 android:id="@+id/appinfo_btn2"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/list_button_height"
                 android:layout_marginTop="1dp"
                 android:background="@android:color/white"
                 android:fontFamily="@font/circle_jaedan"
                 android:foreground="?selectableItemBackground"
-                android:text="피드백 보내기"
+                android:text="@string/app_feedback"
                 android:textAlignment="viewStart"
-                android:textSize="16sp" />
+                android:textSize="@dimen/list_text_size" />
 
             <Button
                 android:id="@+id/appinfo_btn3"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/list_button_height"
                 android:layout_marginTop="1dp"
                 android:background="@android:color/white"
                 android:fontFamily="@font/circle_jaedan"
                 android:foreground="?selectableItemBackground"
-                android:text="오픈소스 라이센스"
+                android:text="@string/app_open_source"
                 android:textAlignment="viewStart"
-                android:textSize="16sp" />
+                android:textSize="@dimen/list_text_size" />
 
         </LinearLayout>
 
