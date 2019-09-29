@@ -51,8 +51,6 @@ public class AddReviewFragment extends DialogFragment {
     private String review;
     private String date;
 
-    private View emptyDialogView;
-
     public static boolean endFragment = false;
 
     private int reviewLength = 0;
@@ -97,8 +95,6 @@ public class AddReviewFragment extends DialogFragment {
         addBtn = view.findViewById(R.id.btn_add);
         backBtn = view.findViewById(R.id.btn_back);
 
-        emptyDialogView = View.inflate(getContext(),R.layout.dialog_isempty,null);
-
         reviewEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -120,21 +116,7 @@ public class AddReviewFragment extends DialogFragment {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(reviewEdit.getText().length()!=0 || userEdit.getText().length()!=0
-                || passwordEdit.getText().length()!=0 || ratingEdit.getRating()!=1){
-                    ReviewCancelDialog cancelDialog = new ReviewCancelDialog();
-                    cancelDialog.show(getFragmentManager(), "PARK_INFO_DIALOG");
-                    getFragmentManager().executePendingTransactions();
-                    cancelDialog.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            if(endFragment)
-                                dismiss();
-                        }
-                    });
-                }else{
-                    dismiss();
-                }
+                dismiss();
             }
         });
 
