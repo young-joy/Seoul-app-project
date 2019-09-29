@@ -1,12 +1,16 @@
 package edu.skku.jonadan.hangangmongttang;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,7 +49,15 @@ public class AppFeedbackActivity extends AppCompatActivity {
                 if(feedback.length() == 0) {
                     Toast.makeText(AppFeedbackActivity.this, R.string.empty_review,Toast.LENGTH_SHORT).show();
                 } else {
-
+                    JSONObject insert_feedback = new SQLSender().sendSQL("INSERT INTO feedback (content, date) VALUES ('"+feedback+"', '"+date+"');");
+                    try{
+                        if(!insert_feedback.getBoolean("isError")){
+                            //insert_review is success
+                            Log.d("db_conn",insert_feedback.toString());
+                        }
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
                 }
             }
         });
