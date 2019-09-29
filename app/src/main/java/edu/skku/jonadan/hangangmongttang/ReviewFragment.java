@@ -1,5 +1,6 @@
 package edu.skku.jonadan.hangangmongttang;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import org.aviran.cookiebar2.CookieBar;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +34,11 @@ public class ReviewFragment extends Fragment {
     public static ReviewListAdapter reviewListAdapter;
 
     public static int facilityId;
+
+    final private static int REVIEW_ADD = 100;
+    final private static int REVIEW_ADD_NOT = 200;
+
+    static Activity activity;
 
     @Nullable
     @Override
@@ -59,6 +66,7 @@ public class ReviewFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        activity = getActivity();
 
         facilityId = InfoActivity.facilityId;
         reviewListAdapter = new ReviewListAdapter(reviewList, new ReviewListAdapter.ReviewInterface() {
@@ -99,10 +107,10 @@ public class ReviewFragment extends Fragment {
         });
         reviewListView.setAdapter(reviewListAdapter);
 
-        getReview();
+        getReview(REVIEW_ADD_NOT);
     }
 
-    public static void getReview(){
+    public static void getReview(int is_review_added){
         reviewList.clear();
 
         int review_num;
@@ -113,6 +121,17 @@ public class ReviewFragment extends Fragment {
         String content;
         String date;
         float rate;
+
+        if(is_review_added == REVIEW_ADD){
+            CookieBar.build(activity)
+                    .setIcon(R.drawable.ic_thanks)
+                    .setMessage("리뷰가 등록되었습니다")
+                    .setMessageColor(R.color.colorBlack)
+                    .setBackgroundColor(R.color.colorAccent)
+                    .setCookiePosition(CookieBar.TOP)
+                    .setDuration(2000)
+                    .show();
+        }
 
         JSONObject get_review = new SQLSender().sendSQL("SELECT * from review where fid="+new Integer(facilityId).toString()+";");
         try{

@@ -9,4 +9,5 @@
     <color name="colorAccentDark">#c6ab00</color>
     <color name="colorBackgroundWhite">#FFFFFF</color>
     <color name="colorParkGreen">#2E943E</color>
+    <color name="colorBlack">#000000</color>
 </resources>

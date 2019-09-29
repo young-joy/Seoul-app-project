@@ -58,9 +58,8 @@ public class AddReviewFragment extends DialogFragment {
 
     private int requestCode;
 
-    private View emptyDialogView;
-
-    public static boolean endFragment = false;
+    final private static int REVIEW_ADD = 100;
+    final private static int REVIEW_ADD_NOT = 200;
 
     private int reviewLength = 0;
     public AddReviewFragment() {
@@ -157,7 +156,7 @@ public class AddReviewFragment extends DialogFragment {
                             }catch (JSONException e){
                                 e.printStackTrace();
                             }
-                            ReviewFragment.getReview();
+                            ReviewFragment.getReview(REVIEW_ADD);
                             dismiss();
                         }
                         break;
@@ -189,7 +188,7 @@ public class AddReviewFragment extends DialogFragment {
                             }catch (JSONException e){
                                 e.printStackTrace();
                             }
-                            ReviewFragment.getReview();
+                            ReviewFragment.getReview(REVIEW_ADD_NOT);
                             dismiss();
                         }
                         break;

@@ -31,15 +31,13 @@ public class AppInfoActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("send_feedback",new Integer(requestCode).toString()+", "+
-                new Integer(resultCode).toString());
         if(requestCode == FEEDBACK_REQ && resultCode == FEEDBACK_YES){
-            Log.d("send_feedback", "success");
             CookieBar.build(AppInfoActivity.this)
                     .setTitle("피드백이 전송되었습니다")
-                    .setTitleColor(R.color.default_title_color)
+                    .setTitleColor(R.color.colorBlack)
                     .setIcon(R.drawable.ic_thanks)
                     .setMessage("소중한 의견 감사드립니다")
+                    .setMessageColor(R.color.colorBlack)
                     .setBackgroundColor(R.color.colorAccent)
                     .setCookiePosition(CookieBar.TOP)
                     .setDuration(2000)
