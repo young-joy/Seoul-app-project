@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AppNoticeActivity"></activity>
+        <activity android:name=".AppNoticeActivity" />
+        <activity android:name=".AppFeedbackActivity" />
         <activity android:name=".AppInfoActivity" />
         <activity android:name=".MapActivity" />
         <activity android:name=".InfoActivity" />

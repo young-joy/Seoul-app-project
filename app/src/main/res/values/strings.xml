@@ -46,4 +46,11 @@
         \n  - 녹화 : 1시간당 26,000원 (초과시간당 13,000원)\n  - 영화촬영 : 주간 - 1회당 130,000원 야간은 주간의 2배</string>
     <string name="facility_reserve">시설물 예약하기</string>
     <string name="facility_reserve_link">http://yeyak.seoul.go.kr/</string>
+
+    <string name="app_version">현재 버전 1.0.0</string>
+    <string name="app_notice">공지사항</string>
+    <string name="app_feedback">피드백 보내기</string>
+    <string name="app_open_source">오픈소스 라이센스</string>
+    <string name="app_feedback_hint">여러분의 피드백은 큰 힘이 됩니다!</string>
+
 </resources>

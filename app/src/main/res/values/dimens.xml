@@ -36,13 +36,25 @@
     <dimen name="notice_title_text_size">16sp</dimen>
     <dimen name="notice_content_text_size">13sp</dimen>
 
+    <!-- For App Info Activity -->
+    <dimen name="app_icon_size">120dp</dimen>
+    <dimen name="list_button_height">60dp</dimen>
+    <dimen name="list_text_size">16sp</dimen>
+
     <!-- For AppNotice Activity -->
     <dimen name="notice_padding">10dp</dimen>
     <dimen name="notice_title_height">64dp</dimen>
     <dimen name="notice_content_height">240dp</dimen>
 
+    <!-- For AppFeedback Activity -->
+    <dimen name="feedback_check_icon_size">40dp</dimen>
+    <dimen name="feedback_text_layout_margin">15dp</dimen>
+    <dimen name="feedback_text_top_margin">5dp</dimen>
+
+
     <!-- For Main Activity -->
     <dimen name="bottom_drawer_height">360dp</dimen>
+
     <!-- For Map Activity -->
     <dimen name="search_bar_ver_margin">24dp</dimen>
     <dimen name="search_bar_hor_margin">24dp</dimen>
