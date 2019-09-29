@@ -51,4 +51,6 @@
     <string name="app_open_source">오픈소스 라이센스</string>
     <string name="app_feedback_hint">여러분의 피드백은 큰 힘이 됩니다!</string>
 
+    <string name="pwd_alert">비밀번호: </string>
+    <string name="alert_title">수정/삭제</string>
 </resources>

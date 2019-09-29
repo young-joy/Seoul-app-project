@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -30,8 +31,8 @@ public class ReviewListAdapter extends BaseAdapter {
     private ReviewInterface reviewInterface;
 
     public interface ReviewInterface {
-        void deleteReview(int index);
-        void updateReview(int index);
+        void deleteReviewRequest(int index);
+        void updateReviewRequest(int index);
     }
 
     public ReviewListAdapter() {
@@ -89,14 +90,14 @@ public class ReviewListAdapter extends BaseAdapter {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reviewInterface.deleteReview(i);
+                reviewInterface.deleteReviewRequest(i);
             }
         });
 
         modifyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reviewInterface.updateReview(i);
+                reviewInterface.updateReviewRequest(i);
             }
         });
         return view;
