@@ -21,10 +21,12 @@ public class InfoFragment extends Fragment {
     ConstraintLayout mapLayout;
     ScrollView scrollView;
 
-    TextView nameTv;
-    TextView locationTv;
-    TextView infoTv;
-    TextView infoContentTv;
+    private TextView nameTv;
+    private TextView locationTv;
+    private TextView infoTv;
+    private TextView infoContentTv;
+    private TextView reserveTv;
+    private TextView reserveLinkTv;
 
     private int facilityId;
     private String facilityName;
@@ -39,6 +41,8 @@ public class InfoFragment extends Fragment {
         locationTv = rootView.findViewById(R.id.facility_location);
         infoTv = rootView.findViewById(R.id.facility_info);
         infoContentTv = rootView.findViewById(R.id.facility_info_content);
+        reserveTv = rootView.findViewById(R.id.facility_reserve);
+        reserveLinkTv = rootView.findViewById(R.id.facility_reserve_link);
 
         mapLayout = rootView.findViewById(R.id.map_container);
         scrollView = rootView.findViewById(R.id.scroll_view);
@@ -66,6 +70,8 @@ public class InfoFragment extends Fragment {
         if(facilityId/100000<11){
             infoTv.setText(R.string.entertain_info);
             infoContentTv.setText(R.string.entertain_info_content);
+            reserveTv.setVisibility(View.GONE);
+            reserveLinkTv.setVisibility(View.GONE);
         }else{
             infoTv.setText(R.string.athletic_info);
             infoContentTv.setText(R.string.athletic_info_content);

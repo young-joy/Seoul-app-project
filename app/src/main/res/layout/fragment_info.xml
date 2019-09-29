@@ -67,8 +67,8 @@
                 android:id="@+id/facility_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/activity_min_margin"
+                android:layout_marginBottom="@dimen/activity_min_margin"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -76,7 +76,27 @@
             <TextView
                 android:id="@+id/facility_info_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_min_margin" />
+
+            <TextView
+                android:id="@+id/facility_reserve"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_min_margin"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="@string/facility_reserve"/>
+
+            <TextView
+                android:id="@+id/facility_reserve_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_min_margin"
+                android:text="@string/facility_reserve_link"
+                android:linksClickable="true"
+                android:autoLink="web"/>
 
         </LinearLayout>
     </ScrollView>

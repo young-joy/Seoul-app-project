@@ -44,4 +44,6 @@
         \n자전거 대여료\n  - 1인용 : 3,000원/시간 (15분 초과시마다 500원 추가)\n  - 2인용 : 6,000원/시간 (15분 초과시마다 1,000원 추가)
         \n주차요금 : 승용차 10,000원/일 (월정기권 : 50,000원)\n녹화/촬영
         \n  - 녹화 : 1시간당 26,000원 (초과시간당 13,000원)\n  - 영화촬영 : 주간 - 1회당 130,000원 야간은 주간의 2배</string>
+    <string name="facility_reserve">시설물 예약하기</string>
+    <string name="facility_reserve_link">http://yeyak.seoul.go.kr/</string>
 </resources>
