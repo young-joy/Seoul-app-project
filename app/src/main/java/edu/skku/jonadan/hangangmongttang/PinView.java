@@ -41,6 +41,9 @@ public class PinView extends SubsamplingScaleImageView {
     float pin_width;
     float pin_height;
 
+    float tagWidth;
+    float tagHeight;
+
     public PinView(Context context) {
         this(context, null);
         this.context = context;
@@ -100,6 +103,8 @@ public class PinView extends SubsamplingScaleImageView {
         float height = sizePoint.y;
         pin_width = (density / 160f) * 30f;
         pin_height = (density / 160f) * 30f;
+        tagWidth = (density / 160f) * 30f;
+        tagHeight = (density / 160f) * 15f;
         Log.d("get_size",sizePoint.toString());
 
         modifiedCoordinates.clear();
@@ -109,8 +114,13 @@ public class PinView extends SubsamplingScaleImageView {
             deeplinkCoordinates.add(mPin.getPoint());
             //Bitmap bmpPin = Utils.getBitmapFromAsset(context, mPin.getPinImgSrc());
             Bitmap bmpPin = MainActivity.getBitmapFromVectorDrawable(context, R.drawable.marker);
-
             bmpPin = Bitmap.createScaledBitmap(bmpPin, (int) pin_width, (int) pin_height, true);
+
+            int tagId = getResources().getIdentifier(
+                    "ic_tag_"+new Integer(mPin.getId()).toString(),
+                    "drawable", getContext().getPackageName());
+            Bitmap bmpTag = MapActivity.getBitmapFromVectorDrawable(context, tagId);
+            bmpTag = Bitmap.createScaledBitmap(bmpTag, (int) tagWidth, (int) tagHeight, true);
 
             //PointF vPin = sourceToViewCoord(mPin.getPoint());
             PointF vPin = mPin.getPoint();
@@ -135,12 +145,19 @@ public class PinView extends SubsamplingScaleImageView {
             dPin.setId(mPin.getId());
             drawnPins.add(dPin);
 
-//            Paint paintRed = new Paint();
-//            paintRed.setColor(Color.RED);
-//            paintRed.setStrokeWidth(10f);
-//            canvas.drawPoint(newPin.x, newPin.y, paintRed);
-//            canvas.drawRect(newPin.x, newPin.y,
-//                    newPin.x + pin_width, newPin.y + pin_height, paintRed);
+            switch (mPin.getId()) {
+                case 1:
+                case 2:
+                case 4:
+                case 5:
+                case 7:
+                case 10:
+                case 11:
+                    canvas.drawBitmap(bmpTag, vX, vY+100, paint);
+                    break;
+                default:
+                    canvas.drawBitmap(bmpTag, vX, vY-45, paint);
+            }
         }
     }
 
