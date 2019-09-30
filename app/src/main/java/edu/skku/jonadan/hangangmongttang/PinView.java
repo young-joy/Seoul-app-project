@@ -129,8 +129,8 @@ public class PinView extends SubsamplingScaleImageView {
             Log.d("touch_event",vPin.toString());
 
             PointF newPin = new PointF();
-            float vX = (vPin.x - (bmpPin.getWidth()/2));
-            float vY = (vPin.y - bmpPin.getHeight()/2);
+            float vX = (vPin.x - (bmpPin.getWidth()/2)) * width / 1440f;
+            float vY = (vPin.y - bmpPin.getHeight()/2) * height / 2560f;
             newPin.x = vX;
             newPin.y = vY;
             modifiedCoordinates.add(newPin);
@@ -145,6 +145,7 @@ public class PinView extends SubsamplingScaleImageView {
             dPin.setId(mPin.getId());
             drawnPins.add(dPin);
 
+            float tY;
             switch (mPin.getId()) {
                 case 1:
                 case 2:
@@ -153,10 +154,12 @@ public class PinView extends SubsamplingScaleImageView {
                 case 7:
                 case 10:
                 case 11:
-                    canvas.drawBitmap(bmpTag, vX, vY+100, paint);
+                    tY = (vY + 100) * height / 2560f;
+                    canvas.drawBitmap(bmpTag, vX, tY, paint);
                     break;
                 default:
-                    canvas.drawBitmap(bmpTag, vX, vY-45, paint);
+                    tY = (vY - 45) * height / 2560f;
+                    canvas.drawBitmap(bmpTag, vX, tY, paint);
             }
         }
     }

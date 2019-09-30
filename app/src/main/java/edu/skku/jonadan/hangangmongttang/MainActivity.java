@@ -187,13 +187,13 @@ public class MainActivity extends AppCompatActivity {
         //dp-val pins
         MapPins.add(new MapPin(1180.2885f, 1080.7115f,1)); // 광나루
         MapPins.add(new MapPin(1070.8882f, 1170.4038f,2)); // 잠실
-        MapPins.add(new MapPin(1015.4001f, 1044.5962f,3)); // 뚝섬
+        MapPins.add(new MapPin(1015.4001f, 1050.5962f,3)); // 뚝섬
         MapPins.add(new MapPin(900.91345f, 1164.7885f,4)); // 잠원
         MapPins.add(new MapPin(774.24396f, 1234.6924f,5)); // 반포
         MapPins.add(new MapPin(680.4531f, 1094.8655f,6)); // 이촌
         MapPins.add(new MapPin(540.14905f, 1170.25f,7)); // 여의도
-        MapPins.add(new MapPin(530.7223f, 991.6923f,8)); // 망원
-        MapPins.add(new MapPin(415.0769f, 958.3654f,9)); // 난지
+        MapPins.add(new MapPin(530.7223f, 1000.6923f,8)); // 망원
+        MapPins.add(new MapPin(415.0769f, 965.3654f,9)); // 난지
         MapPins.add(new MapPin(280.43268f, 1050.7115f,10)); //강서
         MapPins.add(new MapPin(386.0156f, 1116.8846f,11)); // 양화
 
