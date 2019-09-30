@@ -154,11 +154,11 @@ public class PinView extends SubsamplingScaleImageView {
                 case 7:
                 case 10:
                 case 11:
-                    tY = (vY + 100) * height / 2560f;
+                    tY = (vPin.y - bmpPin.getHeight()/2 + 100) * height / 2560f;
                     canvas.drawBitmap(bmpTag, vX, tY, paint);
                     break;
                 default:
-                    tY = (vY - 45) * height / 2560f;
+                    tY = (vPin.y - bmpPin.getHeight()/2 - 45) * height / 2560f;
                     canvas.drawBitmap(bmpTag, vX, tY, paint);
             }
         }
